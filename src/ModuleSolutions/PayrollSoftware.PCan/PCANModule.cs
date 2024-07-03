@@ -3,12 +3,12 @@ using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.WpfPrism;
-using Management.PCan.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Ioc;
 using PayrollSoftware.PCan.Contracts;
 using PayrollSoftware.PCan.ViewModels;
 using PayrollSoftware.PCan.Services;
+using PayrollSoftware.PCan.Views;
 
 namespace PayrollSoftware.PCan
 {

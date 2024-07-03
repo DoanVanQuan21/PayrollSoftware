@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace Management.Projects.SchoolManagement.Views.UserControls
+namespace PayrollSoftware.Payroll.Views.UserControls
 {
     /// <summary>
     /// Interaction logic for Dashboard.xaml

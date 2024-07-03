@@ -1,7 +1,7 @@
 ﻿using Emgu.CV;
 using Emgu.CV.Structure;
 using PayrollSoftware.Core.Settings.Videos;
-using Management.Video.Services;
+using PayrollSoftware.Video.Services;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows;

@@ -1,12 +1,12 @@
 ﻿<UserControl
-    x:Class="Management.Video.Views.VideoPreviewImageView"
+    x:Class="PayrollSoftware.Video.Views.VideoPreviewImageView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:local="clr-namespace:Management.Video.Views"
+    xmlns:local="clr-namespace:PayrollSoftware.Video.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:Management.Video.ViewModels"
+    xmlns:vm="clr-namespace:PayrollSoftware.Video.ViewModels"
     d:DataContext="{d:DesignInstance vm:VideoPreviewImageViewModel,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"

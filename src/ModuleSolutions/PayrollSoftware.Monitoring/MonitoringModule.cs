@@ -4,10 +4,10 @@ using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.Devices.Services.Constracts;
-using Management.Monitoring.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Ioc;
 using PayrollSoftware.Monitoring.ViewModels;
+using PayrollSoftware.Monitoring.Views;
 
 namespace PayrollSoftware.Monitoring
 {

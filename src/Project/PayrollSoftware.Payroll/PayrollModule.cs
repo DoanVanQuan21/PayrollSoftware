@@ -7,19 +7,19 @@ using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.EntityFramework.Context;
 using PayrollSoftware.EntityFramework.Contracts;
-using Management.SchoolManagement.SettingAccount.Views;
+using PayrollSoftware.SettingAccount.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Events;
 using Prism.Ioc;
 using System.Collections.Generic;
 
-namespace Management.Projects.SchoolManagement
+namespace PayrollSoftware.Payroll
 {
-    public class SchoolManagenetModule : BasePrismModule
+    public class PayrollModule : BasePrismModule
     {
-        public override string ModuleName => DllName.SchoolManagementModule;
+        public override string ModuleName => DllName.PayrollModule;
 
-        public SchoolManagenetModule()
+        public PayrollModule()
         {
             Ioc.Resolve<IEventAggregator>().GetEvent<RequiredConnectionDatabase>().Subscribe(RegisterDatabase);
         }

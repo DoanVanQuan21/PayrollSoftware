@@ -1,4 +1,4 @@
-﻿using Management.Auth.Views.UserControls;
+﻿using PayrollSoftware.Auth.Views.UserControls;
 using PayrollSoftware.Core.Contracts;
 using PayrollSoftware.Core.Events;
 using PayrollSoftware.Core.Mvvms;

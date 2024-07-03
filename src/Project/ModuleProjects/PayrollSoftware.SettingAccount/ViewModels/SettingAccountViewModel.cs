@@ -5,7 +5,7 @@ using PayrollSoftware.EntityFramework.Contracts;
 using Prism.Commands;
 using System.Windows.Input;
 
-namespace Management.SchoolManagement.SettingAccount.ViewModels
+namespace PayrollSoftware.SettingAccount.ViewModels
 {
     internal class SettingAccountViewModel : BaseRegionViewModel
     {
@@ -22,7 +22,7 @@ namespace Management.SchoolManagement.SettingAccount.ViewModels
         public SettingAccountViewModel()
         {
             _schoolManagerServer = Ioc.Resolve<ISchoolManagerServer>();
-            if( _schoolManagerServer == null )
+            if (_schoolManagerServer == null)
             {
                 return;
             }

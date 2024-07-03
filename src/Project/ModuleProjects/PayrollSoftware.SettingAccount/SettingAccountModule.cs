@@ -2,7 +2,7 @@ using PayrollSoftware.Core.WpfPrism;
 using Prism.Ioc;
 using System;
 
-namespace Management.SchoolManagement.SettingAccount
+namespace PayrollSoftware.SettingAccount
 {
     public class SettingAccountModule : BasePrismModule
     {

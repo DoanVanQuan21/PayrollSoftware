@@ -1,8 +1,8 @@
 ﻿using PayrollSoftware.Core.Mvvms;
-using Management.SchoolManagement.SettingAccount.ViewModels;
 using System.Windows.Controls;
+using PayrollSoftware.SettingAccount.ViewModels;
 
-namespace Management.SchoolManagement.SettingAccount.Views
+namespace PayrollSoftware.SettingAccount.Views
 {
     /// <summary>
     /// Interaction logic for SettingAccount.xaml

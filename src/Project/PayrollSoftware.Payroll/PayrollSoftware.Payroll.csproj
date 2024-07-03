@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0-windows</TargetFramework>
@@ -24,7 +24,7 @@
     <ProjectReference Include="..\..\Core\PayrollSoftware.UI\PayrollSoftware.UI.csproj" />
     <ProjectReference Include="..\..\Services\PayrollSoftware.EntityFramework\PayrollSoftware.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj" />
-    <ProjectReference Include="..\ModuleProjects\Management.SchoolManagement.SettingAccount\Management.SchoolManagement.SettingAccount.csproj" />
+    <ProjectReference Include="..\ModuleProjects\PayrollSoftware.SettingAccount\PayrollSoftware.SettingAccount.csproj" />
   </ItemGroup>
 
   <ItemGroup>

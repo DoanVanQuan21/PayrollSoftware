@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using PayrollSoftware.Monitoring.ViewModels;
 
-namespace Management.Monitoring.Views
+namespace PayrollSoftware.Monitoring.Views
 {
     /// <summary>
     /// Interaction logic for AllDeviceViewer.xaml

@@ -1,7 +1,7 @@
 ﻿using PayrollSoftware.Core.Models.Devices;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.Settings.Videos;
-using Management.Video.Services;
+using PayrollSoftware.Video.Services;
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using System.Windows;

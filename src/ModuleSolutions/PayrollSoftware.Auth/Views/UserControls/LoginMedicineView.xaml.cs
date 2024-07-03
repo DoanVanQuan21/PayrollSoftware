@@ -3,7 +3,7 @@ using PayrollSoftware.Core.Mvvms;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Management.Auth.Views.UserControls
+namespace PayrollSoftware.Auth.Views.UserControls
 {
     /// <summary>
     /// Interaction logic for LoginMedicineView.xaml

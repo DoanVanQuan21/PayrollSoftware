@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using PayrollSoftware.Video.ViewModels;
 
-namespace Management.Video.Views
+namespace PayrollSoftware.Video.Views
 {
     /// <summary>
     /// Interaction logic for VideoPreviewImageView.xaml

@@ -2,7 +2,7 @@
 using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.WpfPrism;
-using Management.LiveChart.Views;
+using PayrollSoftware.LiveChart.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Ioc;
 

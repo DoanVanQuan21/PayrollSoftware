@@ -24,7 +24,7 @@ namespace PayrollSoftware.Shell.Services
 
         public IStartUp UserProject()
         {
-            AddModule(DllName.SchoolManagementModule);
+            AddModule(DllName.PayrollModule);
             return this;
         }
 

@@ -1,11 +1,11 @@
 ﻿<UserControl
-    x:Class="Management.LiveChart.Views.LiveChartView"
+    x:Class="PayrollSoftware.LiveChart.Views.LiveChartView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:Management.LiveChart.ViewModels"
+    xmlns:vm="clr-namespace:PayrollSoftware.LiveChart.ViewModels"
     d:DataContext="{d:DesignInstance vm:LiveChartViewModel,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"

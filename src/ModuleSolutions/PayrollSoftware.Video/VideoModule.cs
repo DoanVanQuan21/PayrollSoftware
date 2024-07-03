@@ -6,11 +6,11 @@ using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.Settings.Videos;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.UI.Geometry;
-using Management.Video.Views;
 using Prism.Ioc;
 using PayrollSoftware.Video.Contracts;
 using PayrollSoftware.Video.Managers;
 using PayrollSoftware.Video.Services;
+using PayrollSoftware.Video.Views;
 
 namespace PayrollSoftware.Video
 {

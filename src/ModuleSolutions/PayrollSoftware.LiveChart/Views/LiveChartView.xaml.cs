@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using PayrollSoftware.LiveChart.ViewModels;
 
-namespace Management.LiveChart.Views
+namespace PayrollSoftware.LiveChart.Views
 {
     /// <summary>
     /// Interaction logic for LiveChartView.xaml

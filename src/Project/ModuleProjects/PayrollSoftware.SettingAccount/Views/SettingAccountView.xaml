@@ -1,12 +1,12 @@
 ﻿<UserControl
-    x:Class="Management.SchoolManagement.SettingAccount.Views.SettingAccountView"
+    x:Class="PayrollSoftware.SettingAccount.Views.SettingAccountView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:matIcon="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="clr-namespace:Management.SchoolManagement.SettingAccount.ViewModels"
+    xmlns:vm="clr-namespace:PayrollSoftware.SettingAccount.ViewModels"
     d:DataContext="{d:DesignInstance vm:SettingAccountViewModel,
                                      IsDesignTimeCreatable=False}"
     d:Height="300"

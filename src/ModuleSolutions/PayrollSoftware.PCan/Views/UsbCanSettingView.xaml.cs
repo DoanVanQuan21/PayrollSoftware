@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using PayrollSoftware.PCan.ViewModels;
 
-namespace Management.PCan.Views
+namespace PayrollSoftware.PCan.Views
 {
     /// <summary>
     /// Interaction logic for UsbCanSettingView.xaml
