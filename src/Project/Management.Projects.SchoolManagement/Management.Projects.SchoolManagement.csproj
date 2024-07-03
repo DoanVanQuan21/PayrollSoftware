@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Management.Core\Management.Core.csproj" />
-    <ProjectReference Include="..\..\Core\Management.Shared\Management.Shared.csproj" />
-    <ProjectReference Include="..\..\Core\Management.UI\Management.UI.csproj" />
-    <ProjectReference Include="..\..\Services\Management.EntityFramework\Management.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Core\PayrollSoftware.Core\PayrollSoftware.Core.csproj" />
+    <ProjectReference Include="..\..\Core\PayrollSoftware.Shared\PayrollSoftware.Shared.csproj" />
+    <ProjectReference Include="..\..\Core\PayrollSoftware.UI\PayrollSoftware.UI.csproj" />
+    <ProjectReference Include="..\..\Services\PayrollSoftware.EntityFramework\PayrollSoftware.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj" />
     <ProjectReference Include="..\ModuleProjects\Management.SchoolManagement.SettingAccount\Management.SchoolManagement.SettingAccount.csproj" />
   </ItemGroup>

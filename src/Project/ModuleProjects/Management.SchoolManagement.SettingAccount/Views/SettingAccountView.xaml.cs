@@ -1,4 +1,4 @@
-﻿using Management.Core.Mvvms;
+﻿using PayrollSoftware.Core.Mvvms;
 using Management.SchoolManagement.SettingAccount.ViewModels;
 using System.Windows.Controls;
 

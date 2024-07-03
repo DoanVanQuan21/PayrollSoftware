@@ -1,0 +1,85 @@
+﻿<UserControl
+    x:Class="Management.Auth.Views.UserControls.LoginMedicineView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Management.Auth.ViewModels"
+    d:DataContext="{d:DesignInstance vm:LoginMedicineViewModel,
+                                     IsDesignTimeCreatable=False}"
+    FontSize="16"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.Shared;component/Styles/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer>
+        <Grid MaxWidth="800">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                Grid.Row="2"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="40"
+                FontWeight="Bold">
+                Đăng nhập
+            </TextBlock>
+            <StackPanel
+                Grid.Row="3"
+                Grid.Column="1"
+                Margin="10,0,20,0"
+                Orientation="Vertical">
+                <TextBlock Margin="10" Style="{StaticResource BaseLabel}">Tên đăng nhập</TextBlock>
+                <hc:TextBox
+                    Height="40"
+                    hc:InfoElement.Placeholder="Nhập tên tài khoản"
+                    Text="{Binding User.Username}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="4"
+                Grid.Column="1"
+                Margin="10,0,20,0"
+                Orientation="Vertical">
+                <TextBlock Margin="10" Style="{StaticResource BaseLabel}">Mật khẩu</TextBlock>
+                <hc:PasswordBox
+                    x:Name="password"
+                    Height="40"
+                    HorizontalContentAlignment="Left"
+                    VerticalContentAlignment="Center"
+                    hc:InfoElement.Placeholder="Nhập mật khẩu"
+                    IsSafeEnabled="False"
+                    UnsafePassword="{Binding User.Password}" />
+            </StackPanel>
+            <Button
+                Grid.Row="5"
+                Grid.Column="1"
+                Width="140"
+                Height="40"
+                Margin="0,0,30,0"
+                HorizontalAlignment="Right"
+                Command="{Binding LoginCommand}"
+                Content="Đăng nhập"
+                FontSize="16"
+                Style="{DynamicResource ButtonDashedInfo}" />
+        </Grid>
+    </ScrollViewer>
+</UserControl>

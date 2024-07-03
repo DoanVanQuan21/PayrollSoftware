@@ -1,7 +1,7 @@
-﻿using Management.Core.Models.SchoolManager;
-using Management.Core.Mvvms;
-using Management.Core.Services;
-using Management.EntityFramework.Contracts;
+﻿using PayrollSoftware.Core.Models.SchoolManager;
+using PayrollSoftware.Core.Mvvms;
+using PayrollSoftware.Core.Services;
+using PayrollSoftware.EntityFramework.Contracts;
 using Prism.Commands;
 using System.Windows.Input;
 

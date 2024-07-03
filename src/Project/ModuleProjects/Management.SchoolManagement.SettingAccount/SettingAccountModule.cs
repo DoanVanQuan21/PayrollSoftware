@@ -1,4 +1,4 @@
-using Management.Core.WpfPrism;
+using PayrollSoftware.Core.WpfPrism;
 using Prism.Ioc;
 using System;
 

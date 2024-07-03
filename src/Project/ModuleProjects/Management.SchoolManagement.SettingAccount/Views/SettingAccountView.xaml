@@ -14,7 +14,7 @@
     Style="{StaticResource UserControlStyle}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <ResourceDictionary Source="pack://application:,,,/Management.Shared;component/Styles/Styles.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.Shared;component/Styles/Styles.xaml" />
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

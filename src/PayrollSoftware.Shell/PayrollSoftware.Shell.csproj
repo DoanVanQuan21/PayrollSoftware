@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <ApplicationIcon>app_icon_dark.ico</ApplicationIcon>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="app_icon_dark.ico" />
+    <None Remove="app_icon_light.ico" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-1.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-2.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-3.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-4.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-5.png" />
+    <None Remove="Assets\Resources\Images\Medicare\image.png" />
+    <None Remove="Assets\Resources\Images\Medicare\image_1.png" />
+    <None Remove="Assets\Resources\Images\thpt\image_1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+    <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\Core\PayrollSoftware.Core\PayrollSoftware.Core.csproj" />
+	  <ProjectReference Include="..\Core\PayrollSoftware.Shared\PayrollSoftware.Shared.csproj" />
+	  <ProjectReference Include="..\Core\PayrollSoftware.UI\PayrollSoftware.UI.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.Auth\PayrollSoftware.Auth.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.Comport\Management.Comport.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.Database\Management.Database.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.LiveChart\Management.LiveChart.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.Monitoring\Management.Monitoring.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.PCan\Management.PCan.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\Management.Video\Management.Video.csproj" />
+	  <ProjectReference Include="..\Project\Management.Projects.SchoolManagement\Management.Projects.SchoolManagement.csproj" />
+	  <ProjectReference Include="..\Services\PayrollSoftware.Devices\PayrollSoftware.Devices.csproj" />
+	  <ProjectReference Include="..\Services\PayrollSoftware.EntityFramework\PayrollSoftware.EntityFramework.csproj" />
+	  <ProjectReference Include="..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj"></ProjectReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="app_icon_dark.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="app_icon_light.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\image_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\thpt\image_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SchoolManager\Assets\Images\" />
+  </ItemGroup>
+
+</Project>
