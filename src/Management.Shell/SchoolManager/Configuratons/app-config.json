@@ -1,0 +1,27 @@
+{
+  "ID": "6a6502af-db5b-49fc-a0c5-fb9282206465",
+  "CurrentTheme": 1,
+  "Version": "SOFT_VER_1",
+  "IsSelectedDatabase": false,
+  "SerialPortSettings": [],
+  "ServerInfors": [
+    {
+      "Name": "DESKTOP_0SMVJQ6",
+      "ConnectionString": "Data Source=DESKTOP-0SMVJQ6;Initial Catalog=SchoolManager;Integrated Security=True;Trust Server Certificate=True",
+      "State": null,
+      "ID": "7067c1e2-5b59-4298-876b-729812210d8e"
+    },
+    {
+      "Name": "DESKTOP_NS7SDSM",
+      "ConnectionString": "Data Source=DESKTOP-NS7SDSM\\\\SQLEXPRESS;Initial Catalog=SchoolManager;Integrated Security=True",
+      "State": null,
+      "ID": "ad82c435-331d-46f6-9c83-c448d50e6e4e"
+    }
+  ],
+  "CurrentServerInfor": {
+    "Name": "DESKTOP_0SMVJQ6",
+    "ConnectionString": "Data Source=DESKTOP-0SMVJQ6;Initial Catalog=SchoolManager;Integrated Security=True;Trust Server Certificate=True",
+    "State": null,
+    "ID": "7067c1e2-5b59-4298-876b-729812210d8e"
+  }
+}

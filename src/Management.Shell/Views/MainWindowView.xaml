@@ -1,0 +1,19 @@
+﻿<hc:Window
+    x:Class="Management.Shell.Views.MainWindowView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:Management.Shell.ViewModels"
+    d:DataContext="{d:DesignInstance vm:MainWindowViewModel,
+                                     IsDesignTimeCreatable=False}"
+    Closed="Window_Closed"
+    Icon="{Binding IconWindow}"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Grid>
+        <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</hc:Window>

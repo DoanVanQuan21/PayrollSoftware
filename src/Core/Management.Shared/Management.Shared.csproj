@@ -1,0 +1,200 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
+    <Page Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\Resources\Images\Icons\dashboard_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\dashboard_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\maximize_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\maximize_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\medical_exam_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\medicine_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\medicine_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\menu_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\menu_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\patient_record_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\patient_record_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\report_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\report_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\service_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\service_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\shutdown_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\shutdown_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\user_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\user_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\Icons\user_list_icon_white.png" />
+    <None Remove="Assets\Resources\Images\Icons\user_list_icon_yell.png" />
+    <None Remove="Assets\Resources\Images\list_icon.png" />
+    <None Remove="Assets\Resources\Images\list_icon_dark.png" />
+    <None Remove="Assets\Resources\Images\Logo\1.png" />
+    <None Remove="Assets\Resources\Images\Logo\Logo.png" />
+    <None Remove="Assets\Resources\Images\Logo\logo_text.png" />
+    <None Remove="Assets\Resources\Images\Logo\Medicare.png" />
+    <None Remove="Assets\Resources\Images\maximise_icon.png" />
+    <None Remove="Assets\Resources\Images\maximise_icon_dark.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-1.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-2.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-3.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-4.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-5.png" />
+    <None Remove="Assets\Resources\Images\Medicare\image.png" />
+    <None Remove="Assets\Resources\Images\Medicare\image_1.png" />
+    <None Remove="Assets\Resources\Images\shutdown_icon.png" />
+    <None Remove="Assets\Resources\Images\shutdown_icon_dark.png" />
+    <None Remove="Assets\Resources\Images\thpt\image_1.jpg" />
+    <None Remove="Assets\Resources\Images\user_icon.png" />
+    <None Remove="Assets\Resources\Images\user_icon_dark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Resources\Images\Icons\dashboard_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\dashboard_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\medical_exam_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\medicine_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\medicine_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\menu_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\menu_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Management.Core\Management.Core.csproj" />
+    <ProjectReference Include="..\..\Core\Management.UI\Management.UI.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Resources\Images\Icons\maximize_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\maximize_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\patient_record_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\patient_record_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\report_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\report_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\service_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\service_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\shutdown_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\shutdown_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\user_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\user_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\user_list_icon_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Icons\user_list_icon_yell.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\list_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\list_icon_dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Logo\Logo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Logo\logo_text.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Logo\Medicare.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\maximise_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\maximise_icon_dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\image_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\shutdown_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\shutdown_icon_dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\thpt\image_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\user_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\user_icon_dark.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ViewModels\**" />
+    <EmbeddedResource Remove="ViewModels\**" />
+    <None Remove="ViewModels\**" />
+    <Page Remove="ViewModels\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+    <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Management.Core\Management.Core.csproj" />
+    <ProjectReference Include="..\..\Core\Management.Shared\Management.Shared.csproj" />
+    <ProjectReference Include="..\..\Core\Management.UI\Management.UI.csproj" />
+    <ProjectReference Include="..\..\Services\Management.EntityFramework\Management.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj" />
+    <ProjectReference Include="..\ModuleProjects\Management.SchoolManagement.SettingAccount\Management.SchoolManagement.SettingAccount.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\DashboardView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>
