@@ -15,7 +15,7 @@ namespace PayrollSoftware.Core.Models.Common
 
         [DisplayName("Chuỗi kết nối")]
         public string? ConnectionString
-        { get => connectionString; set { SetProperty(ref connectionString, value); } }
+        { get => connectionString; set { SetProperty(ref connectionString, $@"{value}"); } }
 
         [Browsable(false)]
         public string? State

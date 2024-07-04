@@ -31,7 +31,7 @@ namespace PayrollSoftware.Shell.ViewModels
         public ICommand ChangeDatabaseCommand { get; set; }
         public ICommand ChangeThemeCommand { get; set; }
         public ICommand CloseCommand { get; set; }
-        public string? Fullname { get => BootSetting.CurrentUser?.Fullname; }
+        public string? Fullname { get => BootSetting.CurrentUser?.FullName; }
         public ICommand LogoutCommand { get; set; }
         public ICommand OpenSideBarCommand { get; set; }
         public ICommand SaveSettingCommand { get; set; }

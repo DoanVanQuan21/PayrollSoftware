@@ -1,9 +1,9 @@
-﻿using PayrollSoftware.Core.Models.SchoolManager;
+﻿using PayrollSoftware.Core.Models.TaskManagement;
 
 namespace PayrollSoftware.Auth.Contracts
 {
     internal interface ILoginService
     {
-        bool Login(User user);
+        Task<bool> LoginAsync(User user);
     }
 }

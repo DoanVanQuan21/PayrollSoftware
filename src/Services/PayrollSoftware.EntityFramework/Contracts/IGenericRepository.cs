@@ -5,24 +5,21 @@ namespace PayrollSoftware.EntityFramework.Contracts
 {
     public interface IGenericRepository<T> where T : class
     {
-        T? GetById(int id);
+        Task Add(T entity);
 
-        T? GetByCode(string code);
+        Task AddRange(IEnumerable<T> entities);
 
-        void Add(T entity);
+        Task<T> First(Expression<Func<T, bool>> expression);
 
-        void AddRange(IEnumerable<T> entities);
+        Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression);
 
-        void Remove(T entity);
+        Task<T?> GetByCode(string code);
 
-        void RemoveRange(IEnumerable<T> entities);
+        Task<T?> GetById(int id);
+        Task<bool> Remove(T entity);
 
-        ObservableCollection<T> GetAll();
+        Task<bool> Update(T entity);
 
-        List<T> Where(Expression<Func<T, bool>> expression);
-
-        T First(Expression<Func<T, bool>> expression);
-
-        T? FirstOrDefault(Expression<Func<T, bool>> expression);
+        Task<List<T>> Where(Expression<Func<T, bool>> expression);
     }
 }

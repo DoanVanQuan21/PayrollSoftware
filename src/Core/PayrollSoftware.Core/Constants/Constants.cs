@@ -187,7 +187,7 @@ namespace PayrollSoftware.Core.Constants
 
     public class FolderPath
     {
-        public static string CONFIGURATION => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Path.Combine("management", "configurations"));
+        public static string CONFIGURATION => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), Path.Combine("PayrollSoftware", "configurations"));
     }
 
     public class PnpClass

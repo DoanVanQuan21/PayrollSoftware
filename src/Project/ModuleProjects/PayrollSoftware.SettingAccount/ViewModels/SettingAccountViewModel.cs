@@ -1,4 +1,4 @@
-﻿using PayrollSoftware.Core.Models.SchoolManager;
+﻿using PayrollSoftware.Core.Models.TaskManagement;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.Services;
 using PayrollSoftware.EntityFramework.Contracts;
@@ -9,7 +9,7 @@ namespace PayrollSoftware.SettingAccount.ViewModels
 {
     internal class SettingAccountViewModel : BaseRegionViewModel
     {
-        private readonly ISchoolManagerServer _schoolManagerServer;
+        private readonly ITaskManagementService _taskManagementService;
         public override string Title => "SettingAcount";
         private User? user;
 
@@ -21,12 +21,13 @@ namespace PayrollSoftware.SettingAccount.ViewModels
 
         public SettingAccountViewModel()
         {
-            _schoolManagerServer = Ioc.Resolve<ISchoolManagerServer>();
-            if (_schoolManagerServer == null)
+            _taskManagementService = Ioc.Resolve<ITaskManagementService>();
+            if (_taskManagementService == null)
             {
                 return;
             }
-            User = new(BootSetting.CurrentUser);
+            //TODO
+            //User = new(BootSetting.CurrentUser);
         }
 
         public ICommand ResetInforUserCommand { get; set; }
@@ -45,19 +46,19 @@ namespace PayrollSoftware.SettingAccount.ViewModels
                 await CustomNotification.Warning("Thông tin không hợp lệ! Vui lòng kiểm tra lại.");
                 return;
             }
-            if (_schoolManagerServer == null)
+            if (_taskManagementService == null)
             {
                 await CustomNotification.Warning("Lỗi database. Vui lòng kiểm tra kết nối!");
                 return;
             }
-            var isUpdate = _schoolManagerServer.UserRepository.Update(User);
+            var isUpdate = await _taskManagementService.UserRepository.Update(User);
             if (isUpdate)
             {
                 await CustomNotification.Success("Cập nhật thông tin thành công!");
                 BootSetting.CurrentUser = User;
                 return;
             }
-            await CustomNotification.Error($"{BootSetting.CurrentUser.Fullname} không tồn tại trong database!");
+            await CustomNotification.Error($"{BootSetting.CurrentUser.FullName} không tồn tại trong database!");
         }
 
         private async void OnResetInforUser()
@@ -67,9 +68,9 @@ namespace PayrollSoftware.SettingAccount.ViewModels
                 await CustomNotification.Warning("Không lấy được thông tin cũ!");
                 return;
             }
-            User = new User(BootSetting.CurrentUser);
+            //TODO
+            //User = new User(BootSetting.CurrentUser);
             await CustomNotification.Success("Khôi phục thông tin thành công!");
         }
-
     }
 }

@@ -66,7 +66,7 @@ namespace PayrollSoftware.Payroll
 
         private void RegisterDatabase()
         {
-            Ioc.ContainerRegistry.RegisterSingleton<ISchoolManagerServer, SchoolManagerServer>();
+            Ioc.ContainerRegistry.RegisterSingleton<ITaskManagementService, TaskManagementService>();
             Ioc.Resolve<IEventAggregator>().GetEvent<ConnectionDatabaseSuccess>().Publish();
         }
     }

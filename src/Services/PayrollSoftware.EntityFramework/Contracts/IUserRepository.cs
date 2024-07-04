@@ -1,10 +1,9 @@
-﻿using PayrollSoftware.Core.Models.SchoolManager;
+﻿using PayrollSoftware.Core.Models.TaskManagement;
 
 namespace PayrollSoftware.EntityFramework.Contracts
 {
-    public interface IUserRepository
+    public interface IUserRepository : IGenericRepository<User>
     {
-        User? Login(User user);
-        bool Update(User user);
+        Task<User?> Login(User user);
     }
 }

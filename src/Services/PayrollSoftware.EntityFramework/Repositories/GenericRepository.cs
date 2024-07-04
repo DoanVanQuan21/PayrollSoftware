@@ -1,72 +1,97 @@
-﻿using PayrollSoftware.Core.Models.SchoolManager;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
+﻿using Microsoft.EntityFrameworkCore;
+using PayrollSoftware.Core.Models.TaskManagement;
 using PayrollSoftware.EntityFramework.Contracts;
 using System.Collections.ObjectModel;
 using System.Linq.Expressions;
+using Task = System.Threading.Tasks.Task;
 
 namespace PayrollSoftware.EntityFramework.Repositories
 {
     public abstract class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        protected readonly SchoolManagerContext _context;
+        protected readonly TaskManagementContext _context;
+        protected readonly ObservableCollection<T> _datas;
 
-        public GenericRepository(SchoolManagerContext context)
+        public GenericRepository(TaskManagementContext context)
         {
             _context = context;
+            _datas = new();
         }
 
-        public void Add(T entity)
+        public Task Add(T entity)
         {
-            _context.Set<T>().Add(entity);
+            return Task.Factory.StartNew(() => _context.Set<T>().Add(entity));
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public Task AddRange(IEnumerable<T> entities)
         {
-            _context.Set<T>().AddRange(entities);
+            return Task.Factory.StartNew(() => _context.Set<T>().AddRange(entities));
         }
 
-        public T First(Expression<Func<T, bool>> expression)
+        public Task<T> First(Expression<Func<T, bool>> expression)
         {
-            try
+            return Task.Factory.StartNew(() =>
             {
-                return _context.Set<T>().First(expression);
-            }
-            catch (Exception)
+                try
+                {
+                    return _context.Set<T>().First(expression);
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            });
+        }
+
+        public Task<T?> FirstOrDefault(Expression<Func<T, bool>> expression)
+        {
+            return Task.Factory.StartNew(() => _context.Set<T>().FirstOrDefault(expression));
+        }
+
+        public virtual Task<T?> GetByCode(string code)
+        {
+            return default;
+        }
+
+        public virtual Task<T?> GetById(int id)
+        {
+            return default;
+        }
+
+        public Task<bool> Remove(T entity)
+        {
+            return Task.Factory.StartNew(() =>
             {
-                throw;
-            }
+                if (entity == null)
+                {
+                    return false;
+                }
+                _context.Set<T>().Remove(entity);
+                _context.Entry(entity).State = EntityState.Deleted;
+                return true;
+            });
         }
 
-        public T? FirstOrDefault(Expression<Func<T, bool>> expression)
+        public virtual Task<bool> Update(T entity)
         {
-            return _context.Set<T>().FirstOrDefault(expression);
+            return Task.Factory.StartNew(() =>
+            {
+                if (entity == null)
+                {
+                    return false;
+                }
+                _context.Set<T>().Update(entity);
+                _context.Entry(entity).State = EntityState.Modified;
+                return true;
+            });
         }
 
-        public ObservableCollection<T> GetAll()
+        public Task<List<T>> Where(Expression<Func<T, bool>> expression)
         {
-
-            return new(_context.Set<T>().AsTracking().ToList());
-        }
-
-        public abstract T? GetById(int id);
-
-        public abstract T? GetByCode(string code);
-
-        public void Remove(T entity)
-        {
-            _context.Set<T>().Remove(entity);
-            _context.SaveChanges();
-        }
-
-        public void RemoveRange(IEnumerable<T> entities)
-        {
-            _context.Set<T>().RemoveRange(entities);
-        }
-
-        public List<T> Where(Expression<Func<T, bool>> expression)
-        {
-            return _context.Set<T>().Where(expression).ToList();
+            return Task.Factory.StartNew(() =>
+            {
+                return _context.Set<T>().Where(expression).ToList();
+            });
         }
     }
 }

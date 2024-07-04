@@ -2,7 +2,7 @@
 
 namespace PayrollSoftware.EntityFramework.Contracts
 {
-    public interface ISchoolManagerServer
+    public interface ITaskManagementService
     {
         UserRepository UserRepository { get; }
     }

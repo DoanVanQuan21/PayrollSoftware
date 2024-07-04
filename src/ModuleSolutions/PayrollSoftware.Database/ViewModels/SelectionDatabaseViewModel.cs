@@ -49,10 +49,6 @@ namespace PayrollSoftware.Database.ViewModels
             }
             _appManager.BootSetting.CurrentServerInfor = currentServerInfor;
             EventAggregator.GetEvent<RequiredConnectionDatabase>().Publish();
-            //CircleProgressBar circleProgressBar = new CircleProgressBar();
-
-            //circleProgressBar.Show();
-            //Task.Delay(5000);
             _appManager.BootSetting.IsSelectedDatabase = true;
         }
 
