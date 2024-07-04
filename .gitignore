@@ -360,7 +360,7 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 # Setup file
-src/PayrollSoftware.PayrollSoftwareSetup/bin/debug
-src/PayrollSoftware.PayrollSoftwareSetup/bin/release
+src/PayrollSoftware.Setup/Debug/
+src/PayrollSoftware.Setup/Release/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
