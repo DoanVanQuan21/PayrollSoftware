@@ -26,8 +26,7 @@ namespace PayrollSoftware.SettingAccount.ViewModels
             {
                 return;
             }
-            //TODO
-            //User = new(BootSetting.CurrentUser);
+            User = new(BootSetting.CurrentUser);
         }
 
         public ICommand ResetInforUserCommand { get; set; }
@@ -69,7 +68,7 @@ namespace PayrollSoftware.SettingAccount.ViewModels
                 return;
             }
             //TODO
-            //User = new User(BootSetting.CurrentUser);
+            User = new User(BootSetting.CurrentUser);
             await CustomNotification.Success("Khôi phục thông tin thành công!");
         }
     }

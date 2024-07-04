@@ -1,6 +1,7 @@
 .vs/
 *.user
 *.xml
+*.msi
 [Bb]in/
 [Oo]bj/
 packages/
