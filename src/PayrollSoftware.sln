@@ -65,6 +65,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.Payroll", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.SettingAccount", "Project\ModuleProjects\PayrollSoftware.SettingAccount\PayrollSoftware.SettingAccount.csproj", "{F5185B96-C9CE-42F6-94DF-3315CF45B71C}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PayrollSoftware.Setup", "PayrollSoftware.Setup\PayrollSoftware.Setup.vdproj", "{BA7FED2D-7099-4C08-91F2-E79A047A76DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -279,6 +281,18 @@ Global
 		{F5185B96-C9CE-42F6-94DF-3315CF45B71C}.Release|x64.Build.0 = Release|Any CPU
 		{F5185B96-C9CE-42F6-94DF-3315CF45B71C}.Release|x86.ActiveCfg = Release|Any CPU
 		{F5185B96-C9CE-42F6-94DF-3315CF45B71C}.Release|x86.Build.0 = Release|Any CPU
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Debug|Any CPU.ActiveCfg = Debug
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Debug|Any CPU.Build.0 = Debug
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Debug|x64.ActiveCfg = Debug
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Debug|x64.Build.0 = Debug
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Debug|x86.ActiveCfg = Debug
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Debug|x86.Build.0 = Debug
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Release|Any CPU.ActiveCfg = Release
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Release|Any CPU.Build.0 = Release
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Release|x64.ActiveCfg = Release
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Release|x64.Build.0 = Release
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Release|x86.ActiveCfg = Release
+		{BA7FED2D-7099-4C08-91F2-E79A047A76DD}.Release|x86.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
