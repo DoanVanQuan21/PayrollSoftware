@@ -1,15 +1,23 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 
 namespace PayrollSoftware.Core.Models.TaskManagement
 {
-    public partial class ProjectAssigned
+    public partial class ProjectAssigned : BindableBase
     {
-        public int ProjectId { get; set; }
-        public string UserId { get; set; } = null!;
-        public DateTime? CreatedDate { get; set; }
-        public DateTime? EndDate { get; set; }
-        public string? Role { get; set; }
-        public string? Status { get; set; }
+        private int projectId;
+        private string userId = null!;
+        private DateTime? createdDate;
+        private DateTime? endDate;
+        private string? role;
+        private string? status;
+
+        public int ProjectId { get => projectId; set => SetProperty(ref projectId,value); }
+        public string UserId { get => userId; set => SetProperty(ref userId, value); }
+        public DateTime? CreatedDate { get => createdDate; set => SetProperty(ref createdDate, value); }
+        public DateTime? EndDate { get => endDate; set => SetProperty(ref endDate, value); }
+        public string? Role { get => role; set => SetProperty(ref role, value); }
+        public string? Status { get => status; set => SetProperty(ref status, value); }
     }
 }

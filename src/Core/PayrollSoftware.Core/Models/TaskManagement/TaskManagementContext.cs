@@ -7,12 +7,14 @@ namespace PayrollSoftware.Core.Models.TaskManagement
 {
     public partial class TaskManagementContext : DbContext
     {
-        private readonly string _connectionString = @"Data Source=DESKTOP-9A503Q7\\SQLEXPRESS;Initial Catalog=TaskManagement;Integrated Security=True;Trust Server Certificate=True";
+        private readonly string _connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=TaskManagement;Integrated Security=True;Trust Server Certificate=True";
         public TaskManagementContext(string connectionString)
         {
+            _connectionString = connectionString;
         }
         public TaskManagementContext()
         {
+
         }
 
         public TaskManagementContext(DbContextOptions<TaskManagementContext> options)
@@ -41,6 +43,10 @@ namespace PayrollSoftware.Core.Models.TaskManagement
             modelBuilder.Entity<ActivityLog>(entity =>
             {
                 entity.ToTable("ActivityLog");
+
+                entity.HasIndex(e => e.TaskId, "IX_ActivityLog_TaskID");
+
+                entity.HasIndex(e => e.UserId, "IX_ActivityLog_UserID");
 
                 entity.Property(e => e.ActivityLogId).HasColumnName("ActivityLogID");
 
@@ -72,6 +78,12 @@ namespace PayrollSoftware.Core.Models.TaskManagement
             modelBuilder.Entity<Comment>(entity =>
             {
                 entity.ToTable("Comment");
+
+                entity.HasIndex(e => e.ProjectId, "IX_Comment_ProjectID");
+
+                entity.HasIndex(e => e.TaskId, "IX_Comment_TaskID");
+
+                entity.HasIndex(e => e.UserId, "IX_Comment_UserID");
 
                 entity.Property(e => e.CommentId).HasColumnName("CommentID");
 
@@ -152,6 +164,10 @@ namespace PayrollSoftware.Core.Models.TaskManagement
             modelBuilder.Entity<Task>(entity =>
             {
                 entity.ToTable("Task");
+
+                entity.HasIndex(e => e.ProjectId, "IX_Task_ProjectID");
+
+                entity.HasIndex(e => e.UserId, "IX_Task_UserID");
 
                 entity.Property(e => e.TaskId).HasColumnName("TaskID");
 
@@ -246,15 +262,15 @@ namespace PayrollSoftware.Core.Models.TaskManagement
 
                 entity.Property(e => e.Role).HasMaxLength(100);
 
+                entity.Property(e => e.Status)
+                    .HasMaxLength(100)
+                    .HasDefaultValueSql("(N'')");
+
                 entity.Property(e => e.UserCode).HasMaxLength(100);
-                entity.Property(e => e.Status).HasMaxLength(100);
-                entity.Property(e => e.Password).HasMaxLength(100);
-                entity.Property(e => e.Username).HasMaxLength(100);
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
-
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }

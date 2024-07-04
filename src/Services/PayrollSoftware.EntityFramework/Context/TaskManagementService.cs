@@ -14,7 +14,7 @@ namespace PayrollSoftware.EntityFramework.Context
         public TaskManagementService()
         {
             _appManager = Ioc.Resolve<IAppManager>();
-            context = new(@$"{_appManager.BootSetting.CurrentServerInfor.ConnectionString}");
+            context = new(_appManager.BootSetting.CurrentServerInfor.ConnectionString);
             UserRepository = new(context);
         }
 
