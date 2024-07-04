@@ -1,6 +1,4 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
 
 namespace PayrollSoftware.Core.Models.TaskManagement
 {
@@ -22,8 +20,8 @@ namespace PayrollSoftware.Core.Models.TaskManagement
             Tasks = new HashSet<Task>();
         }
 
-        public int ProjectId { get => projectId; set => SetProperty(ref projectId,value); }
-        public string? ProjectCode { get => projectCode; set => SetProperty(ref projectCode,value); }
+        public int ProjectId { get => projectId; set => SetProperty(ref projectId, value); }
+        public string? ProjectCode { get => projectCode; set => SetProperty(ref projectCode, value); }
         public string? ProjectName { get => projectName; set => SetProperty(ref projectName, value); }
         public DateTime? CreatedDate { get => createdDate; set => SetProperty(ref createdDate, value); }
         public DateTime? EndDate { get => endDate; set => SetProperty(ref endDate, value); }

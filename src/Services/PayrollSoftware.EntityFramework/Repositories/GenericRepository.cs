@@ -53,7 +53,12 @@ namespace PayrollSoftware.EntityFramework.Repositories
             return default;
         }
 
-        public virtual Task<T?> GetById(int id)
+        public virtual Task<T?> GetById(long id)
+        {
+            return default;
+        }
+
+        public virtual Task<ObservableCollection<T>> GetRecordsBySize(int page, int pageSize)
         {
             return default;
         }

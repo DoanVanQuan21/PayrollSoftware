@@ -15,11 +15,14 @@ namespace PayrollSoftware.EntityFramework.Contracts
 
         Task<T?> GetByCode(string code);
 
-        Task<T?> GetById(int id);
+        Task<T?> GetById(long id);
+
         Task<bool> Remove(T entity);
 
         Task<bool> Update(T entity);
 
         Task<List<T>> Where(Expression<Func<T, bool>> expression);
+
+        Task<ObservableCollection<T>> GetRecordsBySize(int page, int pageSize);
     }
 }

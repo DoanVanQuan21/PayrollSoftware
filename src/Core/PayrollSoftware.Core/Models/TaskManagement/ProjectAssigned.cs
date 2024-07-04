@@ -1,6 +1,5 @@
 ﻿using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PayrollSoftware.Core.Models.TaskManagement
 {
@@ -13,11 +12,17 @@ namespace PayrollSoftware.Core.Models.TaskManagement
         private string? role;
         private string? status;
 
-        public int ProjectId { get => projectId; set => SetProperty(ref projectId,value); }
+        public int ProjectId { get => projectId; set => SetProperty(ref projectId, value); }
         public string UserId { get => userId; set => SetProperty(ref userId, value); }
         public DateTime? CreatedDate { get => createdDate; set => SetProperty(ref createdDate, value); }
         public DateTime? EndDate { get => endDate; set => SetProperty(ref endDate, value); }
         public string? Role { get => role; set => SetProperty(ref role, value); }
         public string? Status { get => status; set => SetProperty(ref status, value); }
+
+        [NotMapped]
+        public User Employee { get; set; } = null!;
+
+        [NotMapped]
+        public Project Project { get; set; } = null!;
     }
 }
