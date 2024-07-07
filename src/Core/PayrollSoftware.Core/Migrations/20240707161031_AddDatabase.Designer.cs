@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PayrollSoftware.Core.Models.TaskManagement;
 
@@ -11,9 +12,10 @@ using PayrollSoftware.Core.Models.TaskManagement;
 namespace PayrollSoftware.Core.Migrations
 {
     [DbContext(typeof(TaskManagementContext))]
-    partial class TaskManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20240707161031_AddDatabase")]
+    partial class AddDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -149,7 +151,7 @@ namespace PayrollSoftware.Core.Migrations
                         new
                         {
                             ProjectId = 1,
-                            CreatedDate = new DateTime(2024, 7, 7, 23, 17, 13, 580, DateTimeKind.Local).AddTicks(318),
+                            CreatedDate = new DateTime(2024, 7, 7, 23, 10, 30, 993, DateTimeKind.Local).AddTicks(7880),
                             Disable = false,
                             ProjectCode = "PJ001",
                             ProjectName = "XBOOM ATS",
@@ -158,7 +160,7 @@ namespace PayrollSoftware.Core.Migrations
                         new
                         {
                             ProjectId = 2,
-                            CreatedDate = new DateTime(2024, 7, 7, 23, 17, 13, 580, DateTimeKind.Local).AddTicks(348),
+                            CreatedDate = new DateTime(2024, 7, 7, 23, 10, 30, 993, DateTimeKind.Local).AddTicks(7910),
                             Disable = false,
                             ProjectCode = "PJ002",
                             ProjectName = "MOONPO ATS",
@@ -167,7 +169,7 @@ namespace PayrollSoftware.Core.Migrations
                         new
                         {
                             ProjectId = 3,
-                            CreatedDate = new DateTime(2024, 7, 7, 23, 17, 13, 580, DateTimeKind.Local).AddTicks(352),
+                            CreatedDate = new DateTime(2024, 7, 7, 23, 10, 30, 993, DateTimeKind.Local).AddTicks(7914),
                             Disable = false,
                             ProjectCode = "PJ003",
                             ProjectName = "MARUSYS ATS",
@@ -176,7 +178,7 @@ namespace PayrollSoftware.Core.Migrations
                         new
                         {
                             ProjectId = 4,
-                            CreatedDate = new DateTime(2024, 7, 7, 23, 17, 13, 580, DateTimeKind.Local).AddTicks(356),
+                            CreatedDate = new DateTime(2024, 7, 7, 23, 10, 30, 993, DateTimeKind.Local).AddTicks(7917),
                             Disable = false,
                             ProjectCode = "PJ004",
                             ProjectName = "X3/X4 ATS",

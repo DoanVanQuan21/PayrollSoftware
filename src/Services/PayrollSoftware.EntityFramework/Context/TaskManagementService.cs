@@ -2,6 +2,7 @@
 using PayrollSoftware.Core.Models.TaskManagement;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.EntityFramework.Contracts;
+using PayrollSoftware.EntityFramework.Repositories;
 using PayrollSoftware.EntityFramework.Repositories.SchoolManager;
 
 namespace PayrollSoftware.EntityFramework.Context
@@ -16,8 +17,11 @@ namespace PayrollSoftware.EntityFramework.Context
             _appManager = Ioc.Resolve<IAppManager>();
             context = new(_appManager.BootSetting.CurrentServerInfor.ConnectionString);
             UserRepository = new(context);
+            ProjectRepository = new(context);
         }
 
         public UserRepository UserRepository { get; private set; }
+
+        public ProjectRepository ProjectRepository { get; private set; }
     }
 }

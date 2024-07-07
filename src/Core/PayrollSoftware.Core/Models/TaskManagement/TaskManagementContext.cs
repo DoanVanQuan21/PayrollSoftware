@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using PayrollSoftware.Core.Extensions;
 
 namespace PayrollSoftware.Core.Models.TaskManagement
 {
@@ -268,7 +269,6 @@ namespace PayrollSoftware.Core.Models.TaskManagement
 
                 entity.Property(e => e.UserCode).HasMaxLength(100);
             });
-
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

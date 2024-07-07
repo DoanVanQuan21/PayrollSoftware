@@ -7,6 +7,7 @@ using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.EntityFramework.Context;
 using PayrollSoftware.EntityFramework.Contracts;
+using PayrollSoftware.ProjectManagement.Views;
 using PayrollSoftware.SettingAccount.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Events;
@@ -59,6 +60,13 @@ namespace PayrollSoftware.Payroll
                     Type = typeof(SettingAccountView),
                     Label = "Cài đặt tài khoản",
                     Geometry = GeometryString.UserSettingGeometry,
+                },
+                 new()
+                {
+                    ViewName = nameof(ProjectsView),
+                    Type = typeof(ProjectsView),
+                    Label = "Quản lý dự án",
+                    Geometry = GeometryString.DocumentGeometry,
                 }
             };
             RootContext.MenuSettings.AddRange(menu);

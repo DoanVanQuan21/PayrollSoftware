@@ -27,6 +27,22 @@ namespace PayrollSoftware.EntityFramework.Repositories
                 return _context.Projects.FirstOrDefault(p => p.ProjectId == id);
             });
         }
+
+        public Task<int> GetMaxPage(int row)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                var t = _context.Projects.ToList();
+                var totalRow = _context.Projects.Count();
+                var maxPage = totalRow / row;
+                if (totalRow % row == 0)
+                {
+                    return maxPage;
+                }
+                return maxPage + 1;
+            });
+        }
+
         public Task<ObservableCollection<Project>> GetProjects()
         {
             return Task.Factory.StartNew(() =>

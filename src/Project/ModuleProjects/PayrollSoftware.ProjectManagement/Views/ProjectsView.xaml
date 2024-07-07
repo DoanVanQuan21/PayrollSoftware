@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:local="clr-namespace:PayrollSoftware.ProjectManagement.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:PayrollSoftware.ProjectManagement.ViewModels"
@@ -11,5 +12,76 @@
     d:DesignHeight="450"
     d:DesignWidth="800"
     mc:Ignorable="d">
-    <Grid />
+    <Grid>
+        <hc:Interaction.Triggers>
+            <hc:EventTrigger EventName="Loaded">
+                <hc:EventToCommand Command="{Binding LoadedCommand}" PassEventArgsToCommand="True" />
+            </hc:EventTrigger>
+        </hc:Interaction.Triggers>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <hc:Pagination
+            Margin="10"
+            IsJumpEnabled="True"
+            MaxPageCount="{Binding MaxPage}"
+            PageIndex="{Binding PageIndex}">
+            <hc:Interaction.Triggers>
+                <hc:EventTrigger EventName="PageUpdated">
+                    <hc:EventToCommand Command="{Binding PageUpdatedCmd}" PassEventArgsToCommand="True" />
+                </hc:EventTrigger>
+            </hc:Interaction.Triggers>
+        </hc:Pagination>
+        <DataGrid
+            Grid.Row="1"
+            Margin="10"
+            AutoGenerateColumns="False"
+            HeadersVisibility="All"
+            IsReadOnly="True"
+            ItemsSource="{Binding Projects}"
+            RowHeaderWidth="60">
+            <DataGrid.RowHeaderTemplate>
+                <DataTemplate>
+                    <CheckBox IsChecked="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=DataGridRow}}" />
+                </DataTemplate>
+            </DataGrid.RowHeaderTemplate>
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ProjectCode}"
+                    Header="Mã dự án" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding ProjectName}"
+                    Header="Tên dự án" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding CreatedDate}"
+                    Header="Ngày bắt đầu" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding EndDate}"
+                    Header="Ngày kết thúc" />
+                <DataGridTextColumn
+                    Width="*"
+                    Binding="{Binding UpdateDate}"
+                    Header="Cập nhật" />
+            </DataGrid.Columns>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DockPanel>
+                        <TextBlock Margin="10" Text="Mô tả" />
+                        <FlowDocumentScrollViewer Margin="10" IsToolBarVisible="True">
+                            <FlowDocument IsOptimalParagraphEnabled="True">
+                                <Paragraph>
+                                    <Run Text="{Binding Descriptions}" />
+                                </Paragraph>
+                            </FlowDocument>
+                        </FlowDocumentScrollViewer>
+                    </DockPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+        </DataGrid>
+    </Grid>
 </UserControl>
