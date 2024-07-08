@@ -67,7 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.SettingAcco
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PayrollSoftware.Setup", "PayrollSoftware.Setup\PayrollSoftware.Setup.vdproj", "{BA7FED2D-7099-4C08-91F2-E79A047A76DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollSoftware.ProjectManagement", "Project\ModuleProjects\PayrollSoftware.ProjectManagement\PayrollSoftware.ProjectManagement.csproj", "{E13A969C-ECE9-4C46-9CDF-DAA26A380E69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.ProjectManagement", "Project\ModuleProjects\PayrollSoftware.ProjectManagement\PayrollSoftware.ProjectManagement.csproj", "{E13A969C-ECE9-4C46-9CDF-DAA26A380E69}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GongSolutions.WPF.DragDrop", "Thirdparty\GongSolutions.WPF.DragDrop\GongSolutions.WPF.DragDrop.csproj", "{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -307,6 +309,18 @@ Global
 		{E13A969C-ECE9-4C46-9CDF-DAA26A380E69}.Release|x64.Build.0 = Release|Any CPU
 		{E13A969C-ECE9-4C46-9CDF-DAA26A380E69}.Release|x86.ActiveCfg = Release|Any CPU
 		{E13A969C-ECE9-4C46-9CDF-DAA26A380E69}.Release|x86.Build.0 = Release|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Debug|x64.Build.0 = Debug|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Debug|x86.Build.0 = Debug|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Release|x64.ActiveCfg = Release|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Release|x64.Build.0 = Release|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Release|x86.ActiveCfg = Release|Any CPU
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -338,6 +352,7 @@ Global
 		{2150B278-D41A-4A8A-B501-7CF4FCF3DEE9} = {7FA482FB-99B0-486E-9EDC-21D4B2BD4D49}
 		{F5185B96-C9CE-42F6-94DF-3315CF45B71C} = {9228C441-491B-4C91-83D0-D6EDBC04C314}
 		{E13A969C-ECE9-4C46-9CDF-DAA26A380E69} = {9228C441-491B-4C91-83D0-D6EDBC04C314}
+		{12DD6AE4-2A94-4D75-BC45-CFC77C6950D1} = {6BAC630B-3661-4E6E-9780-EDC6A0F112FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F11E5F25-32D1-42EB-8884-AE58138EDA2C}
