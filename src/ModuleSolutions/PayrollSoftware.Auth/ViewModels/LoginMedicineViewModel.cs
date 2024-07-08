@@ -3,7 +3,6 @@ using PayrollSoftware.Core.Events;
 using PayrollSoftware.Core.Models.TaskManagement;
 using PayrollSoftware.Core.Mvvms;
 using Prism.Commands;
-using System.Windows.Controls;
 
 namespace PayrollSoftware.Auth.ViewModels
 {
@@ -33,6 +32,5 @@ namespace PayrollSoftware.Auth.ViewModels
             }
             EventAggregator.GetEvent<LoginSuccessEvent>().Publish(await _loginService.LoginAsync(User));
         }
-
     }
 }

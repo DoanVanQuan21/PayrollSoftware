@@ -247,7 +247,7 @@ public class Pagination : Control
         }
     }
 
-    private void OnAutoHidingChanged(bool newValue) => this.Show(!newValue || MaxPageCount > 1);
+    private void OnAutoHidingChanged(bool newValue) => this.Show(!newValue || MaxPageCount > 0);
 
     public bool AutoHiding
     {

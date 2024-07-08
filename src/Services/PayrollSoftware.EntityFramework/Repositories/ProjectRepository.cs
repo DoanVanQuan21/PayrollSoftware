@@ -32,7 +32,6 @@ namespace PayrollSoftware.EntityFramework.Repositories
         {
             return Task.Factory.StartNew(() =>
             {
-                var t = _context.Projects.ToList();
                 var totalRow = _context.Projects.Count();
                 var maxPage = totalRow / row;
                 if (totalRow % row == 0)

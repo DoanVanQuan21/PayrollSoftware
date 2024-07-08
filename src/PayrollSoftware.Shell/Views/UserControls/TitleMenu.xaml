@@ -39,14 +39,17 @@
                 Style="{StaticResource ButtonDashedInfo}"
                 Visibility="{Binding IsLogin, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </StackPanel>
-
-        <Grid Grid.Column="1" HorizontalAlignment="Right">
+        <DockPanel Grid.Column="1" HorizontalAlignment="Right">
+            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left">
+                <Run Text="{Binding BootSetting.CurrentUser.FirstName}" />
+                <Run Text="{Binding BootSetting.CurrentUser.LastName}" />
+            </TextBlock>
             <hc:SplitButton
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 BorderThickness="0"
-                Content="{Binding Fullname}"
+                DockPanel.Dock="Right"
                 Foreground="{DynamicResource PrimaryTextBrush}"
                 HitMode="Hover"
                 Visibility="{Binding IsLogin, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -125,6 +128,6 @@
                     </StackPanel>
                 </hc:SplitButton.DropDownContent>
             </hc:SplitButton>
-        </Grid>
+        </DockPanel>
     </Grid>
 </UserControl>
