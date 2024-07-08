@@ -11,6 +11,7 @@
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
+    Style="{StaticResource UserControlStyle}"
     mc:Ignorable="d">
     <hc:TransitioningContentControl>
         <Grid>
