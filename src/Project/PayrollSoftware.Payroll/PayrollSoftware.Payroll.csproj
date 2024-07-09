@@ -26,6 +26,7 @@
     <ProjectReference Include="..\..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj" />
     <ProjectReference Include="..\ModuleProjects\PayrollSoftware.ProjectManagement\PayrollSoftware.ProjectManagement.csproj" />
     <ProjectReference Include="..\ModuleProjects\PayrollSoftware.SettingAccount\PayrollSoftware.SettingAccount.csproj" />
+    <ProjectReference Include="..\ModuleProjects\PayrollSoftware.TaskManagement\PayrollSoftware.TaskManagement.csproj" />
   </ItemGroup>
 
   <ItemGroup>

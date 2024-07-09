@@ -215,4 +215,10 @@ namespace PayrollSoftware.Core.Constants
         public static readonly string HIDDEN = "Hidden";
         public static readonly string VISIBLE = "Visible";
     }
+    public class TaskState
+    {
+        public static readonly string TODO = "Cần làm";
+        public static readonly string INPROGESS = "Đang làm";
+        public static readonly string DONE = "Đã xong";
+    }
 }

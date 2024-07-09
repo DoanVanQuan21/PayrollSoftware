@@ -1,5 +1,6 @@
 ﻿using PayrollSoftware.EntityFramework.Repositories;
 using PayrollSoftware.EntityFramework.Repositories.SchoolManager;
+using PayrollSoftware.EntityFramework.Repositories.TaskManagements;
 
 namespace PayrollSoftware.EntityFramework.Contracts
 {
@@ -7,5 +8,6 @@ namespace PayrollSoftware.EntityFramework.Contracts
     {
         UserRepository UserRepository { get; }
         ProjectRepository ProjectRepository { get; }
+        TaskRepository TaskRepository { get; }
     }
 }
