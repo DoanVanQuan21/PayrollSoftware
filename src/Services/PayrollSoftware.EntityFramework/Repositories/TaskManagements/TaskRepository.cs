@@ -12,12 +12,12 @@ namespace PayrollSoftware.EntityFramework.Repositories.TaskManagements
         {
         }
 
-        public Task<ObservableCollection<Task>> GetTasksByStatus(string status)
+        public Task<ObservableCollection<Task>> GetTasksByStatus(string status, int projectID, int userID)
         {
             return TaskSystem.Factory.StartNew(() =>
             {
                 var tasks = new ObservableCollection<Task>();
-                var tasksByStatus = _context.Tasks.AsNoTracking().Where(t => t.Status == status);
+                var tasksByStatus = _context.Tasks.AsNoTracking().Where(t => t.Status == status && t.ProjectId == projectID && t.UserId == userID);
                 if (tasksByStatus == null)
                 {
                     return tasks;

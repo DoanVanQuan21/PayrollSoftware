@@ -5,6 +5,6 @@ namespace PayrollSoftware.EntityFramework.Contracts
 {
     public interface ITaskRepository : IGenericRepository<Task>
     {
-        Task<ObservableCollection<Task>> GetTasksByStatus(string status);
+        Task<ObservableCollection<Task>> GetTasksByStatus(string status, int projectID, int userID);
     }
 }
