@@ -85,6 +85,11 @@ namespace PayrollSoftware.EntityFramework.Repositories
                 {
                     return false;
                 }
+                var existingEntity = _context.Set<T>().Find(GetKey(entity));
+                if (existingEntity != null)
+                {
+                    _context.Entry(existingEntity).State = EntityState.Detached;
+                }
                 _context.Set<T>().Update(entity);
                 _context.Entry(entity).State = EntityState.Modified;
                 return true;
@@ -97,6 +102,12 @@ namespace PayrollSoftware.EntityFramework.Repositories
             {
                 return _context.Set<T>().Where(expression).ToList();
             });
+        }
+        private object GetKey(T entity)
+        {
+            var keyName = _context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties
+                .Select(x => x.Name).Single();
+            return entity.GetType().GetProperty(keyName).GetValue(entity, null);
         }
     }
 }

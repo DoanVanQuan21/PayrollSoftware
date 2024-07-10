@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PayrollSoftware.Core.Constants;
 using PayrollSoftware.Core.Models.TaskManagement;
+using Task = PayrollSoftware.Core.Models.TaskManagement.Task;
 
 namespace PayrollSoftware.Core.Extensions
 {
@@ -8,7 +10,9 @@ namespace PayrollSoftware.Core.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
             modelBuilder.SeedDataForProject();
+            modelBuilder.SeedDataForTask();
         }
+
         private static void SeedDataForProject(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Project>().HasData(new List<Project>()
@@ -46,6 +50,84 @@ namespace PayrollSoftware.Core.Extensions
                     CreatedDate = DateTime.Now,
                     Status = "Active",
                     Disable =false
+                }
+            });
+        }
+
+        private static void SeedDataForTask(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Task>().HasData(new List<Task>() {
+                new() {
+                    TaskId = 1,
+                    TaskName = "Phát triển phần mềm XBOOM ATS",
+                    TaskCode = "XBOOM_ATS_TASK01",
+                    Description = "Phát triển phần mềm kiểm tra các chức năng của sản phẩm",
+                    CreatedDate = DateTime.Now,
+                    DueDate = new DateTime(2024,08,10),
+                    Status = TaskState.TODO,
+                    Type = "Issue",
+                    Priority = "1",
+                    ProjectId = 1,
+                },
+                new() {
+                    TaskId = 2,
+                    TaskName = "Phát triển module COMPORT",
+                    TaskCode = "XBOOM_ATS_TASK02",
+                    Description = "Phát triển phần mềm kiểm tra các chức năng của sản phẩm",
+                    CreatedDate = DateTime.Now,
+                    DueDate = new DateTime(2024,08,10),
+                    Status = TaskState.TODO,
+                    Type = "Issue",
+                    Priority = "1",
+                    ProjectId = 1,
+                },
+                new() {
+                    TaskId = 3,
+                    TaskName = "Phát triển module VIDEO",
+                    TaskCode = "XBOOM_ATS_TASK03",
+                    Description = "Phát triển phần mềm kiểm tra các chức năng của sản phẩm",
+                    CreatedDate = DateTime.Now,
+                    DueDate = new DateTime(2024,08,10),
+                    Status = TaskState.TODO,
+                    Type = "Issue",
+                    Priority = "1",
+                    ProjectId = 1,
+                },
+                new() {
+                    TaskId = 4,
+                    TaskName = "Phát triển module DMM",
+                    TaskCode = "XBOOM_ATS_TASK04",
+                    Description = "Phát triển phần mềm kiểm tra các chức năng của sản phẩm",
+                    CreatedDate = DateTime.Now,
+                    DueDate = new DateTime(2024,08,10),
+                    Status = TaskState.TODO,
+                    Type = "Issue",
+                    Priority = "1",
+                    ProjectId = 1,
+                },
+                new() {
+                    TaskId = 5,
+                    TaskName = "Phát triển module AUDIO",
+                    TaskCode = "XBOOM_ATS_TASK05",
+                    Description = "Phát triển phần mềm kiểm tra các chức năng của sản phẩm",
+                    CreatedDate = DateTime.Now,
+                    DueDate = new DateTime(2024,08,10),
+                    Status = TaskState.TODO,
+                    Type = "Issue",
+                    Priority = "1",
+                    ProjectId = 1,
+                },
+                new() {
+                    TaskId = 6,
+                    TaskName = "Phát triển module Data logger",
+                    TaskCode = "XBOOM_ATS_TASK06",
+                    Description = "Phát triển phần mềm kiểm tra các chức năng của sản phẩm",
+                    CreatedDate = DateTime.Now,
+                    DueDate = new DateTime(2024,08,10),
+                    Status = "Cần làm",
+                    Type = "Issue",
+                    Priority = "1",
+                    ProjectId = 1,
                 }
             });
         }

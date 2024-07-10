@@ -170,7 +170,7 @@ namespace PayrollSoftware.Core.Models.TaskManagement
 
                 entity.HasIndex(e => e.UserId, "IX_Task_UserID");
 
-                entity.Property(e => e.TaskId).HasColumnName("TaskID");
+                entity.Property(e => e.TaskId).HasColumnName("TaskID").ValueGeneratedOnAdd();
 
                 entity.Property(e => e.CompletionDate).HasColumnType("datetime");
 
@@ -269,6 +269,7 @@ namespace PayrollSoftware.Core.Models.TaskManagement
 
                 entity.Property(e => e.UserCode).HasMaxLength(100);
             });
+            modelBuilder.Seed();
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);

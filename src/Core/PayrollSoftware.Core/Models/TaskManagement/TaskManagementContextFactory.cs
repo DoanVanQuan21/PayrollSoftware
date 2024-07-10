@@ -8,7 +8,7 @@ namespace PayrollSoftware.Core.Models.TaskManagement
         TaskManagementContext IDesignTimeDbContextFactory<TaskManagementContext>.CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<TaskManagementContext>();
-            optionsBuilder.UseSqlServer("Data Source=ADMIN;Initial Catalog=TaskManagement;Integrated Security=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-L2UOCU2;Initial Catalog=TaskManagement;Integrated Security=True;Trust Server Certificate=True");
 
             return new TaskManagementContext(optionsBuilder.Options);
         }

@@ -12,12 +12,12 @@ namespace PayrollSoftware.EntityFramework.Repositories.TaskManagements
         {
         }
 
-        public Task<ObservableCollection<Task>> GetTasksByStatus(string status, int projectID, int userID)
+        public Task<ObservableCollection<Task>> GetTasksByStatus(string status, int projectID)
         {
             return TaskSystem.Factory.StartNew(() =>
             {
                 var tasks = new ObservableCollection<Task>();
-                var tasksByStatus = _context.Tasks.AsNoTracking().Where(t => t.Status == status && t.ProjectId == projectID && t.UserId == userID);
+                var tasksByStatus = _context.Tasks.AsNoTracking().Where(t => t.Status == status && t.ProjectId == projectID);
                 if (tasksByStatus == null)
                 {
                     return tasks;
@@ -29,6 +29,19 @@ namespace PayrollSoftware.EntityFramework.Repositories.TaskManagements
                 tasks.AddRange(tasksByStatus);
                 return tasks;
             });
+        }
+
+        public async Task<bool> UpdateTasks(IList<Task> tasks,string status)
+        {
+            var isUpdated = true;
+            foreach (var task in tasks)
+            {
+                task.Status = status;
+                task.UpdatedDate = DateTime.Now;
+                isUpdated &= await Update(task);
+            }
+            _context.SaveChanges();
+            return isUpdated;
         }
     }
 }

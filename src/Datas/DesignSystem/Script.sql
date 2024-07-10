@@ -93,7 +93,7 @@ Create table [Task]
 	[CompletionDate] Datetime NULL,
 	[StartDate] Datetime NULL,
 	[ProjectID] Integer NOT NULL foreign key([ProjectID]) References [Project]([ProjectID]) on update no action on delete no action,
-	[UserID] Integer NOT NULL foreign key(UserID) References [User](UserID) on update no action on delete no action,
+	[UserID] Integer null foreign key(UserID) References [User](UserID) on update no action on delete no action,
 Primary Key ([TaskID])
 ) 
 go

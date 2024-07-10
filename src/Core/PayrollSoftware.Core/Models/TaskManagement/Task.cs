@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PayrollSoftware.Core.Models.TaskManagement
 {
@@ -26,7 +27,7 @@ namespace PayrollSoftware.Core.Models.TaskManagement
             ActivityLogs = new HashSet<ActivityLog>();
             Comments = new HashSet<Comment>();
         }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long TaskId { get => taskId; set => SetProperty(ref taskId,value); }
         public string? TaskCode { get => taskCode; set => SetProperty(ref taskCode,value); }
         public string? TaskName { get => taskName; set => SetProperty(ref taskName, value); }

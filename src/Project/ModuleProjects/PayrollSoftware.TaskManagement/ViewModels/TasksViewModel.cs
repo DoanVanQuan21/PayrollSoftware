@@ -15,19 +15,21 @@ namespace PayrollSoftware.TaskManagement.ViewModels
         {
             _taskService = Ioc.Resolve<ITaskService>();
         }
-
-        public ICommand LoadedCommand { get; set; }
-
+        
         protected override void RegisterCommand()
         {
-            LoadedCommand = new DelegateCommand(OnLoaded);
+            base.RegisterCommand();
         }
 
-        private void OnLoaded()
+        protected override void OnLoaded()
         {
+            _taskService.BeginTracking();
             _taskService.UpdateTasks();
         }
-
+        protected override void UnLoaded()
+        {
+            _taskService.EndTracking();
+        }
         public override string Title => "Danh sách công việc";
         public ObservableCollection<Task> TaskToDos => _taskService.TaskToDos;
 

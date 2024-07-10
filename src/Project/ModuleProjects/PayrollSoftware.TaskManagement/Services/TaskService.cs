@@ -1,6 +1,7 @@
 ﻿using PayrollSoftware.Core.Constants;
 using PayrollSoftware.Core.Contracts;
 using PayrollSoftware.Core.Mvvms;
+using PayrollSoftware.Core.Services;
 using PayrollSoftware.EntityFramework.Contracts;
 using PayrollSoftware.TaskManagement.Services.Contracts;
 using System.Collections.ObjectModel;
@@ -13,13 +14,91 @@ namespace PayrollSoftware.TaskManagement.Services
     {
         private readonly ITaskManagementService _taskManagementService;
         private readonly IAppManager _appManager;
+
         public TaskService()
         {
             _taskManagementService = Ioc.Resolve<ITaskManagementService>();
             _appManager = Ioc.Resolve<IAppManager>();
             TaskToDos = new();
             TaskInProgesses = new();
-            TaskToDos = new();
+            TaskDones = new();
+        }
+
+        public void BeginTracking()
+        {
+            TaskToDos.CollectionChanged += UpdateTasksToDo;
+            TaskInProgesses.CollectionChanged += UpdateTasksInProgess;
+            TaskDones.CollectionChanged += UpdateTasksDone;
+        }
+
+        public void EndTracking()
+        {
+            TaskToDos.CollectionChanged -= UpdateTasksToDo;
+            TaskInProgesses.CollectionChanged -= UpdateTasksInProgess;
+            TaskDones.CollectionChanged -= UpdateTasksDone;
+        }
+
+        private async void UpdateTasksDone(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                return;
+            }
+            var tasks = e.NewItems.Cast<Task>().ToList();
+            var tasksNotDone = tasks.Where(t => t.Status != TaskState.DONE).ToList();
+            if (!tasksNotDone.Any())
+            {
+                return;
+            }
+            var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotDone, TaskState.DONE);
+            if (!isUpdated)
+            {
+                await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+                return;
+            }
+            await CustomNotification.Success("Cập nhật trạng thái thành công");
+        }
+
+        private async void UpdateTasksToDo(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                return;
+            }
+            var tasks = e.NewItems.Cast<Task>().ToList();
+            var tasksNotToDo = tasks.Where(t => t.Status != TaskState.TODO).ToList();
+            if (!tasksNotToDo.Any())
+            {
+                return;
+            }
+            var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotToDo, TaskState.TODO);
+            if (!isUpdated)
+            {
+                await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+                return;
+            }
+            await CustomNotification.Success("Cập nhật trạng thái thành công");
+        }
+
+        private async void UpdateTasksInProgess(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                return;
+            }
+            var tasks = e.NewItems.Cast<Task>().ToList();
+            var tasksNotInProgress = tasks.Where(t => t.Status != TaskState.INPROGESS).ToList();
+            if (!tasksNotInProgress.Any())
+            {
+                return;
+            }
+            var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotInProgress, TaskState.INPROGESS);
+            if (!isUpdated)
+            {
+                await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+                return;
+            }
+            await CustomNotification.Success("Cập nhật trạng thái thành công");
         }
 
         public ObservableCollection<Task> TaskToDos { get; private set; }
@@ -38,21 +117,33 @@ namespace PayrollSoftware.TaskManagement.Services
         private async TaskSystem GetTaskToDos()
         {
             TaskToDos.Clear();
-            var tasks = await _taskManagementService.TaskRepository.GetTasksByStatus(TaskState.TODO,1, _appManager.BootSetting.CurrentUser.UserId);
+            var tasks = await _taskManagementService.TaskRepository.GetTasksByStatus(TaskState.TODO, 1);
+            foreach (var task in tasks)
+            {
+                task.Project = await _taskManagementService.ProjectRepository.GetById(task.ProjectId);
+            }
             TaskToDos.AddRange(tasks);
         }
 
         private async TaskSystem GetTaskInProgess()
         {
             TaskInProgesses.Clear();
-            var tasks = await _taskManagementService.TaskRepository.GetTasksByStatus(TaskState.INPROGESS,1, _appManager.BootSetting.CurrentUser.UserId);
+            var tasks = await _taskManagementService.TaskRepository.GetTasksByStatus(TaskState.INPROGESS, 1);
+            foreach (var task in tasks)
+            {
+                task.Project = await _taskManagementService.ProjectRepository.GetById(task.ProjectId);
+            }
             TaskInProgesses.AddRange(tasks);
         }
 
         private async TaskSystem GetTaskDones()
         {
             TaskDones.Clear();
-            var tasks = await _taskManagementService.TaskRepository.GetTasksByStatus(TaskState.DONE,1, _appManager.BootSetting.CurrentUser.UserId);
+            var tasks = await _taskManagementService.TaskRepository.GetTasksByStatus(TaskState.DONE, 1);
+            foreach (var task in tasks)
+            {
+                task.Project = await _taskManagementService.ProjectRepository.GetById(task.ProjectId);
+            }
             TaskDones.AddRange(tasks);
         }
     }

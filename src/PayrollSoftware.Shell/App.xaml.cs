@@ -17,6 +17,8 @@ using Prism.Events;
 using Prism.Ioc;
 using System.Diagnostics;
 using System.Windows;
+using PayrollSoftware.EntityFramework.Contracts;
+using PayrollSoftware.EntityFramework.Context;
 
 namespace PayrollSoftware.Shell
 {
@@ -48,6 +50,7 @@ namespace PayrollSoftware.Shell
             base.OnInitialized();
             DefaultTheme();
         }
+
         private async void DefaultTheme()
         {
             var _appManager = Ioc.Resolve<IAppManager>();
@@ -63,6 +66,7 @@ namespace PayrollSoftware.Shell
             await _themeService.ChangeTheme(Theme.Dark.ToString());
             eventAggreator.GetEvent<ChangeThemeEvent>().Publish();
         }
+
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IStartUp, StartUp>();
@@ -73,6 +77,7 @@ namespace PayrollSoftware.Shell
             containerRegistry.RegisterSingleton<IDeviceMonitoring, DeviceMonitoring>();
             containerRegistry.RegisterSingleton<IDeviceMonitoringManager, DeviceMonitoringManager>();
             containerRegistry.RegisterSingleton<IDeviceService, DeviceService>();
+            containerRegistry.RegisterSingleton<ITaskManagementService, TaskManagementService>();
 
             containerRegistry.RegisterSingleton<MainWindowViewModel>();
             containerRegistry.RegisterSingleton<TitleMenuViewModel>();
@@ -83,6 +88,5 @@ namespace PayrollSoftware.Shell
             Ioc.ContainerRegistry = containerRegistry;
             Ioc.Container = Container;
         }
-
     }
 }

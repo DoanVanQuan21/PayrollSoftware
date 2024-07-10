@@ -37,6 +37,10 @@ namespace PayrollSoftware.Core.Models.TaskManagement
 
         public User(User user)
         {
+            if (user == null)
+            {
+                return;
+            }
             UserId = user.UserId;
             UserCode = user.UserCode;
             FirstName = user.FirstName;

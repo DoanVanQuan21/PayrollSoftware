@@ -9,6 +9,9 @@ using PayrollSoftware.EntityFramework.Context;
 using PayrollSoftware.EntityFramework.Contracts;
 using PayrollSoftware.ProjectManagement.Views;
 using PayrollSoftware.SettingAccount.Views;
+using PayrollSoftware.TaskManagement.Services;
+using PayrollSoftware.TaskManagement.Services.Contracts;
+using PayrollSoftware.TaskManagement.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Events;
 using Prism.Ioc;
@@ -48,6 +51,7 @@ namespace PayrollSoftware.Payroll
             {
                 RegisterDatabase();
             }
+            containerRegistry.RegisterSingleton<ITaskService, TaskService>();
         }
 
         private void InitMenu()
@@ -66,6 +70,13 @@ namespace PayrollSoftware.Payroll
                     ViewName = nameof(ProjectsView),
                     Type = typeof(ProjectsView),
                     Label = "Quản lý dự án",
+                    Geometry = GeometryString.DocumentGeometry,
+                },
+                 new()
+                {
+                    ViewName = nameof(TasksView),
+                    Type = typeof(TasksView),
+                    Label = "Danh sách công việc",
                     Geometry = GeometryString.DocumentGeometry,
                 }
             };

@@ -2,6 +2,7 @@
 using PayrollSoftware.Core.Events;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.Models.Common;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -36,7 +37,8 @@ namespace PayrollSoftware.Core.Mvvms
         public ICommand CancelCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
-
+        public ICommand LoadedCommand { get; set; }
+        public ICommand UnLoadedCommand { get; set; }
         public bool IsLogin
         { get => isLogin; set { SetProperty(ref isLogin, value); } }
 
@@ -87,7 +89,18 @@ namespace PayrollSoftware.Core.Mvvms
         }
 
         protected virtual void RegisterCommand()
-        { }
+        {
+            LoadedCommand = new DelegateCommand(OnLoaded);
+            UnLoadedCommand = new DelegateCommand(UnLoaded);
+        }
+
+        protected virtual void UnLoaded()
+        {
+        }
+
+        protected virtual void OnLoaded()
+        {
+        }
 
         protected virtual void RegisterEvent()
         { }

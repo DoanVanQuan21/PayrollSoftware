@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PayrollSoftware.Core.Mvvms;
+using PayrollSoftware.TaskManagement.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,7 @@ namespace PayrollSoftware.TaskManagement.Views
         public TasksView()
         {
             InitializeComponent();
+            DataContext = Ioc.Resolve<TasksViewModel>();
         }
     }
 }
