@@ -99,10 +99,7 @@
                     <hc:TabControl.ContentTemplate>
                         <DataTemplate>
                             <hc:DialogContainer>
-                                <hc:ScrollViewer>
-                                    <ContentControl Content="{Binding View}" />
-
-                                </hc:ScrollViewer>
+                                <ContentControl Content="{Binding View}" />
 
                             </hc:DialogContainer>
                         </DataTemplate>

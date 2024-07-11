@@ -39,9 +39,9 @@
         <Setter Property="Margin" Value="10,0,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
-    <Style x:Key="BaseLabel" TargetType="TextBlock">
+    <Style x:Key="BaseLabel" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />
-        <Setter Property="Margin" Value="{DynamicResource DefaultLabelControlMargin}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
     </Style>
     <Style x:Key="BaseTextBox" TargetType="TextBox">
         <Setter Property="FontSize" Value="{DynamicResource DefaultFontSize}" />

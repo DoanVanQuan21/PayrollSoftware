@@ -30,6 +30,9 @@
             <Setter Property="dd:DragDrop.UseDefaultEffectDataTemplate" Value="True" />
             <Setter Property="BorderThickness" Value="0" />
         </Style>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        </Style>
     </UserControl.Resources>
     <hc:TransitioningContentControl>
         <hc:Interaction.Triggers>
@@ -87,11 +90,15 @@
                     Margin="2,2,5,0"
                     FontWeight="DemiBold"
                     Header="TO DO">
-                    <ListBox ItemsSource="{Binding TaskToDos}" MouseLeave="ListBox_MouseLeave">
+                    <ListBox
+                        ItemsSource="{Binding TaskToDos}"
+                        MouseLeave="ListBox_MouseLeave"
+                        SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
                                 <Setter Property="Margin" Value="0,10,0,10" />
+                                <Setter Property="MinHeight" Value="60" />
                                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                             </Style>
                         </ListBox.ItemContainerStyle>
@@ -111,12 +118,16 @@
                                         Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="8"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         Margin="0,2,0,2"
-                                        Text="{Binding TaskName}" />
+                                        FontSize="16"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                        Text="{Binding TaskName}"
+                                        TextWrapping="WrapWithOverflow" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -126,10 +137,14 @@
                     Grid.Column="2"
                     FontWeight="DemiBold"
                     Header="IN PROGESS">
-                    <ListBox ItemsSource="{Binding TaskInProgesses}" MouseLeave="ListBox_MouseLeave">
+                    <ListBox
+                        ItemsSource="{Binding TaskInProgesses}"
+                        MouseLeave="ListBox_MouseLeave"
+                        SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                                <Setter Property="MinHeight" Value="60" />
                                 <Setter Property="Margin" Value="0,10,0,10" />
                                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                             </Style>
@@ -150,12 +165,16 @@
                                         Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="8"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         Margin="0,2,0,2"
-                                        Text="{Binding TaskName}" />
+                                        FontSize="16"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                        Text="{Binding TaskName}"
+                                        TextWrapping="WrapWithOverflow" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -165,10 +184,14 @@
                     Grid.Column="4"
                     FontWeight="DemiBold"
                     Header="DONE">
-                    <ListBox ItemsSource="{Binding TaskDones}" MouseLeave="ListBox_MouseLeave">
+                    <ListBox
+                        ItemsSource="{Binding TaskDones}"
+                        MouseLeave="ListBox_MouseLeave"
+                        SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
                                 <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                                <Setter Property="MinHeight" Value="60" />
                                 <Setter Property="Margin" Value="0,10,0,10" />
                                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                             </Style>
@@ -189,19 +212,31 @@
                                         Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="8"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="0"
                                         Margin="0,2,0,2"
-                                        Text="{Binding TaskName}" />
+                                        FontSize="16"
+                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                        Text="{Binding TaskName}"
+                                        TextWrapping="WrapWithOverflow" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </GroupBox>
-
-
+                <GroupBox Grid.Column="6" FontWeight="DemiBold">
+                    <GroupBox.Header>
+                        <TextBlock>
+                            <Run Text="{Binding CurrentTask.Project.ProjectName}" />
+                            <Run Text="/" />
+                            <Run Text="{Binding CurrentTask.TaskCode}" />
+                        </TextBlock>
+                    </GroupBox.Header>
+                    <hc:PropertyGrid Column="Default" SelectedObject="{Binding CurrentTask}" />
+                </GroupBox>
             </Grid>
         </Grid>
     </hc:TransitioningContentControl>

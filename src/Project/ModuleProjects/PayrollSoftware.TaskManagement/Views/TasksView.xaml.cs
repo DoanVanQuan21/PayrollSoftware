@@ -18,12 +18,7 @@ namespace PayrollSoftware.TaskManagement.Views
 
         private void ListBox_MouseLeave(object sender, MouseEventArgs e)
         {
-            var lb = (ListBox)sender;
-            if (lb == null)
-            {
-                return;
-            }
-            lb.SelectedValue = null;
+            
         }
     }
 }
