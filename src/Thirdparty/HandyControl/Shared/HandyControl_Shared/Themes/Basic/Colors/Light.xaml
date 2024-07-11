@@ -13,7 +13,10 @@
 
     <Color x:Key="DefaultIconColor">#09BBA3</Color>
     <Color x:Key="DefaultBorderColor">#FEFD6E</Color>
-
+    <Color x:Key="RowMouseOverRegionColor">#192A7DAF</Color>
+    <Color x:Key="RowMouseOverBorderColor">#2FB1FF</Color>
+    <Color x:Key="RowSelectedBorderColor">#44B8FF</Color>
+    <Color x:Key="RowSelectedRegionColor">#292FB1FF</Color>
     <SolidColorBrush
         x:Key="DefaultTextBrush"
         o:Freeze="true"
@@ -27,7 +30,22 @@
         x:Key="DefaultBorderBrush"
         o:Freeze="true"
         Color="{StaticResource DefaultBorderColor}" />
-
+    <SolidColorBrush
+        x:Key="RowMouseOverRegionBrush"
+        o:Freeze="true"
+        Color="{StaticResource RowMouseOverRegionColor}" />
+    <SolidColorBrush
+        x:Key="RowMouseOverBorderBrush"
+        o:Freeze="true"
+        Color="{StaticResource RowMouseOverBorderColor}" />
+    <SolidColorBrush
+        x:Key="RowSelectedBorderBrush"
+        o:Freeze="true"
+        Color="{StaticResource RowSelectedBorderColor}" />
+    <SolidColorBrush
+        x:Key="RowSelectedRegionBrush"
+        o:Freeze="true"
+        Color="{StaticResource RowSelectedRegionColor}" />
     <!--  End custom color  -->
 
 

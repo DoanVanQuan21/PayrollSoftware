@@ -15,8 +15,20 @@
     Style="{StaticResource UserControlStyle}"
     mc:Ignorable="d">
     <UserControl.Resources>
-        <Style BasedOn="{StaticResource ListMenuStyle}" TargetType="{x:Type ListBox}">
-            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Style BasedOn="{StaticResource GroupBoxBaseStyle}" TargetType="GroupBox">
+            <Setter Property="Margin" Value="5,2,5,0" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
+            <Setter Property="hc:TitleElement.Background" Value="{DynamicResource RegionBrush}" />
+            <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+        <Style BasedOn="{StaticResource ListBoxBaseStyle}" TargetType="{x:Type ListBox}">
+            <Setter Property="dd:DragDrop.IsDragSource" Value="True" />
+            <Setter Property="dd:DragDrop.IsDropTarget" Value="True" />
+            <Setter Property="dd:DragDrop.UseDefaultEffectDataTemplate" Value="True" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
     </UserControl.Resources>
     <hc:TransitioningContentControl>
@@ -49,62 +61,38 @@
             <Grid Grid.Row="1" Margin="5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <GroupBox Margin="2" Header="TO DO">
-                    <ListBox
-                        dd:DragDrop.IsDragSource="True"
-                        dd:DragDrop.IsDropTarget="True"
-                        dd:DragDrop.UseDefaultEffectDataTemplate="True"
-                        ItemsSource="{Binding TaskToDos}">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryBorderBrush}" />
-                                <Setter Property="Margin" Value="0,0,0,15" />
-                                <Setter Property="Padding" Value="0,5,0,5" />
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Margin="10,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="9*" />
-                                        <ColumnDefinition Width="40" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Grid.Column="0"
-                                        FontSize="8"
-                                        Text="{Binding TaskCode}" />
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Grid.Column="0"
-                                        Text="{Binding TaskName}" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
-                <GroupBox
+                <GridSplitter
                     Grid.Column="1"
-                    Margin="2"
-                    Header="IN PROGESS">
-                    <ListBox
-                        dd:DragDrop.IsDragSource="True"
-                        dd:DragDrop.IsDropTarget="True"
-                        dd:DragDrop.UseDefaultEffectDataTemplate="True"
-                        ItemsSource="{Binding TaskInProgesses}">
+                    Width="1"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource BorderBrush}" />
+                <GridSplitter
+                    Grid.Column="5"
+                    Width="1"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource BorderBrush}" />
+                <GridSplitter
+                    Grid.Column="3"
+                    Width="1"
+                    HorizontalAlignment="Stretch"
+                    Background="{DynamicResource BorderBrush}" />
+                <GroupBox
+                    Margin="2,2,5,0"
+                    FontWeight="DemiBold"
+                    Header="TO DO">
+                    <ListBox ItemsSource="{Binding TaskToDos}" MouseLeave="ListBox_MouseLeave">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryBorderBrush}" />
-                                <Setter Property="Margin" Value="0,0,0,15" />
-                                <Setter Property="Padding" Value="0,5,0,5" />
+                                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                                <Setter Property="Margin" Value="0,10,0,10" />
+                                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
@@ -121,11 +109,13 @@
                                     <TextBlock
                                         Grid.Row="0"
                                         Grid.Column="0"
+                                        Margin="0,2,0,2"
                                         FontSize="8"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="0"
+                                        Margin="0,2,0,2"
                                         Text="{Binding TaskName}" />
                                 </Grid>
                             </DataTemplate>
@@ -134,18 +124,14 @@
                 </GroupBox>
                 <GroupBox
                     Grid.Column="2"
-                    Margin="2"
-                    Header="DONE">
-                    <ListBox
-                        dd:DragDrop.IsDragSource="True"
-                        dd:DragDrop.IsDropTarget="True"
-                        dd:DragDrop.UseDefaultEffectDataTemplate="True"
-                        ItemsSource="{Binding TaskDones}">
+                    FontWeight="DemiBold"
+                    Header="IN PROGESS">
+                    <ListBox ItemsSource="{Binding TaskInProgesses}" MouseLeave="ListBox_MouseLeave">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryBorderBrush}" />
-                                <Setter Property="Margin" Value="0,0,0,15" />
-                                <Setter Property="Padding" Value="0,5,0,5" />
+                                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                                <Setter Property="Margin" Value="0,10,0,10" />
+                                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
@@ -162,17 +148,60 @@
                                     <TextBlock
                                         Grid.Row="0"
                                         Grid.Column="0"
+                                        Margin="0,2,0,2"
                                         FontSize="8"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
                                         Grid.Column="0"
+                                        Margin="0,2,0,2"
                                         Text="{Binding TaskName}" />
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </GroupBox>
+                <GroupBox
+                    Grid.Column="4"
+                    FontWeight="DemiBold"
+                    Header="DONE">
+                    <ListBox ItemsSource="{Binding TaskDones}" MouseLeave="ListBox_MouseLeave">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                                <Setter Property="Margin" Value="0,10,0,10" />
+                                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="10,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="9*" />
+                                        <ColumnDefinition Width="40" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock
+                                        Grid.Row="0"
+                                        Grid.Column="0"
+                                        Margin="0,2,0,2"
+                                        FontSize="8"
+                                        Text="{Binding TaskCode}" />
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        Grid.Column="0"
+                                        Margin="0,2,0,2"
+                                        Text="{Binding TaskName}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </GroupBox>
+
+
             </Grid>
         </Grid>
     </hc:TransitioningContentControl>

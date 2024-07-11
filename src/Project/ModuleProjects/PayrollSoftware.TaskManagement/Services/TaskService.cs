@@ -40,65 +40,86 @@ namespace PayrollSoftware.TaskManagement.Services
 
         private async void UpdateTasksDone(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            try
             {
-                return;
+                if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                {
+                    return;
+                }
+                var tasks = e.NewItems.Cast<Task>().ToList();
+                var tasksNotDone = tasks.Where(t => t.Status != TaskState.DONE).ToList();
+                if (!tasksNotDone.Any())
+                {
+                    return;
+                }
+                var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotDone, TaskState.DONE);
+                if (!isUpdated)
+                {
+                    await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+                    return;
+                }
+                await CustomNotification.Success("Cập nhật trạng thái thành công");
             }
-            var tasks = e.NewItems.Cast<Task>().ToList();
-            var tasksNotDone = tasks.Where(t => t.Status != TaskState.DONE).ToList();
-            if (!tasksNotDone.Any())
+            catch (Exception ex)
             {
-                return;
+                await CustomNotification.Error("Cập nhật trạng thái thất bại!");
             }
-            var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotDone, TaskState.DONE);
-            if (!isUpdated)
-            {
-                await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
-                return;
-            }
-            await CustomNotification.Success("Cập nhật trạng thái thành công");
         }
 
         private async void UpdateTasksToDo(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            try
             {
-                return;
+                if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                {
+                    return;
+                }
+                var tasks = e.NewItems.Cast<Task>().ToList();
+                var tasksNotToDo = tasks.Where(t => t.Status != TaskState.TODO).ToList();
+                if (!tasksNotToDo.Any())
+                {
+                    return;
+                }
+                var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotToDo, TaskState.TODO);
+                if (!isUpdated)
+                {
+                    await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+                    return;
+                }
+                await CustomNotification.Success("Cập nhật trạng thái thành công");
             }
-            var tasks = e.NewItems.Cast<Task>().ToList();
-            var tasksNotToDo = tasks.Where(t => t.Status != TaskState.TODO).ToList();
-            if (!tasksNotToDo.Any())
-            {
-                return;
-            }
-            var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotToDo, TaskState.TODO);
-            if (!isUpdated)
+            catch (Exception ex)
             {
                 await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
-                return;
             }
-            await CustomNotification.Success("Cập nhật trạng thái thành công");
         }
 
         private async void UpdateTasksInProgess(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            try
             {
-                return;
+                if (e.Action != System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                {
+                    return;
+                }
+                var tasks = e.NewItems.Cast<Task>().ToList();
+                var tasksNotInProgress = tasks.Where(t => t.Status != TaskState.INPROGESS).ToList();
+                if (!tasksNotInProgress.Any())
+                {
+                    return;
+                }
+                var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotInProgress, TaskState.INPROGESS);
+                if (!isUpdated)
+                {
+                    await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+                    return;
+                }
+                await CustomNotification.Success("Cập nhật trạng thái thành công");
             }
-            var tasks = e.NewItems.Cast<Task>().ToList();
-            var tasksNotInProgress = tasks.Where(t => t.Status != TaskState.INPROGESS).ToList();
-            if (!tasksNotInProgress.Any())
-            {
-                return;
-            }
-            var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotInProgress, TaskState.INPROGESS);
-            if (!isUpdated)
+            catch (Exception ex)
             {
                 await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
-                return;
             }
-            await CustomNotification.Success("Cập nhật trạng thái thành công");
         }
 
         public ObservableCollection<Task> TaskToDos { get; private set; }
