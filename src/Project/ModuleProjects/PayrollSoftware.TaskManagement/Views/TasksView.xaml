@@ -100,35 +100,67 @@
                                 <Setter Property="Margin" Value="0,10,0,10" />
                                 <Setter Property="MinHeight" Value="60" />
                                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <hc:TransitioningContentControl TransitionMode="Bottom2Top">
+                                                <Border
+                                                    x:Name="Bd"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                                    SnapsToDevicePixels="true">
+                                                    <ContentPresenter
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+                                            </hc:TransitioningContentControl>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="10,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="9*" />
-                                        <ColumnDefinition Width="40" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
-                                        Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="8"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
-                                        Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="16"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskName}"
                                         TextWrapping="WrapWithOverflow" />
+                                    <Border
+                                        Grid.Row="2"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1" />
+                                    <DockPanel Grid.Row="3">
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="8"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                                    </DockPanel>
                                 </Grid>
+
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
@@ -147,34 +179,65 @@
                                 <Setter Property="MinHeight" Value="60" />
                                 <Setter Property="Margin" Value="0,10,0,10" />
                                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <hc:TransitioningContentControl TransitionMode="Bottom2Top">
+                                                <Border
+                                                    x:Name="Bd"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                                    SnapsToDevicePixels="true">
+                                                    <ContentPresenter
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+                                            </hc:TransitioningContentControl>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="10,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="9*" />
-                                        <ColumnDefinition Width="40" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
-                                        Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="8"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
-                                        Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="16"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskName}"
                                         TextWrapping="WrapWithOverflow" />
+                                    <Border
+                                        Grid.Row="2"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1" />
+                                    <DockPanel Grid.Row="3">
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="8"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                                    </DockPanel>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -194,34 +257,65 @@
                                 <Setter Property="MinHeight" Value="60" />
                                 <Setter Property="Margin" Value="0,10,0,10" />
                                 <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <hc:TransitioningContentControl TransitionMode="Bottom2Top">
+                                                <Border
+                                                    x:Name="Bd"
+                                                    Padding="{TemplateBinding Padding}"
+                                                    Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                                    SnapsToDevicePixels="true">
+                                                    <ContentPresenter
+                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                                </Border>
+                                            </hc:TransitioningContentControl>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="10,0,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="9*" />
-                                        <ColumnDefinition Width="40" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid
+                                    Margin="10,0,0,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch">
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <TextBlock
                                         Grid.Row="0"
-                                        Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="8"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskCode}" />
                                     <TextBlock
                                         Grid.Row="1"
-                                        Grid.Column="0"
                                         Margin="0,2,0,2"
                                         FontSize="16"
                                         Foreground="{DynamicResource PrimaryTextBrush}"
                                         Text="{Binding TaskName}"
                                         TextWrapping="WrapWithOverflow" />
+                                    <Border
+                                        Grid.Row="2"
+                                        BorderBrush="{DynamicResource BorderBrush}"
+                                        BorderThickness="1" />
+                                    <DockPanel Grid.Row="3">
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="8"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
+                                    </DockPanel>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
