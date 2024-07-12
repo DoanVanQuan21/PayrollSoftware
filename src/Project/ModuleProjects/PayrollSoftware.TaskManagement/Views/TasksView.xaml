@@ -21,8 +21,7 @@
             <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
             <Setter Property="hc:TitleElement.Background" Value="{DynamicResource RegionBrush}" />
             <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
-            <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="BorderThickness" Value="0" />
         </Style>
         <Style BasedOn="{StaticResource ListBoxBaseStyle}" TargetType="{x:Type ListBox}">
             <Setter Property="dd:DragDrop.IsDragSource" Value="True" />
@@ -86,10 +85,18 @@
                     Width="1"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource BorderBrush}" />
-                <GroupBox
-                    Margin="2,2,5,0"
-                    FontWeight="DemiBold"
-                    Header="TO DO">
+                <GroupBox Margin="2,2,5,0" FontWeight="DemiBold">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                                Width="10"
+                                Height="10"
+                                Margin="2"
+                                Background="Orange"
+                                CornerRadius="100" />
+                            <TextBlock Margin="2">TO DO</TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
                     <ListBox
                         ItemsSource="{Binding TaskToDos}"
                         MouseLeave="ListBox_MouseLeave"
