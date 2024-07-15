@@ -8,6 +8,7 @@
     xmlns:local="clr-namespace:PayrollSoftware.TaskManagement.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:PayrollSoftware.TaskManagement.ViewModels"
+    x:Name="Container"
     d:DataContext="{d:DesignInstance vm:TasksViewModel,
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
@@ -28,6 +29,7 @@
             <Setter Property="dd:DragDrop.IsDropTarget" Value="True" />
             <Setter Property="dd:DragDrop.UseDefaultEffectDataTemplate" Value="True" />
             <Setter Property="BorderThickness" Value="0" />
+
         </Style>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
@@ -85,14 +87,17 @@
                     Width="1"
                     HorizontalAlignment="Stretch"
                     Background="{DynamicResource BorderBrush}" />
-                <GroupBox Margin="2,2,5,0" FontWeight="DemiBold">
+                <GroupBox
+                    Margin="2,2,5,0"
+                    HorizontalContentAlignment="Center"
+                    FontWeight="DemiBold">
                     <GroupBox.Header>
                         <StackPanel Orientation="Horizontal">
                             <Border
                                 Width="10"
                                 Height="10"
                                 Margin="2"
-                                Background="Orange"
+                                Background="{DynamicResource DotOrangeBrush}"
                                 CornerRadius="100" />
                             <TextBlock Margin="2">TO DO</TextBlock>
                         </StackPanel>
@@ -101,35 +106,6 @@
                         ItemsSource="{Binding TaskToDos}"
                         MouseLeave="ListBox_MouseLeave"
                         SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
-                                <Setter Property="Margin" Value="0,10,0,10" />
-                                <Setter Property="MinHeight" Value="60" />
-                                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <hc:TransitioningContentControl TransitionMode="Bottom2Top">
-                                                <Border
-                                                    x:Name="Bd"
-                                                    Padding="{TemplateBinding Padding}"
-                                                    Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
-                                                    SnapsToDevicePixels="true">
-                                                    <ContentPresenter
-                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                </Border>
-                                            </hc:TransitioningContentControl>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid
@@ -142,12 +118,19 @@
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Margin="0,2,0,2"
-                                        FontSize="8"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding TaskCode}" />
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <Border
+                                            Width="8"
+                                            Height="8"
+                                            Margin="3,3,8,3"
+                                            Background="{DynamicResource DotOrangeBrush}"
+                                            CornerRadius="100" />
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="8"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding TaskCode}" />
+                                    </StackPanel>
                                     <TextBlock
                                         Grid.Row="1"
                                         Margin="0,2,0,2"
@@ -174,41 +157,23 @@
                 </GroupBox>
                 <GroupBox
                     Grid.Column="2"
-                    FontWeight="DemiBold"
-                    Header="IN PROGESS">
+                    HorizontalContentAlignment="Center"
+                    FontWeight="DemiBold">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                                Width="10"
+                                Height="10"
+                                Margin="2"
+                                Background="{DynamicResource DotPurpleBrush}"
+                                CornerRadius="100" />
+                            <TextBlock Margin="2">IN PROGRESS</TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
                     <ListBox
                         ItemsSource="{Binding TaskInProgesses}"
                         MouseLeave="ListBox_MouseLeave"
                         SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
-                                <Setter Property="MinHeight" Value="60" />
-                                <Setter Property="Margin" Value="0,10,0,10" />
-                                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <hc:TransitioningContentControl TransitionMode="Bottom2Top">
-                                                <Border
-                                                    x:Name="Bd"
-                                                    Padding="{TemplateBinding Padding}"
-                                                    Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
-                                                    SnapsToDevicePixels="true">
-                                                    <ContentPresenter
-                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                </Border>
-                                            </hc:TransitioningContentControl>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid
@@ -221,12 +186,19 @@
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Margin="0,2,0,2"
-                                        FontSize="8"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding TaskCode}" />
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <Border
+                                            Width="8"
+                                            Height="8"
+                                            Margin="3,3,8,3"
+                                            Background="{DynamicResource DotPurpleBrush}"
+                                            CornerRadius="100" />
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="8"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding TaskCode}" />
+                                    </StackPanel>
                                     <TextBlock
                                         Grid.Row="1"
                                         Margin="0,2,0,2"
@@ -252,41 +224,23 @@
                 </GroupBox>
                 <GroupBox
                     Grid.Column="4"
-                    FontWeight="DemiBold"
-                    Header="DONE">
+                    HorizontalContentAlignment="Center"
+                    FontWeight="DemiBold">
+                    <GroupBox.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+                                Width="10"
+                                Height="10"
+                                Margin="2"
+                                Background="{DynamicResource DotGreenBrush}"
+                                CornerRadius="100" />
+                            <TextBlock Margin="2">DONE</TextBlock>
+                        </StackPanel>
+                    </GroupBox.Header>
                     <ListBox
                         ItemsSource="{Binding TaskDones}"
                         MouseLeave="ListBox_MouseLeave"
                         SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
-                        <ListBox.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
-                                <Setter Property="MinHeight" Value="60" />
-                                <Setter Property="Margin" Value="0,10,0,10" />
-                                <Setter Property="Effect" Value="{StaticResource EffectShadow3}" />
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="ListBoxItem">
-                                            <hc:TransitioningContentControl TransitionMode="Bottom2Top">
-                                                <Border
-                                                    x:Name="Bd"
-                                                    Padding="{TemplateBinding Padding}"
-                                                    Background="{TemplateBinding Background}"
-                                                    BorderBrush="{TemplateBinding BorderBrush}"
-                                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                                    CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
-                                                    SnapsToDevicePixels="true">
-                                                    <ContentPresenter
-                                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-                                                </Border>
-                                            </hc:TransitioningContentControl>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid
@@ -299,12 +253,20 @@
                                         <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <TextBlock
-                                        Grid.Row="0"
-                                        Margin="0,2,0,2"
-                                        FontSize="8"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding TaskCode}" />
+                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                        <Border
+                                            Width="8"
+                                            Height="8"
+                                            Margin="3,3,8,3"
+                                            Background="{DynamicResource DotGreenBrush}"
+                                            CornerRadius="100" />
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="8"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding TaskCode}" />
+                                    </StackPanel>
+
                                     <TextBlock
                                         Grid.Row="1"
                                         Margin="0,2,0,2"
@@ -328,7 +290,11 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                 </GroupBox>
-                <GroupBox Grid.Column="6" FontWeight="DemiBold">
+                <GroupBox
+                    x:Name="TaskProperties"
+                    Grid.Column="6"
+                    HorizontalContentAlignment="Center"
+                    FontWeight="DemiBold">
                     <GroupBox.Header>
                         <TextBlock>
                             <Run Text="{Binding CurrentTask.Project.ProjectName}" />
@@ -336,7 +302,124 @@
                             <Run Text="{Binding CurrentTask.TaskCode}" />
                         </TextBlock>
                     </GroupBox.Header>
-                    <hc:PropertyGrid Column="Default" SelectedObject="{Binding CurrentTask}" />
+                    <TreeView Margin="0" BorderBrush="Transparent">
+                        <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Task">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock>Task name</TextBlock>
+                                        <TextBlock Text=" : " />
+                                        <TextBlock Text="{Binding CurrentTask.TaskName}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock>Status</TextBlock>
+                                        <TextBlock Text=" : " />
+                                        <TextBlock Text="{Binding CurrentTask.Status}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock>Type</TextBlock>
+                                        <TextBlock Text=" : " />
+                                        <TextBlock Text="{Binding CurrentTask.Type}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock>Priority</TextBlock>
+                                        <TextBlock Text=" : " />
+                                        <TextBlock Text="{Binding CurrentTask.Priority}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Date">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Text="Created date: " />
+                                        <hc:DatePicker
+                                            Margin="0,5,0,5"
+                                            DockPanel.Dock="Bottom"
+                                            IsEnabled="False"
+                                            SelectedDate="{Binding CurrentTask.CreatedDate}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Text="Start date: " />
+                                        <hc:DatePicker
+                                            Margin="0,5,0,5"
+                                            DockPanel.Dock="Bottom"
+                                            SelectedDate="{Binding CurrentTask.StartDate}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Text="Updated date:" />
+                                        <DatePicker
+                                            Margin="0,5,0,5"
+                                            DockPanel.Dock="Bottom"
+                                            SelectedDate="{Binding CurrentTask.UpdatedDate}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Text="Due date:" />
+                                        <DatePicker
+                                            Margin="0,5,0,5"
+                                            DockPanel.Dock="Bottom"
+                                            SelectedDate="{Binding CurrentTask.DueDate}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Text="Complition date: " />
+                                        <DatePicker
+                                            Margin="0,5,0,5"
+                                            DockPanel.Dock="Bottom"
+                                            SelectedDate="{Binding CurrentTask.CompletionDate}" />
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Descriptions">
+                            <TreeViewItem>
+                                <TreeViewItem.Header>
+                                    <DockPanel>
+                                        <TextBlock DockPanel.Dock="Top" Text="Description" />
+                                        <RichTextBox
+                                            Height="100"
+                                            MinWidth="280"
+                                            DockPanel.Dock="Bottom">
+                                            <FlowDocument>
+                                                <Paragraph>
+                                                    <Run Text="{Binding CurrentTask.Description}" />
+                                                </Paragraph>
+                                            </FlowDocument>
+                                        </RichTextBox>
+                                    </DockPanel>
+                                </TreeViewItem.Header>
+                            </TreeViewItem>
+                        </TreeViewItem>
+
+                    </TreeView>
                 </GroupBox>
             </Grid>
         </Grid>

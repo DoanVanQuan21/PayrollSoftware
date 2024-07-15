@@ -104,7 +104,92 @@
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="VerticalContentAlignment" Value="Center" />
         <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
-        <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemBaseStyle}" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+                    <Setter Property="MinHeight" Value="60" />
+                    <Setter Property="Margin" Value="0,10,0,10" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <hc:TransitioningContentControl TransitionMode="Bottom2Top">
+                                    <Border
+                                        x:Name="Bd"
+                                        Margin="5"
+                                        Padding="{TemplateBinding Padding}"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}"
+                                        Effect="{StaticResource EffectShadow3}"
+                                        SnapsToDevicePixels="true"
+                                        Style="{StaticResource BorderRegion}">
+                                        <ContentPresenter
+                                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Border>
+                                </hc:TransitioningContentControl>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource RowMouseOverRegionBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource RowMouseOverBorderBrush}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Background" Value="{DynamicResource RowSelectedRegionBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource RowSelectedBorderBrush}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="true" />
+                                <Condition Property="Selector.IsSelectionActive" Value="false" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Background" Value="{DynamicResource RowSelectedRegionBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource RowSelectedBorderBrush}" />
+                            <Setter Property="BorderThickness" Value="1" />
+                            <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+                        </MultiTrigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Opacity" Value=".4" />
+                        </Trigger>
+                        <Trigger Property="hc:EdgeElement.ShowEdgeContent" Value="true">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border
+                                            x:Name="Bd"
+                                            Padding="{TemplateBinding Padding}"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            SnapsToDevicePixels="true">
+                                            <StackPanel Orientation="Horizontal">
+                                                <ContentControl
+                                                    Width="16"
+                                                    Height="16"
+                                                    Content="{Binding Path=(hc:EdgeElement.LeftContent), RelativeSource={RelativeSource TemplatedParent}}" />
+                                                <ContentPresenter
+                                                    Margin="6,0,0,0"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                            </StackPanel>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Setter.Value>
+        </Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">

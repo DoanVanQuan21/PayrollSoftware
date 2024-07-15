@@ -1,6 +1,9 @@
 ﻿using PayrollSoftware.Core.Mvvms;
+using PayrollSoftware.Core.Services;
 using PayrollSoftware.TaskManagement.Services.Contracts;
+using Prism.Commands;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using Task = PayrollSoftware.Core.Models.TaskManagement.Task;
 
 namespace PayrollSoftware.TaskManagement.ViewModels
@@ -11,7 +14,7 @@ namespace PayrollSoftware.TaskManagement.ViewModels
         private Task currentTask;
 
         public Task CurrentTask { get => currentTask; set => SetProperty(ref currentTask,value); }
-
+        public ICommand DeleteTaskCommand { get; set; }
         public TasksViewModel() : base()
         {
             _taskService = Ioc.Resolve<ITaskService>();
@@ -19,7 +22,13 @@ namespace PayrollSoftware.TaskManagement.ViewModels
 
         protected override void RegisterCommand()
         {
+            DeleteTaskCommand = new DelegateCommand<Task>(OnDeleteTask);
             base.RegisterCommand();
+        }
+
+        private async void OnDeleteTask(Task task)
+        {
+            await CustomNotification.Info("Đã xóa thành công");
         }
 
         protected override void OnLoaded()

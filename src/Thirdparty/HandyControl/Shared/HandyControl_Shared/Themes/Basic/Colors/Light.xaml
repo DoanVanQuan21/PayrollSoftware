@@ -9,7 +9,7 @@
 
 
     <!--  Custom color  -->
-    <Color x:Key="DefaultTextColor">#FEFD6E</Color>
+    <Color x:Key="DefaultTextColor">#FFFFFF</Color>
 
     <Color x:Key="DefaultIconColor">#09BBA3</Color>
     <Color x:Key="DefaultBorderColor">#FEFD6E</Color>
@@ -17,6 +17,16 @@
     <Color x:Key="RowMouseOverBorderColor">#2FB1FF</Color>
     <Color x:Key="RowSelectedBorderColor">#44B8FF</Color>
     <Color x:Key="RowSelectedRegionColor">#292FB1FF</Color>
+    <Color x:Key="DotPinkColor">#f78585</Color>
+    <Color x:Key="DotOrangeColor">#ee9d3f</Color>
+    <Color x:Key="DotGreenColor">#60c08c</Color>
+    <Color x:Key="DotPurpleColor">#8e84e1</Color>
+    <Color x:Key="CustomRegionColor">#3c715e</Color>
+
+    <SolidColorBrush
+        x:Key="CustomRegionBrush"
+        o:Freeze="true"
+        Color="{StaticResource CustomRegionColor}" />
     <SolidColorBrush
         x:Key="DefaultTextBrush"
         o:Freeze="true"
@@ -46,6 +56,22 @@
         x:Key="RowSelectedRegionBrush"
         o:Freeze="true"
         Color="{StaticResource RowSelectedRegionColor}" />
+    <SolidColorBrush
+        x:Key="DotPinkBrush"
+        o:Freeze="true"
+        Color="{StaticResource DotPinkColor}" />
+    <SolidColorBrush
+        x:Key="DotGreenBrush"
+        o:Freeze="true"
+        Color="{StaticResource DotGreenColor}" />
+    <SolidColorBrush
+        x:Key="DotOrangeBrush"
+        o:Freeze="true"
+        Color="{StaticResource DotOrangeColor}" />
+    <SolidColorBrush
+        x:Key="DotPurpleBrush"
+        o:Freeze="true"
+        Color="{StaticResource DotPurpleColor}" />
     <!--  End custom color  -->
 
 

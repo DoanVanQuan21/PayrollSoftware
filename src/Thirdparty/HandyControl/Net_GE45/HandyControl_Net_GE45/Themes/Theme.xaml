@@ -471,6 +471,28 @@ Source files:
   <Style x:Key="DataGridTextColumnStyle" TargetType="TextBlock">
     <Setter Property="TextTrimming" Value="CharacterEllipsis" />
   </Style>
+  <ControlTemplate x:Key="GroupBoxBaseTopTemplate" TargetType="GroupBox">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <Border MinHeight="{Binding Path=(hc:TitleElement.MinHeight), RelativeSource={RelativeSource TemplatedParent}}" Margin="0,0,0,6" Background="{Binding Path=(hc:TitleElement.Background), RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+        <ContentPresenter Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" TextElement.Foreground="{TemplateBinding Foreground}" />
+      </Border>
+      <Border Grid.Row="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
+        <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+      </Border>
+    </Grid>
+    <!--<Border
+            Background="Transparent"
+            BorderBrush="{TemplateBinding BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="{StaticResource DefaultCornerRadius}"
+            SnapsToDevicePixels="True">
+
+        </Border>-->
+  </ControlTemplate>
   <ControlTemplate x:Key="GroupBoxBaseLeftTemplate" TargetType="GroupBox">
     <Grid>
       <Grid.ColumnDefinitions>
@@ -1001,11 +1023,11 @@ Source files:
     <GradientStop Color="#BBC5D7" Offset="0.75" />
     <GradientStop Color="#6D83A9" Offset="1" />
   </LinearGradientBrush>
-  <DropShadowEffect x:Key="EffectShadow1" BlurRadius="5" ShadowDepth="1" Direction="270" Color="{StaticResource EffectShadowColor}" Opacity=".2" RenderingBias="Performance" o:Freeze="True" />
-  <DropShadowEffect x:Key="EffectShadow2" BlurRadius="8" ShadowDepth="1.5" Direction="270" Color="{StaticResource EffectShadowColor}" Opacity=".2" RenderingBias="Performance" o:Freeze="True" />
-  <DropShadowEffect x:Key="EffectShadow3" BlurRadius="14" ShadowDepth="4.5" Direction="270" Color="{StaticResource EffectShadowColor}" Opacity=".2" RenderingBias="Performance" o:Freeze="True" />
-  <DropShadowEffect x:Key="EffectShadow4" BlurRadius="25" ShadowDepth="8" Direction="270" Color="{StaticResource EffectShadowColor}" Opacity=".2" RenderingBias="Performance" o:Freeze="True" />
-  <DropShadowEffect x:Key="EffectShadow5" BlurRadius="35" ShadowDepth="13" Direction="270" Color="{StaticResource EffectShadowColor}" Opacity=".2" RenderingBias="Performance" o:Freeze="True" />
+  <DropShadowEffect x:Key="EffectShadow1" o:Freeze="True" BlurRadius="5" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="1" Color="{StaticResource EffectShadowColor}" />
+  <DropShadowEffect x:Key="EffectShadow2" o:Freeze="True" BlurRadius="8" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="1.5" Color="{StaticResource EffectShadowColor}" />
+  <DropShadowEffect x:Key="EffectShadow3" o:Freeze="True" BlurRadius="14" Direction="270" Opacity=".2" RenderingBias="Quality" ShadowDepth="4.5" Color="{StaticResource EffectShadowColor}" />
+  <DropShadowEffect x:Key="EffectShadow4" o:Freeze="True" BlurRadius="25" Direction="270" Opacity=".2" RenderingBias="Quality" ShadowDepth="8" Color="{StaticResource EffectShadowColor}" />
+  <DropShadowEffect x:Key="EffectShadow5" o:Freeze="True" BlurRadius="35" Direction="270" Opacity=".2" RenderingBias="Performance" ShadowDepth="13" Color="{StaticResource EffectShadowColor}" />
   <Style x:Key="SearchPathStyle" BasedOn="{StaticResource PathBaseStyle}" TargetType="Path">
     <Setter Property="Data" Value="{StaticResource SearchGeometry}" />
   </Style>
@@ -2376,22 +2398,6 @@ Source files:
       </Setter.Value>
     </Setter>
   </Style>
-  <ControlTemplate x:Key="GroupBoxBaseTopTemplate" TargetType="GroupBox">
-    <Border Background="Transparent" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="{StaticResource DefaultCornerRadius}" SnapsToDevicePixels="True">
-      <Grid>
-        <Grid.RowDefinitions>
-          <RowDefinition Height="Auto" />
-          <RowDefinition />
-        </Grid.RowDefinitions>
-        <Border MinHeight="{Binding Path=(hc:TitleElement.MinHeight), RelativeSource={RelativeSource TemplatedParent}}" Margin="0,0,0,6" Background="{Binding Path=(hc:TitleElement.Background), RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
-          <ContentPresenter Margin="{Binding Path=(hc:TitleElement.Padding), RelativeSource={RelativeSource TemplatedParent}}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" ContentSource="Header" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" TextElement.Foreground="{TemplateBinding Foreground}" />
-        </Border>
-        <Border Grid.Row="1" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}">
-          <ContentPresenter Margin="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-        </Border>
-      </Grid>
-    </Border>
-  </ControlTemplate>
   <Style x:Key="GroupBoxBaseStyle" TargetType="GroupBox">
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
     <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
@@ -4040,8 +4046,8 @@ Source files:
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ToggleButton">
-          <Border Background="Transparent" Height="16" Padding="4" Width="16">
-            <Path x:Name="ExpandPath" RenderTransformOrigin="0.5,0.5" Stretch="Uniform" Data="{StaticResource TreeArrow}" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TreeViewItem}}">
+          <Border Width="16" Height="16" Padding="4" Background="Transparent">
+            <Path x:Name="ExpandPath" Data="{StaticResource TreeArrow}" Fill="{Binding Foreground, RelativeSource={RelativeSource AncestorType=TreeViewItem}}" RenderTransformOrigin="0.5,0.5" Stretch="Uniform">
               <Path.RenderTransform>
                 <RotateTransform Angle="-90" />
               </Path.RenderTransform>
@@ -4049,7 +4055,7 @@ Source files:
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="IsChecked" Value="True">
-              <Setter Property="RenderTransform" TargetName="ExpandPath">
+              <Setter TargetName="ExpandPath" Property="RenderTransform">
                 <Setter.Value>
                   <RotateTransform Angle="0" />
                 </Setter.Value>
@@ -7920,7 +7926,66 @@ Source files:
     <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
     <Setter Property="VerticalContentAlignment" Value="Center" />
     <Setter Property="hc:BorderElement.CornerRadius" Value="{StaticResource DefaultCornerRadius}" />
-    <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemBaseStyle}" />
+    <Setter Property="ItemContainerStyle">
+      <Setter.Value>
+        <Style TargetType="ListBoxItem">
+          <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+          <Setter Property="MinHeight" Value="60" />
+          <Setter Property="Margin" Value="0,10,0,10" />
+          <Setter Property="Template">
+            <Setter.Value>
+              <ControlTemplate TargetType="ListBoxItem">
+                <local:TransitioningContentControl TransitionMode="Bottom2Top">
+                  <Border x:Name="Bd" Margin="5" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" Effect="{StaticResource EffectShadow3}" SnapsToDevicePixels="true" Style="{StaticResource BorderRegion}">
+                    <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                  </Border>
+                </local:TransitioningContentControl>
+              </ControlTemplate>
+            </Setter.Value>
+          </Setter>
+          <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+              <Setter Property="Background" Value="{DynamicResource RowMouseOverRegionBrush}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource RowMouseOverBorderBrush}" />
+              <Setter Property="BorderThickness" Value="1" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="true">
+              <Setter Property="Background" Value="{DynamicResource RowSelectedRegionBrush}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource RowSelectedBorderBrush}" />
+              <Setter Property="BorderThickness" Value="1" />
+              <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+            </Trigger>
+            <MultiTrigger>
+              <MultiTrigger.Conditions>
+                <Condition Property="IsSelected" Value="true" />
+                <Condition Property="Selector.IsSelectionActive" Value="false" />
+              </MultiTrigger.Conditions>
+              <Setter Property="Background" Value="{DynamicResource RowSelectedRegionBrush}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource RowSelectedBorderBrush}" />
+              <Setter Property="BorderThickness" Value="1" />
+              <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="false">
+              <Setter Property="Opacity" Value=".4" />
+            </Trigger>
+            <Trigger Property="hc:EdgeElement.ShowEdgeContent" Value="true">
+              <Setter Property="Template">
+                <Setter.Value>
+                  <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
+                      <StackPanel Orientation="Horizontal">
+                        <ContentControl Width="16" Height="16" Content="{Binding Path=(hc:EdgeElement.LeftContent), RelativeSource={RelativeSource TemplatedParent}}" />
+                        <ContentPresenter Margin="6,0,0,0" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                      </StackPanel>
+                    </Border>
+                  </ControlTemplate>
+                </Setter.Value>
+              </Setter>
+            </Trigger>
+          </Style.Triggers>
+        </Style>
+      </Setter.Value>
+    </Setter>
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="ListBox">
@@ -9777,7 +9842,7 @@ Source files:
     <Setter Property="Padding" Value="10,0" />
     <Setter Property="BorderThickness" Value="0" />
     <Setter Property="MinHeight" Value="{StaticResource DefaultControlHeight}" />
-    <Setter Property="Margin" Value="0,0,0,2" />
+    <Setter Property="Margin" Value="1,1,1,10" />
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="TreeViewItem">
@@ -9786,31 +9851,35 @@ Source files:
               <RowDefinition MinHeight="{TemplateBinding MinHeight}" />
               <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Border x:Name="Bd" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="true">
-              <DockPanel LastChildFill="True" Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+            <Border x:Name="Bd" Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="true">
+              <DockPanel Margin="{Binding Converter={StaticResource TreeViewItemMarginConverter}, RelativeSource={RelativeSource TemplatedParent}}" LastChildFill="True">
                 <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" Style="{StaticResource ExpandCollapseToggleStyle}" />
-                <ContentPresenter VerticalAlignment="Center" x:Name="PART_Header" ContentSource="Header" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                <ContentPresenter x:Name="PART_Header" VerticalAlignment="Center" ContentSource="Header" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
               </DockPanel>
             </Border>
             <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" />
           </Grid>
           <ControlTemplate.Triggers>
-            <Trigger Property="IsMouseOver" Value="true" SourceName="Bd">
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource SecondaryRegionBrush}" />
+            <Trigger SourceName="Bd" Property="IsMouseOver" Value="true">
+              <Setter Property="Background" Value="{DynamicResource RowMouseOverRegionBrush}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource RowMouseOverBorderBrush}" />
+              <Setter Property="BorderThickness" Value="1" />
             </Trigger>
             <Trigger Property="IsExpanded" Value="false">
-              <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed" />
+              <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
             </Trigger>
             <Trigger Property="HasItems" Value="false">
-              <Setter Property="Visibility" TargetName="Expander" Value="Hidden" />
+              <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
             </Trigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
                 <Condition Property="IsSelected" Value="true" />
                 <Condition Property="hc:TreeViewAttach.IsCheckTreeView" Value="false" />
               </MultiTrigger.Conditions>
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource PrimaryBrush}" />
-              <Setter Property="Foreground" Value="{DynamicResource TextIconBrush}" />
+              <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RowSelectedRegionBrush}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource RowSelectedBorderBrush}" />
+              <Setter Property="BorderThickness" Value="1" />
+              <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
             </MultiTrigger>
             <MultiTrigger>
               <MultiTrigger.Conditions>
@@ -9818,7 +9887,9 @@ Source files:
                 <Condition Property="IsSelectionActive" Value="false" />
                 <Condition Property="hc:TreeViewAttach.IsCheckTreeView" Value="false" />
               </MultiTrigger.Conditions>
-              <Setter Property="Background" TargetName="Bd" Value="{DynamicResource DarkDefaultBrush}" />
+              <Setter TargetName="Bd" Property="Background" Value="{DynamicResource RowSelectedRegionBrush}" />
+              <Setter Property="BorderBrush" Value="{DynamicResource RowSelectedBorderBrush}" />
+              <Setter Property="BorderThickness" Value="1" />
               <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
             </MultiTrigger>
             <Trigger Property="IsEnabled" Value="false">
@@ -9829,7 +9900,7 @@ Source files:
       </Setter.Value>
     </Setter>
   </Style>
-  <Style x:Key="TreeViewBaseStyle" TargetType="TreeView" BasedOn="{StaticResource BaseStyle}">
+  <Style x:Key="TreeViewBaseStyle" BasedOn="{StaticResource BaseStyle}" TargetType="TreeView">
     <Setter Property="Focusable" Value="False" />
     <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush}" />
@@ -9846,10 +9917,10 @@ Source files:
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="TreeView">
-          <Border x:Name="Bd" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius),RelativeSource={RelativeSource TemplatedParent}}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" BorderThickness="{TemplateBinding BorderThickness}" SnapsToDevicePixels="true">
-            <local:ToggleBlock IsChecked="{Binding HasItems,RelativeSource={RelativeSource TemplatedParent},Mode=OneWay}" VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch">
+          <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="{Binding Path=(hc:BorderElement.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="true">
+            <local:ToggleBlock HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsChecked="{Binding HasItems, RelativeSource={RelativeSource TemplatedParent}, Mode=OneWay}">
               <local:ToggleBlock.CheckedContent>
-                <local:ScrollViewer x:Name="_tv_scrollviewer_" IsInertiaEnabled="{Binding Path=(hc:ScrollViewer.IsInertiaEnabled),RelativeSource={RelativeSource TemplatedParent}}" Focusable="false" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" Padding="{TemplateBinding Padding}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
+                <local:ScrollViewer x:Name="_tv_scrollviewer_" Padding="{TemplateBinding Padding}" Focusable="false" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsInertiaEnabled="{Binding Path=(hc:ScrollViewer.IsInertiaEnabled), RelativeSource={RelativeSource TemplatedParent}}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}">
                   <ItemsPresenter />
                 </local:ScrollViewer>
               </local:ToggleBlock.CheckedContent>
@@ -9860,7 +9931,7 @@ Source files:
           </Border>
           <ControlTemplate.Triggers>
             <Trigger Property="VirtualizingPanel.IsVirtualizing" Value="true">
-              <Setter Property="CanContentScroll" TargetName="_tv_scrollviewer_" Value="true" />
+              <Setter TargetName="_tv_scrollviewer_" Property="CanContentScroll" Value="true" />
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>

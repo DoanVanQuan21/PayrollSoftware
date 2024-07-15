@@ -52,6 +52,7 @@ namespace PayrollSoftware.TaskManagement.Services
                 {
                     return;
                 }
+                UpdateCompletionDate(tasksNotDone, true);
                 var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotDone, TaskState.DONE);
                 if (!isUpdated)
                 {
@@ -80,6 +81,8 @@ namespace PayrollSoftware.TaskManagement.Services
                 {
                     return;
                 }
+                UpdateCompletionDate(tasksNotToDo, false);
+                UpdateStartDate(tasksNotToDo, false);
                 var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotToDo, TaskState.TODO);
                 if (!isUpdated)
                 {
@@ -91,6 +94,24 @@ namespace PayrollSoftware.TaskManagement.Services
             catch (Exception ex)
             {
                 await CustomNotification.Warning("Cập nhật trạng thái thất bại!");
+            }
+        }
+
+        private void UpdateCompletionDate(List<Task> tasks, bool isComplete)
+        {
+            DateTime? completionDate = isComplete ? DateTime.Now : null;
+            foreach (var task in tasks)
+            {
+                task.CompletionDate = completionDate;
+            }
+        }
+
+        private void UpdateStartDate(List<Task> tasks, bool isStarted)
+        {
+            DateTime? completionDate = isStarted ? DateTime.Now : null;
+            foreach (var task in tasks)
+            {
+                task.StartDate = completionDate;
             }
         }
 
@@ -108,6 +129,8 @@ namespace PayrollSoftware.TaskManagement.Services
                 {
                     return;
                 }
+                UpdateCompletionDate(tasksNotInProgress, false);
+                UpdateStartDate(tasksNotInProgress, true);
                 var isUpdated = await _taskManagementService.TaskRepository.UpdateTasks(tasksNotInProgress, TaskState.INPROGESS);
                 if (!isUpdated)
                 {
