@@ -131,20 +131,68 @@
                                             Foreground="{DynamicResource PrimaryTextBrush}"
                                             Text="{Binding TaskCode}" />
                                     </StackPanel>
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Margin="0,2,0,2"
-                                        FontSize="16"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding TaskName}"
-                                        TextWrapping="WrapWithOverflow" />
+                                    <StackPanel Grid.Row="1">
+                                        <TextBlock
+                                            Margin="0,2,0,2"
+                                            FontSize="16"
+                                            Foreground="{DynamicResource PrimaryTextBrush}"
+                                            Text="{Binding TaskName}"
+                                            TextWrapping="WrapWithOverflow" />
+                                        <DockPanel>
+                                            <TextBlock
+                                                Margin="0,2,2,2"
+                                                DockPanel.Dock="Left"
+                                                Text="Người nhận: " />
+                                            <TextBlock DockPanel.Dock="Right">
+                                                <Run Text="{Binding User.FirstName}" />
+                                                <Run Text="{Binding User.LastName}" />
+                                            </TextBlock>
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock
+                                                Margin="0,2,2,2"
+                                                DockPanel.Dock="Left"
+                                                Text="Email: " />
+                                            <TextBlock DockPanel.Dock="Right" Text="{Binding User.Email}" />
+                                        </DockPanel>
+                                        <DockPanel>
+                                            <TextBlock
+                                                Margin="0,2,2,2"
+                                                DockPanel.Dock="Left"
+                                                Text="Phone number: " />
+                                            <TextBlock DockPanel.Dock="Right" Text="{Binding User.Phone}" />
+                                        </DockPanel>
+                                    </StackPanel>
+
                                     <Border
                                         Grid.Row="2"
                                         BorderBrush="{DynamicResource BorderBrush}"
                                         BorderThickness="1" />
-                                    <DockPanel Grid.Row="3">
+                                    <DockPanel x:Name="FooterContainer" Grid.Row="3">
+                                        <Button
+                                            Width="30"
+                                            Height="30"
+                                            Margin="2"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent">
+                                            <Button.Style>
+                                                <Style TargetType="Button">
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Path=Type, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="Issue">
+                                                            <Setter Property="hc:IconElement.Geometry" Value="{StaticResource CheckMarkCircleGeometry}" />
+                                                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
+                                                        </DataTrigger>
+                                                        <DataTrigger Binding="{Binding Path=Type, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="BUG">
+                                                            <Setter Property="hc:IconElement.Geometry" Value="{StaticResource BugGeometry}" />
+                                                            <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
                                         <TextBlock
                                             Margin="0,2,0,2"
+                                            VerticalAlignment="Center"
                                             FontSize="8"
                                             Foreground="{DynamicResource PrimaryTextBrush}"
                                             Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
