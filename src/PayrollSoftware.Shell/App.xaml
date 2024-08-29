@@ -12,6 +12,7 @@
                 <hc:Theme />
                 <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.Shared;component/Styles/Styles.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.UI;component/CustomControls/PropertyGrid/PropertyGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.TaskManagement;component/CustomControls/Tasks/Tasks.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.UI;component/Styles/Converter.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/PayrollSoftware.UI;component/Geometry/Geometry.xaml" />
             </ResourceDictionary.MergedDictionaries>

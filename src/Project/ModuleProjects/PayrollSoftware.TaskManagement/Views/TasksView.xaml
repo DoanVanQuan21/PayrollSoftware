@@ -5,32 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:dd="urn:gong-wpf-dragdrop"
     xmlns:hc="https://handyorg.github.io/handycontrol"
-    xmlns:local="clr-namespace:PayrollSoftware.TaskManagement.Views"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="clr-namespace:PayrollSoftware.TaskManagement.CustomControls"
     xmlns:vm="clr-namespace:PayrollSoftware.TaskManagement.ViewModels"
     x:Name="Container"
     d:DataContext="{d:DesignInstance vm:TasksViewModel,
-                                     IsDesignTimeCreatable=False}"
-    d:DesignHeight="450"
-    d:DesignWidth="800"
-    Style="{StaticResource UserControlStyle}"
-    mc:Ignorable="d">
+                                     IsDesignTimeCreatable=False}">
     <UserControl.Resources>
-        <Style BasedOn="{StaticResource GroupBoxBaseStyle}" TargetType="GroupBox">
-            <Setter Property="Margin" Value="5,2,5,0" />
-            <Setter Property="HorizontalContentAlignment" Value="Left" />
-            <Setter Property="hc:BorderElement.CornerRadius" Value="0" />
-            <Setter Property="hc:TitleElement.Background" Value="{DynamicResource RegionBrush}" />
-            <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
-            <Setter Property="BorderThickness" Value="0" />
-        </Style>
-        <Style BasedOn="{StaticResource ListBoxBaseStyle}" TargetType="{x:Type ListBox}">
-            <Setter Property="dd:DragDrop.IsDragSource" Value="True" />
-            <Setter Property="dd:DragDrop.IsDropTarget" Value="True" />
-            <Setter Property="dd:DragDrop.UseDefaultEffectDataTemplate" Value="True" />
-            <Setter Property="BorderThickness" Value="0" />
-
-        </Style>
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
         </Style>
@@ -62,285 +42,37 @@
                     Content="Create new"
                     Style="{StaticResource ButtonDashedInfo}" />
             </StackPanel>
-            <Grid Grid.Row="1" Margin="5">
+            <Grid Grid.Row="1" Margin="20">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
-                <GridSplitter
-                    Grid.Column="1"
-                    Width="1"
-                    HorizontalAlignment="Stretch"
-                    Background="{DynamicResource BorderBrush}" />
-                <GridSplitter
-                    Grid.Column="5"
-                    Width="1"
-                    HorizontalAlignment="Stretch"
-                    Background="{DynamicResource BorderBrush}" />
-                <GridSplitter
-                    Grid.Column="3"
-                    Width="1"
-                    HorizontalAlignment="Stretch"
-                    Background="{DynamicResource BorderBrush}" />
-                <GroupBox
-                    Margin="2,2,5,0"
+                <uc:Tasks
+                    Title="TODO"
+                    Grid.Column="0"
                     HorizontalContentAlignment="Center"
-                    FontWeight="DemiBold">
-                    <GroupBox.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border
-                                Width="10"
-                                Height="10"
-                                Margin="2"
-                                Background="{DynamicResource DotOrangeBrush}"
-                                CornerRadius="100" />
-                            <TextBlock Margin="2">TO DO</TextBlock>
-                        </StackPanel>
-                    </GroupBox.Header>
-                    <ListBox
-                        ItemsSource="{Binding TaskToDos}"
-                        MouseLeave="ListBox_MouseLeave"
-                        SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="10,0,0,0"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                        <Border
-                                            Width="8"
-                                            Height="8"
-                                            Margin="3,3,8,3"
-                                            Background="{DynamicResource DotOrangeBrush}"
-                                            CornerRadius="100" />
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            FontSize="8"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding TaskCode}" />
-                                    </StackPanel>
-                                    <StackPanel Grid.Row="1">
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            FontSize="16"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding TaskName}"
-                                            TextWrapping="WrapWithOverflow" />
-                                        <DockPanel>
-                                            <TextBlock
-                                                Margin="0,2,2,2"
-                                                DockPanel.Dock="Left"
-                                                Text="Người nhận: " />
-                                            <TextBlock DockPanel.Dock="Right">
-                                                <Run Text="{Binding User.FirstName}" />
-                                                <Run Text="{Binding User.LastName}" />
-                                            </TextBlock>
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <TextBlock
-                                                Margin="0,2,2,2"
-                                                DockPanel.Dock="Left"
-                                                Text="Email: " />
-                                            <TextBlock DockPanel.Dock="Right" Text="{Binding User.Email}" />
-                                        </DockPanel>
-                                        <DockPanel>
-                                            <TextBlock
-                                                Margin="0,2,2,2"
-                                                DockPanel.Dock="Left"
-                                                Text="Phone number: " />
-                                            <TextBlock DockPanel.Dock="Right" Text="{Binding User.Phone}" />
-                                        </DockPanel>
-                                    </StackPanel>
-
-                                    <Border
-                                        Grid.Row="2"
-                                        BorderBrush="{DynamicResource BorderBrush}"
-                                        BorderThickness="1" />
-                                    <DockPanel x:Name="FooterContainer" Grid.Row="3">
-                                        <Button
-                                            Width="30"
-                                            Height="30"
-                                            Margin="2"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent">
-                                            <Button.Style>
-                                                <Style TargetType="Button">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding Path=Type, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="Issue">
-                                                            <Setter Property="hc:IconElement.Geometry" Value="{StaticResource CheckMarkCircleGeometry}" />
-                                                            <Setter Property="Foreground" Value="{DynamicResource PrimaryBrush}" />
-                                                        </DataTrigger>
-                                                        <DataTrigger Binding="{Binding Path=Type, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="BUG">
-                                                            <Setter Property="hc:IconElement.Geometry" Value="{StaticResource BugGeometry}" />
-                                                            <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </Button.Style>
-                                        </Button>
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            VerticalAlignment="Center"
-                                            FontSize="8"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
-                                    </DockPanel>
-                                </Grid>
-
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
-                <GroupBox
+                    Icon="{StaticResource TaskListPeopleGeometry}"
+                    ItemsSource="{Binding TaskToDos}"
+                    SelectedTask="{Binding CurrentTask}" />
+                <uc:Tasks
+                    Title="PROGRESS"
+                    Grid.Column="1"
+                    HorizontalContentAlignment="Center"
+                    Icon="{StaticResource ClipboardPulseGeometry}"
+                    ItemsSource="{Binding TaskInProgesses}"
+                    SelectedTask="{Binding CurrentTask}" />
+                <uc:Tasks
+                    Title="DONE"
                     Grid.Column="2"
                     HorizontalContentAlignment="Center"
-                    FontWeight="DemiBold">
-                    <GroupBox.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border
-                                Width="10"
-                                Height="10"
-                                Margin="2"
-                                Background="{DynamicResource DotPurpleBrush}"
-                                CornerRadius="100" />
-                            <TextBlock Margin="2">IN PROGRESS</TextBlock>
-                        </StackPanel>
-                    </GroupBox.Header>
-                    <ListBox
-                        ItemsSource="{Binding TaskInProgesses}"
-                        MouseLeave="ListBox_MouseLeave"
-                        SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="10,0,0,0"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                        <Border
-                                            Width="8"
-                                            Height="8"
-                                            Margin="3,3,8,3"
-                                            Background="{DynamicResource DotPurpleBrush}"
-                                            CornerRadius="100" />
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            FontSize="8"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding TaskCode}" />
-                                    </StackPanel>
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Margin="0,2,0,2"
-                                        FontSize="16"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding TaskName}"
-                                        TextWrapping="WrapWithOverflow" />
-                                    <Border
-                                        Grid.Row="2"
-                                        BorderBrush="{DynamicResource BorderBrush}"
-                                        BorderThickness="1" />
-                                    <DockPanel Grid.Row="3">
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            FontSize="8"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
-                                    </DockPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
-                <GroupBox
-                    Grid.Column="4"
-                    HorizontalContentAlignment="Center"
-                    FontWeight="DemiBold">
-                    <GroupBox.Header>
-                        <StackPanel Orientation="Horizontal">
-                            <Border
-                                Width="10"
-                                Height="10"
-                                Margin="2"
-                                Background="{DynamicResource DotGreenBrush}"
-                                CornerRadius="100" />
-                            <TextBlock Margin="2">DONE</TextBlock>
-                        </StackPanel>
-                    </GroupBox.Header>
-                    <ListBox
-                        ItemsSource="{Binding TaskDones}"
-                        MouseLeave="ListBox_MouseLeave"
-                        SelectedValue="{Binding CurrentTask, Mode=TwoWay}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Grid
-                                    Margin="10,0,0,0"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Grid.Row="0" Orientation="Horizontal">
-                                        <Border
-                                            Width="8"
-                                            Height="8"
-                                            Margin="3,3,8,3"
-                                            Background="{DynamicResource DotGreenBrush}"
-                                            CornerRadius="100" />
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            FontSize="8"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding TaskCode}" />
-                                    </StackPanel>
-
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        Margin="0,2,0,2"
-                                        FontSize="16"
-                                        Foreground="{DynamicResource PrimaryTextBrush}"
-                                        Text="{Binding TaskName}"
-                                        TextWrapping="WrapWithOverflow" />
-                                    <Border
-                                        Grid.Row="2"
-                                        BorderBrush="{DynamicResource BorderBrush}"
-                                        BorderThickness="1" />
-                                    <DockPanel Grid.Row="3">
-                                        <TextBlock
-                                            Margin="0,2,0,2"
-                                            FontSize="8"
-                                            Foreground="{DynamicResource PrimaryTextBrush}"
-                                            Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
-                                    </DockPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                </GroupBox>
+                    Icon="{StaticResource ClipboardTaskDoneGeometry}"
+                    ItemsSource="{Binding TaskDones}"
+                    SelectedTask="{Binding CurrentTask}" />
                 <GroupBox
                     x:Name="TaskProperties"
-                    Grid.Column="6"
+                    Grid.Column="3"
                     HorizontalContentAlignment="Center"
                     FontWeight="DemiBold">
                     <GroupBox.Header>
@@ -466,7 +198,6 @@
                                 </TreeViewItem.Header>
                             </TreeViewItem>
                         </TreeViewItem>
-
                     </TreeView>
                 </GroupBox>
             </Grid>

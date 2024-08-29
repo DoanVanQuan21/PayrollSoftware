@@ -10,10 +10,13 @@
                                      IsDesignTimeCreatable=False}"
     Closed="Window_Closed"
     Icon="{Binding IconWindow}"
+    Style="{StaticResource WindowWin10}"
     WindowStartupLocation="CenterScreen"
     WindowState="Maximized"
     mc:Ignorable="d">
     <Grid>
-        <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        <Border BorderBrush="{DynamicResource BorderBrush}" BorderThickness="0,1,0,0">
+            <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Border>
     </Grid>
 </hc:Window>

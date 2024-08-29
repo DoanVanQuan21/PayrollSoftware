@@ -1,4 +1,6 @@
-﻿using PayrollSoftware.Core.Constants;
+﻿using DryIoc;
+using PayrollSoftware.Core.Constants;
+using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Contracts;
 using PayrollSoftware.Core.Events;
 using PayrollSoftware.Core.Models;
@@ -8,6 +10,7 @@ using PayrollSoftware.Devices.Services.Constracts;
 using PayrollSoftware.Shell.Views.UserControls;
 using PayrollSoftware.UI.Contracts;
 using Prism.Commands;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 
@@ -19,6 +22,7 @@ namespace PayrollSoftware.Shell.ViewModels
         private readonly IDeviceMonitoringManager _deviceManager;
         private readonly IThemeService _themeService;
         private Theme theme;
+        private MenuSetting currentTab;
 
         public TitleMenuViewModel()
         {
@@ -27,10 +31,25 @@ namespace PayrollSoftware.Shell.ViewModels
             _appManager = Ioc.Resolve<IAppManager>();
         }
 
+        public MenuSetting CurrentTab
+        {
+            get => currentTab; set
+            {
+                SetProperty(ref currentTab, value); 
+                if(value == null)
+                {
+                    return;
+                }
+                SetMainPage(currentTab.View);
+            }
+        }
+
+        public ObservableCollection<MenuSetting> AppTabs => RootContext.AppTabs;
         public BootSetting BootSetting { get => _appManager.BootSetting; }
         public ICommand ChangeDatabaseCommand { get; set; }
         public ICommand ChangeThemeCommand { get; set; }
         public ICommand CloseCommand { get; set; }
+        public ICommand CloseTabCommand { get; set; }
         public string? Fullname { get => BootSetting.CurrentUser?.FullName; }
         public ICommand LogoutCommand { get; set; }
         public ICommand OpenSideBarCommand { get; set; }
@@ -56,18 +75,26 @@ namespace PayrollSoftware.Shell.ViewModels
             ChangeDatabaseCommand = new DelegateCommand(OnChangeDatabase);
             OpenSideBarCommand = new DelegateCommand(OnOpenSideBar);
             SaveSettingCommand = new DelegateCommand(OnSaveSetting);
+            CloseTabCommand = new DelegateCommand<MenuSetting>(OnCloseTab);
         }
 
-        private async void OnSaveSetting()
+        private async void OnCloseTab(MenuSetting tab)
         {
             try
             {
-                _appManager.Save();
-                await CustomNotification.Success("Lưu cài đặt thành công!.");
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    AppTabs.Remove(tab);
+                });
+                if(AppTabs.Count <= 0)
+                {
+                    SetMainPage(null);
+                }
+                await CustomNotification.Success($"Đã đóng {tab.Label}");
             }
             catch (Exception)
             {
-                await CustomNotification.Error("Lưu cài đặt thất bại!.");
+                await CustomNotification.Info("Có lỗi xảy ra, không thể xóa tab hiện tại!.");
             }
         }
 
@@ -138,6 +165,19 @@ namespace PayrollSoftware.Shell.ViewModels
         private void OnOpenSideBar()
         {
             EventAggregator.GetEvent<OpenSidebarEvent>().Publish();
+        }
+
+        private async void OnSaveSetting()
+        {
+            try
+            {
+                _appManager.Save();
+                await CustomNotification.Success("Lưu cài đặt thành công!.");
+            }
+            catch (Exception)
+            {
+                await CustomNotification.Error("Lưu cài đặt thất bại!.");
+            }
         }
     }
 }

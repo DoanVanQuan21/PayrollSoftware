@@ -3,7 +3,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:ui="clr-namespace:PayrollSoftware.UI.CustomControls.PropertyGrid;assembly=PayrollSoftware.UI">
-
+    <Style x:Key="WindowWin10" TargetType="hc:Window">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#262e2f" />
+        <Setter Property="Background" Value="{DynamicResource SecondaryRegionBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="FontFamily" Value="pack://application:,,,/PayrollSoftware.Shared;component/Fonts/#Roboto-Medium" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+        <Setter Property="NonClientAreaBackground" Value="{DynamicResource RegionBrush}" />
+        <Setter Property="NonClientAreaForeground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="CloseButtonBackground" Value="Transparent" />
+        <Setter Property="CloseButtonForeground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="CloseButtonHoverBackground" Value="#e81123" />
+        <Setter Property="CloseButtonHoverForeground" Value="White" />
+        <Setter Property="OtherButtonBackground" Value="Transparent" />
+        <Setter Property="OtherButtonForeground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="OtherButtonHoverBackground" Value="{DynamicResource DarkMaskBrush}" />
+        <Setter Property="OtherButtonHoverForeground" Value="{DynamicResource PrimaryTextBrush}" />
+        <Setter Property="Template" Value="{StaticResource WindowWin10Template}" />
+        <Style.Triggers>
+            <Trigger Property="hc:WindowAttach.ExtendContentToNonClientArea" Value="true">
+                <Setter Property="Template" Value="{StaticResource WindowWin10ExtendContentToNonClientTemplate}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     <Style TargetType="ui:PropertyGrid">
         <Setter Property="Template">
             <Setter.Value>
@@ -82,7 +105,14 @@
             </Style>
         </Style.Resources>
     </Style>
-
+    <Style x:Key="IconStyle" TargetType="Path">
+        <Setter Property="Fill" Value="#f0eff6" />
+    </Style>
+    <Style x:Key="TitleStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="Foreground" Value="#f0eff6" />
+        <Setter Property="Margin" Value="5,0,0,0" />
+    </Style>
     <Style x:Key="MenuStyle" TargetType="Border">
         <Setter Property="Background" Value="{DynamicResource RegionBrush}" />
     </Style>

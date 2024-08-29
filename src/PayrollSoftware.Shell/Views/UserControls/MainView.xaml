@@ -10,7 +10,6 @@
                                      IsDesignTimeCreatable=False}"
     mc:Ignorable="d">
     <Grid>
-
         <hc:TransitioningContentControl
             Margin="0,2,0,0"
             HorizontalAlignment="Stretch"
@@ -71,40 +70,7 @@
                         </Grid>
                     </Border>
                 </hc:Drawer>
-                <hc:TabControl
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    IsAnimationEnabled="True"
-                    IsDraggable="True"
-                    ItemsSource="{Binding AppTabs}"
-                    OverflowMenuDisplayMemberPath="Header"
-                    SelectedValue="{Binding CurrentTab, Mode=TwoWay}"
-                    ShowCloseButton="True"
-                    Style="{StaticResource TabControlPlusBaseStyle}">
-
-                    <hc:TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Path
-                                    Width="20"
-                                    Height="20"
-                                    Margin="0,0,10,0"
-                                    VerticalAlignment="Center"
-                                    Data="{Binding Geometry}"
-                                    Fill="{DynamicResource DarkInfoBrush}" />
-                                <TextBlock VerticalAlignment="Center" Text="{Binding Label}" />
-                            </DockPanel>
-                        </DataTemplate>
-                    </hc:TabControl.ItemTemplate>
-                    <hc:TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <hc:DialogContainer>
-                                <ContentControl Content="{Binding View}" />
-
-                            </hc:DialogContainer>
-                        </DataTemplate>
-                    </hc:TabControl.ContentTemplate>
-                </hc:TabControl>
+                <ContentControl Content="{Binding AppRegion.RegionPage}" />
             </Grid>
         </hc:TransitioningContentControl>
     </Grid>
