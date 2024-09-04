@@ -15,96 +15,63 @@
             Margin="0,2,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch">
-            <hc:Interaction.Triggers>
-                <hc:RoutedEventTrigger RoutedEvent="hc:TabItem.Closed">
-                    <hc:EventToCommand Command="{Binding ClosedTabCommand}" PassEventArgsToCommand="True" />
-                </hc:RoutedEventTrigger>
-            </hc:Interaction.Triggers>
             <Grid>
-                <hc:Drawer
-                    Name="DrawerLeft"
-                    Dock="Left"
-                    IsOpen="{Binding IsOpenSidebar}"
-                    ShowMode="Push">
-                    <Border
-                        Width="300"
-                        Background="{DynamicResource RegionBrush}"
-                        BorderBrush="{DynamicResource BorderBrush}"
-                        BorderThickness="0,1,0,0">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <TextBlock
-                                Margin="10,0,0,0"
-                                HorizontalAlignment="Left"
-                                Style="{StaticResource TextBlockTitle}"
-                                Text="Quản lý" />
-                            <Button
-                                Grid.Row="0"
-                                HorizontalAlignment="Right"
-                                hc:IconElement.Geometry="{StaticResource DeleteFillCircleGeometry}"
-                                Command="hc:ControlCommands.Close"
-                                Style="{StaticResource ButtonIcon}" />
-                            <ListBox
-                                Name="LsMenu"
-                                Grid.Row="1"
-                                ItemsSource="{Binding MenuSettings}"
-                                SelectionChanged="LsMenu_SelectionChanged"
-                                Style="{StaticResource ListMenuStyle}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="0,5,0,5" Orientation="Horizontal">
-                                            <Button
-                                                HorizontalAlignment="Left"
-                                                VerticalAlignment="Center"
-                                                hc:IconElement.Geometry="{Binding Geometry}"
-                                                hc:IconElement.Width="18"
-                                                BorderThickness="0"
-                                                Style="{StaticResource ButtonDashedInfo}" />
-                                            <hc:HighlightTextBlock Foreground="{DynamicResource PrimaryTextBrush}" Text="{Binding Label}" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </Grid>
-                    </Border>
-                </hc:Drawer>
-                <hc:TabControl
-                    BorderBrush="Transparent"
-                    BorderThickness="0"
-                    IsAnimationEnabled="True"
-                    IsDraggable="True"
-                    ItemsSource="{Binding AppTabs}"
-                    OverflowMenuDisplayMemberPath="Header"
-                    SelectedValue="{Binding CurrentTab, Mode=TwoWay}"
-                    ShowCloseButton="True"
-                    Style="{StaticResource TabControlPlusBaseStyle}">
-
-                    <hc:TabControl.ItemTemplate>
-                        <DataTemplate>
-                            <DockPanel>
-                                <Path
-                                    Width="20"
-                                    Height="20"
-                                    Margin="0,0,10,0"
-                                    VerticalAlignment="Center"
-                                    Data="{Binding Geometry}"
-                                    Fill="{DynamicResource DarkInfoBrush}" />
-                                <TextBlock VerticalAlignment="Center" Text="{Binding Label}" />
-                            </DockPanel>
-                        </DataTemplate>
-                    </hc:TabControl.ItemTemplate>
-                    <hc:TabControl.ContentTemplate>
-                        <DataTemplate>
-                            <hc:DialogContainer>
-                                <ContentControl Content="{Binding View}" />
-
-                            </hc:DialogContainer>
-                        </DataTemplate>
-                    </hc:TabControl.ContentTemplate>
-                </hc:TabControl>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Margin="20"
+                    Background="#7163ba"
+                    CornerRadius="30">
+                    <ListBox
+                        Name="LsMenu"
+                        Grid.Row="1"
+                        HorizontalContentAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        ItemsSource="{Binding MenuSettings}">
+                        <ListBox.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource ListBoxItemBaseStyle}" TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Padding" Value="10" />
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                        <Setter Property="Background" Value="Transparent" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Button
+                                    Command="{Binding ElementName=LsMenu, Path=DataContext.SelectedMenuCommand}"
+                                    CommandParameter="{Binding}"
+                                    Style="{StaticResource menuButton}"
+                                    ToolTip="{Binding Label}">
+                                    <Path
+                                        Width="22"
+                                        Height="22"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Data="{Binding Geometry}"
+                                        Fill="White"
+                                        Stretch="Uniform" />
+                                </Button>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <Grid Grid.Column="1" Margin="0,20,20,20">
+                    <ContentControl Content="{Binding CurrentTab.View}" />
+                </Grid>
             </Grid>
         </hc:TransitioningContentControl>
     </Grid>

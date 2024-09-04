@@ -12,7 +12,7 @@ namespace PayrollSoftware.Shell.Views
     /// <summary>
     /// Interaction logic for MainWindowView.xaml
     /// </summary>
-    public partial class MainWindowView : HandyControl.Controls.Window
+    public partial class MainWindowView : Window
     {
         public MainWindowView()
         {
@@ -20,16 +20,18 @@ namespace PayrollSoftware.Shell.Views
             DataContext = Ioc.Resolve<MainWindowViewModel>();
         }
 
-        protected override void OnContentRendered(EventArgs e)
-        {
-            base.OnContentRendered(e);
-            NonClientAreaContent = new TitleMenu();
-        }
-
         private void Window_Closed(object sender, EventArgs e)
         {
             Ioc.Resolve<IEventAggregator>().GetEvent<ExitApplicationEvent>().Publish();
             Application.Current.Shutdown();
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                this.DragMove();
+            }
         }
     }
 }

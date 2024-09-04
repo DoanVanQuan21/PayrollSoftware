@@ -13,7 +13,8 @@ namespace PayrollSoftware.TaskManagement.ViewModels
         private readonly ITaskService _taskService;
         private Task currentTask;
 
-        public Task CurrentTask { get => currentTask; set => SetProperty(ref currentTask,value); }
+        public Task CurrentTask { get => currentTask; 
+            set => SetProperty(ref currentTask,value); }
         public ICommand DeleteTaskCommand { get; set; }
         public TasksViewModel() : base()
         {

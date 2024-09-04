@@ -1,8 +1,10 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
+using Task = PayrollSoftware.Core.Models.TaskManagement.Task;
 namespace PayrollSoftware.TaskManagement.CustomControls
 {
     public class Tasks : Control
@@ -14,7 +16,7 @@ namespace PayrollSoftware.TaskManagement.CustomControls
             DependencyProperty.Register("IsActive", typeof(bool), typeof(Tasks), new PropertyMetadata(false));
 
         public static readonly DependencyProperty ItemsSourceProperty =
-            DependencyProperty.Register("ItemsSource", typeof(ObservableCollection<Task>), typeof(Tasks), new PropertyMetadata(null));
+            DependencyProperty.Register("ItemsSource", typeof(ObservableCollection<Task>), typeof(Tasks), new PropertyMetadata(null, OnItemsSourcePropertyChanged, CoerceItemsSourceValue));
 
         public static readonly DependencyProperty KeyProperty =
             DependencyProperty.Register("Key", typeof(string), typeof(Tasks), new PropertyMetadata(string.Empty));
@@ -27,13 +29,7 @@ namespace PayrollSoftware.TaskManagement.CustomControls
 
         static Tasks()
         {
-        }
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-        }
-        private void ItemsSource_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(Tasks), new FrameworkPropertyMetadata(typeof(Tasks)));
         }
 
         public Geometry Icon
@@ -70,6 +66,54 @@ namespace PayrollSoftware.TaskManagement.CustomControls
         {
             get { return (string)GetValue(TitleProperty); }
             set { SetValue(TitleProperty, value); }
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+        }
+
+        private static object CoerceItemsSourceValue(DependencyObject d, object baseValue)
+        {
+            var control = (Tasks)d;
+            if (control?.ItemsSource != null)
+            {
+                //TODO
+            }
+            return baseValue;
+        }
+
+        private static void OnItemsSourcePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var control = (Tasks)d;
+            if (control?.ItemsSource != null)
+            {
+                control.OnItemsSourceChanged((IEnumerable)e.OldValue, (IEnumerable)e.NewValue);
+            }
+        }
+
+        private void ItemsSource_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+        }
+
+        private void NewValueINotifyCollectionChanged_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+        }
+
+        private void OnItemsSourceChanged(IEnumerable oldValue, IEnumerable newValue)
+        {
+            // Remove handler for oldValue.CollectionChanged
+
+            if (oldValue is INotifyCollectionChanged oldValueINotifyCollectionChanged)
+            {
+                oldValueINotifyCollectionChanged.CollectionChanged -= new NotifyCollectionChangedEventHandler(NewValueINotifyCollectionChanged_CollectionChanged);
+            }
+
+            // Add handler for newValue.CollectionChanged (if possible)
+            if (newValue is INotifyCollectionChanged newValueINotifyCollectionChanged)
+            {
+                newValueINotifyCollectionChanged.CollectionChanged += new NotifyCollectionChangedEventHandler(NewValueINotifyCollectionChanged_CollectionChanged);
+            }
         }
     }
 }

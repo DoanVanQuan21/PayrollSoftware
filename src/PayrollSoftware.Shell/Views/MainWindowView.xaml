@@ -1,4 +1,4 @@
-﻿<hc:Window
+﻿<Window
     x:Class="PayrollSoftware.Shell.Views.MainWindowView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,14 +6,33 @@
     xmlns:hc="https://handyorg.github.io/handycontrol"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:PayrollSoftware.Shell.ViewModels"
+    Width="1500"
+    Height="800"
     d:DataContext="{d:DesignInstance vm:MainWindowViewModel,
                                      IsDesignTimeCreatable=False}"
+    AllowsTransparency="True"
+    Background="Transparent"
     Closed="Window_Closed"
-    Icon="{Binding IconWindow}"
+    ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
-    WindowState="Maximized"
+    WindowStyle="None"
     mc:Ignorable="d">
-    <Grid>
-        <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-    </Grid>
-</hc:Window>
+    <Border
+        Padding="20"
+        Background="#CFD5E5"
+        BorderBrush="#EBEDF3"
+        BorderThickness="2"
+        CornerRadius="40"
+        MouseDown="Border_MouseDown">
+        <Border CornerRadius="40">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0" Color="#fefefe" />
+                    <GradientStop Offset="1" Color="#ededef" />
+                </LinearGradientBrush>
+            </Border.Background>
+            <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+        </Border>
+    </Border>
+
+</Window>

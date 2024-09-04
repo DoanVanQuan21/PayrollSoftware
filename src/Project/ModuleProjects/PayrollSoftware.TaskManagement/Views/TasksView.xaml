@@ -12,7 +12,6 @@
                                      IsDesignTimeCreatable=False}"
     d:DesignHeight="450"
     d:DesignWidth="800"
-    Style="{StaticResource UserControlStyle}"
     mc:Ignorable="d">
     <UserControl.Resources>
         <Style TargetType="{x:Type TextBlock}">
@@ -46,7 +45,7 @@
                     Content="Create new"
                     Style="{StaticResource ButtonDashedInfo}" />
             </StackPanel>
-            <Grid Grid.Row="1" Margin="5">
+            <Grid Grid.Row="1" Margin="5,30,5,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
                     <ColumnDefinition Width="3*" />
@@ -74,137 +73,192 @@
                     Icon="{StaticResource ClipboardTaskDoneGeometry}"
                     ItemsSource="{Binding TaskDones}"
                     SelectedTask="{Binding CurrentTask}" />
-                <GroupBox
-                    x:Name="TaskProperties"
-                    Grid.Column="6"
-                    HorizontalContentAlignment="Center"
-                    FontWeight="DemiBold">
-                    <GroupBox.Header>
-                        <TextBlock>
-                            <Run Text="{Binding CurrentTask.Project.ProjectName}" />
-                            <Run Text="/" />
-                            <Run Text="{Binding CurrentTask.TaskCode}" />
-                        </TextBlock>
-                    </GroupBox.Header>
-                    <TreeView Margin="0" BorderBrush="Transparent">
-                        <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Task">
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock>Task name</TextBlock>
-                                        <TextBlock Text=" : " />
-                                        <TextBlock Text="{Binding CurrentTask.TaskName}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock>Status</TextBlock>
-                                        <TextBlock Text=" : " />
-                                        <TextBlock Text="{Binding CurrentTask.Status}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock>Type</TextBlock>
-                                        <TextBlock Text=" : " />
-                                        <TextBlock Text="{Binding CurrentTask.Type}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock>Priority</TextBlock>
-                                        <TextBlock Text=" : " />
-                                        <TextBlock Text="{Binding CurrentTask.Priority}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                        </TreeViewItem>
-                        <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Date">
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Text="Created date: " />
-                                        <hc:DatePicker
-                                            Margin="0,5,0,5"
-                                            DockPanel.Dock="Bottom"
-                                            IsEnabled="False"
-                                            SelectedDate="{Binding CurrentTask.CreatedDate}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Text="Start date: " />
-                                        <hc:DatePicker
-                                            Margin="0,5,0,5"
-                                            DockPanel.Dock="Bottom"
-                                            SelectedDate="{Binding CurrentTask.StartDate}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Text="Updated date:" />
-                                        <DatePicker
-                                            Margin="0,5,0,5"
-                                            DockPanel.Dock="Bottom"
-                                            SelectedDate="{Binding CurrentTask.UpdatedDate}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Text="Due date:" />
-                                        <DatePicker
-                                            Margin="0,5,0,5"
-                                            DockPanel.Dock="Bottom"
-                                            SelectedDate="{Binding CurrentTask.DueDate}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Text="Complition date: " />
-                                        <DatePicker
-                                            Margin="0,5,0,5"
-                                            DockPanel.Dock="Bottom"
-                                            SelectedDate="{Binding CurrentTask.CompletionDate}" />
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                        </TreeViewItem>
-                        <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Descriptions">
-                            <TreeViewItem>
-                                <TreeViewItem.Header>
-                                    <DockPanel>
-                                        <TextBlock DockPanel.Dock="Top" Text="Description" />
-                                        <RichTextBox
-                                            Height="100"
-                                            MinWidth="280"
-                                            DockPanel.Dock="Bottom">
-                                            <FlowDocument>
-                                                <Paragraph>
-                                                    <Run Text="{Binding CurrentTask.Description}" />
-                                                </Paragraph>
-                                            </FlowDocument>
-                                        </RichTextBox>
-                                    </DockPanel>
-                                </TreeViewItem.Header>
-                            </TreeViewItem>
-                        </TreeViewItem>
+                <Grid
+                    x:Name="desc"
+                    Grid.Column="3"
+                    Margin="8">
+                    <Border
+                        Width="150"
+                        Height="50"
+                        Margin="0,-30,0,0"
+                        VerticalAlignment="Top"
+                        Panel.ZIndex="1"
+                        Background="#7163BA"
+                        CornerRadius="20">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="10"
+                                Direction="270"
+                                Opacity="0.3"
+                                ShadowDepth="3"
+                                Color="#7163BA" />
+                        </Border.Effect>
+                        <Grid Margin="20,10" VerticalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Path
+                                Grid.Column="0"
+                                Width="20"
+                                Height="20"
+                                Data="{StaticResource InforGeometry}"
+                                Style="{StaticResource IconStyle}" />
 
-                    </TreeView>
-                </GroupBox>
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource TitleStyle}">
+                                <Run Text="{Binding CurrentTask.Project.ProjectName}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding CurrentTask.TaskCode}" />
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                    <Border
+                        x:Name="border"
+                        Margin="-5"
+                        BorderBrush="#7163BA"
+                        BorderThickness="1"
+                        CornerRadius="20">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=desc, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                    <Border
+                        MinWidth="350"
+                        Padding="10"
+                        Background="White"
+                        CornerRadius="20">
+                        <TreeView Margin="0,20,0,0" BorderBrush="Transparent">
+                            <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Task">
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock>Task name</TextBlock>
+                                            <TextBlock Text=" : " />
+                                            <TextBlock Text="{Binding CurrentTask.TaskName}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock>Status</TextBlock>
+                                            <TextBlock Text=" : " />
+                                            <TextBlock Text="{Binding CurrentTask.Status}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock>Type</TextBlock>
+                                            <TextBlock Text=" : " />
+                                            <TextBlock Text="{Binding CurrentTask.Type}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock>Priority</TextBlock>
+                                            <TextBlock Text=" : " />
+                                            <TextBlock Text="{Binding CurrentTask.Priority}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem>
+                            <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Date">
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Text="Created date: " />
+                                            <hc:DatePicker
+                                                Margin="0,5,0,5"
+                                                DockPanel.Dock="Bottom"
+                                                IsEnabled="False"
+                                                SelectedDate="{Binding CurrentTask.CreatedDate}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Text="Start date: " />
+                                            <hc:DatePicker
+                                                Margin="0,5,0,5"
+                                                DockPanel.Dock="Bottom"
+                                                SelectedDate="{Binding CurrentTask.StartDate}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Text="Updated date:" />
+                                            <DatePicker
+                                                Margin="0,5,0,5"
+                                                DockPanel.Dock="Bottom"
+                                                SelectedDate="{Binding CurrentTask.UpdatedDate}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Text="Due date:" />
+                                            <DatePicker
+                                                Margin="0,5,0,5"
+                                                DockPanel.Dock="Bottom"
+                                                SelectedDate="{Binding CurrentTask.DueDate}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Text="Complition date: " />
+                                            <DatePicker
+                                                Margin="0,5,0,5"
+                                                DockPanel.Dock="Bottom"
+                                                SelectedDate="{Binding CurrentTask.CompletionDate}" />
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem>
+                            <TreeViewItem Foreground="{DynamicResource PrimaryTextBrush}" Header="Descriptions">
+                                <TreeViewItem>
+                                    <TreeViewItem.Header>
+                                        <DockPanel>
+                                            <TextBlock DockPanel.Dock="Top" Text="Description" />
+                                            <RichTextBox
+                                                Height="100"
+                                                MinWidth="280"
+                                                DockPanel.Dock="Bottom">
+                                                <FlowDocument>
+                                                    <Paragraph>
+                                                        <Run Text="{Binding CurrentTask.Description}" />
+                                                    </Paragraph>
+                                                </FlowDocument>
+                                            </RichTextBox>
+                                        </DockPanel>
+                                    </TreeViewItem.Header>
+                                </TreeViewItem>
+                            </TreeViewItem>
+
+                        </TreeView>
+
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
     </hc:TransitioningContentControl>

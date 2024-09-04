@@ -18,10 +18,5 @@ namespace PayrollSoftware.Shell.Views.UserControls
             DataContext = viewModel;
         }
 
-        private void LsMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var menu = e.AddedItems[0] as MenuSetting;
-            viewModel.SelectedMenuCommand.Execute(menu);
-        }
     }
 }
