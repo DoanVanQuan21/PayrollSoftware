@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Ookii.Dialogs.Wpf;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Principal;
@@ -7,6 +8,39 @@ namespace PayrollSoftware.Core.Helpers
 {
     public class FileHelper
     {
+        public static string? GetFileName(string filePath)
+        {
+            var strs = filePath.Split('\\');
+            if (strs.Length <= 0)
+            {
+                return string.Empty;
+            }
+            var name = strs[strs.Length - 1].Split('.')?.FirstOrDefault();
+            return name;
+        }
+        public static string ChoosePathDialog(string filter = "All files (*.*)|*.*")
+        {
+            VistaOpenFileDialog dialog = new();
+            dialog.Filter = filter;
+            if (dialog.ShowDialog() == true)
+                return dialog.FileName;
+
+            return string.Empty;
+        }
+
+        public static List<string> ChoosePathsDialog(string filter = "All files (*.*)|*.*")
+        {
+            VistaOpenFileDialog dialog = new()
+            {
+                Multiselect = true,
+            };
+            dialog.Filter = filter;
+            if (dialog.ShowDialog() == true)
+                return dialog.FileNames.ToList();
+
+            return new();
+        }
+
         public static T Read<T>(string path, string filename)
         {
             var filepath = Path.Combine(path, filename);

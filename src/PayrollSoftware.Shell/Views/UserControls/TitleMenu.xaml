@@ -14,120 +14,36 @@
     mc:Ignorable="d">
     <Grid VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="4*" />
-            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="5*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Orientation="Horizontal">
-            <Button
+        <StackPanel HorizontalAlignment="Left">
+            <TextBlock
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                hc:IconElement.Geometry="{StaticResource NavigationGeometry}"
-                hc:IconElement.Width="20"
-                BorderThickness="0"
-                Command="{Binding OpenSideBarCommand}"
-                FontWeight="Bold"
-                Style="{StaticResource ButtonDashedInfo}"
-                Visibility="{Binding IsLogin, Converter={StaticResource BooleanToVisibilityConverter}}" />
-            <Button
+                FontSize="13"
+                Foreground="#797295"
+                Text="Title" />
+            <TextBlock
                 HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                hc:IconElement.Geometry="{StaticResource SaveMultipleGeometry}"
-                hc:IconElement.Width="18"
-                BorderThickness="0"
-                Command="{Binding SaveSettingCommand}"
-                FontWeight="Bold"
-                Style="{StaticResource ButtonDashedInfo}"
-                Visibility="{Binding IsLogin, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                Style="{StaticResource titleText}"
+                Text="{Binding AppRegion.Title}" />
         </StackPanel>
-        <DockPanel Grid.Column="1" HorizontalAlignment="Right">
-            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Left">
+        <StackPanel
+            Grid.Column="1"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+            <TextBlock VerticalAlignment="Center">
                 <Run Text="{Binding BootSetting.CurrentUser.FirstName}" />
                 <Run Text="{Binding BootSetting.CurrentUser.LastName}" />
             </TextBlock>
-            <hc:SplitButton
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
+            <Button
+                hc:IconElement.Geometry="{StaticResource UserGeometry}"
+                hc:IconElement.Width="14"
                 Background="Transparent"
-                BorderThickness="0"
-                DockPanel.Dock="Right"
-                Foreground="{DynamicResource PrimaryTextBrush}"
-                HitMode="Hover"
-                Visibility="{Binding IsLogin, Converter={StaticResource BooleanToVisibilityConverter}}">
-                <hc:SplitButton.DropDownContent>
-                    <StackPanel>
-                        <MenuItem Command="{Binding ChangeDatabaseCommand}">
-                            <MenuItem.Template>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            hc:IconElement.Geometry="{StaticResource DatabaseGeometry}"
-                                            BorderThickness="0"
-                                            Style="{StaticResource ButtonDashedInfo}" />
-                                        <hc:HighlightTextBlock
-                                            Grid.Column="1"
-                                            Margin="10"
-                                            HorizontalAlignment="Left"
-                                            Text="Change Database" />
-                                    </Grid>
-                                </ControlTemplate>
-                            </MenuItem.Template>
-                        </MenuItem>
-
-                        <MenuItem Command="{Binding LogoutCommand}">
-                            <MenuItem.Template>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            hc:IconElement.Geometry="{StaticResource LogoutGeometry}"
-                                            BorderThickness="0"
-                                            Style="{StaticResource ButtonDashedInfo}" />
-                                        <hc:HighlightTextBlock
-                                            Grid.Column="1"
-                                            Margin="10"
-                                            HorizontalAlignment="Left"
-                                            Text="Đăng xuất" />
-                                    </Grid>
-                                </ControlTemplate>
-                            </MenuItem.Template>
-                        </MenuItem>
-                        <MenuItem Command="{Binding ChangeThemeCommand}">
-                            <MenuItem.Template>
-                                <ControlTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Button
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Center"
-                                            hc:IconElement.Geometry="{StaticResource ThemeDarkLightGeometry}"
-                                            BorderThickness="0"
-                                            Style="{StaticResource ButtonDashedInfo}" />
-                                        <hc:HighlightTextBlock
-                                            Grid.Column="1"
-                                            Margin="10"
-                                            HorizontalAlignment="Left"
-                                            Text="Theme" />
-                                    </Grid>
-                                </ControlTemplate>
-                            </MenuItem.Template>
-                        </MenuItem>
-                    </StackPanel>
-                </hc:SplitButton.DropDownContent>
-            </hc:SplitButton>
-        </DockPanel>
+                BorderBrush="Transparent"
+                Foreground="#594e7f" />
+        </StackPanel>
     </Grid>
 </UserControl>

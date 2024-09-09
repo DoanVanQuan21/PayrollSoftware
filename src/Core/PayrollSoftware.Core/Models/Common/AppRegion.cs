@@ -8,6 +8,8 @@ namespace PayrollSoftware.Core.Models.Common
         private UserControl? mainRegion;
         private UserControl regionPage;
 
+        private string title;
+
         public AppRegion()
         {
             MainRegion = new UserControl();
@@ -18,5 +20,11 @@ namespace PayrollSoftware.Core.Models.Common
 
         public UserControl RegionPage
         { get => regionPage; set { SetProperty(ref regionPage, value); } }
+
+        public string Title
+        {
+            get { return title; }
+            set { SetProperty(ref title, value); }
+        }
     }
 }

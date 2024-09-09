@@ -6,7 +6,7 @@
     public class VideoMetaData
     {
         [JsonPropertyName("streams")]
-        public VideoStream[] Streams { get; set; } = [];
+        public VideoStream[] Streams { get; set; } = Array.Empty<VideoStream>();
 
         [JsonPropertyName("format")]
         public VideoFormat Format { get; set; } = new();

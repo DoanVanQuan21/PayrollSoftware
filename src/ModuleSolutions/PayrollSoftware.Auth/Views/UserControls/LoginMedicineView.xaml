@@ -22,6 +22,7 @@
         <Grid MaxWidth="800">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
@@ -36,16 +37,14 @@
 
             <TextBlock
                 Grid.Row="2"
-                Grid.Column="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
+                Grid.ColumnSpan="2"
                 FontSize="40"
-                FontWeight="Bold">
+                Style="{StaticResource titleText}">
                 Đăng nhập
             </TextBlock>
             <StackPanel
                 Grid.Row="3"
-                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Margin="10,0,20,0"
                 Orientation="Vertical">
                 <TextBlock Margin="10" Style="{StaticResource BaseLabel}">Tên đăng nhập</TextBlock>
@@ -56,7 +55,7 @@
             </StackPanel>
             <StackPanel
                 Grid.Row="4"
-                Grid.Column="1"
+                Grid.ColumnSpan="2"
                 Margin="10,0,20,0"
                 Orientation="Vertical">
                 <TextBlock Margin="10" Style="{StaticResource BaseLabel}">Mật khẩu</TextBlock>
@@ -74,12 +73,23 @@
                 Grid.Column="1"
                 Width="140"
                 Height="40"
-                Margin="0,0,30,0"
+                Margin="0,20,30,0"
                 HorizontalAlignment="Right"
                 Command="{Binding LoginCommand}"
                 Content="Đăng nhập"
                 FontSize="16"
-                Style="{DynamicResource ButtonDashedInfo}" />
+                Style="{DynamicResource commonButton}" />
+            <Button
+                Grid.Row="5"
+                Grid.Column="0"
+                Width="140"
+                Height="40"
+                Margin="20,20,0,0"
+                HorizontalAlignment="Left"
+                Command="{Binding ExitCommand}"
+                Content="Thoát"
+                FontSize="16"
+                Style="{DynamicResource commonButton}" />
         </Grid>
     </ScrollViewer>
 </UserControl>

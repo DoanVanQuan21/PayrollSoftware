@@ -113,7 +113,7 @@ namespace YoloDotNet.Extensions
                 .ToDictionary(x => int.Parse(x[0]), x => x[1]);
 
             var colors = modelType == ModelType.Classification
-                ? [YoloDotNetColors.Default()]
+                ? new string[] { YoloDotNetColors.Default() }
                 : YoloDotNetColors.Get();
 
             return onnxLabels!.Select((label, index) => new LabelModel
@@ -150,7 +150,7 @@ namespace YoloDotNet.Extensions
                 _ => throw new ArgumentException($"Error getting output shapes. Unknown ONNX model type.", nameof(modelType))
             };
 
-            return [output0, output1];
+            return new() { output0, output1 };
         }
 
         /// <summary>

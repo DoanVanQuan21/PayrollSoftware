@@ -2,6 +2,14 @@
 
 namespace PayrollSoftware.Core.Constants
 {
+    public enum TaskProcess
+    {
+        CLASSIFICATION,
+        OBJECT_DETECTION,
+        OBB_DETECTION,
+        SEGMENTATION,
+        POSE_ESTIMATION
+    }
     public enum ComportDeviceType
     {
         TextCommand,

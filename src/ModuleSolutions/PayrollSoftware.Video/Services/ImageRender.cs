@@ -1,16 +1,11 @@
-﻿using Emgu.CV.Structure;
-using Emgu.CV;
+﻿using PayrollSoftware.Video.Contracts;
+using PayrollSoftware.Video.Models;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using SharpDX.Direct3D11;
-using SharpDX.Direct3D9;
-using PayrollSoftware.Video.Contracts;
-using PayrollSoftware.Video.Models;
 
 namespace PayrollSoftware.Video.Services
 {

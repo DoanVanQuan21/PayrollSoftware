@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj" />
     <ProjectReference Include="..\PayrollSoftware.Core\PayrollSoftware.Core.csproj" />
+    <ProjectReference Include="..\PayrollSoftware.Shared\PayrollSoftware.Shared.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,179 @@
+﻿<UserControl
+    x:Class="PayrollSoftware.Video.Views.AutoLabelView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cc="clr-namespace:PayrollSoftware.UI.CustomControls;assembly=PayrollSoftware.UI"
+    xmlns:cvt="clr-namespace:PayrollSoftware.Video.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:PayrollSoftware.Video.ViewModels"
+    d:DataContext="{d:DesignInstance vm:AutoLabelViewModel,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    Style="{StaticResource UserControlStyle}"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <cvt:ImageCVToSourceConverter x:Key="ImageCVToSourceConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="7*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="1"
+                Margin="2,0,2,0"
+                Background="Transparent"
+                BorderBrush="{DynamicResource DefaultBorderBrush}"
+                BorderThickness="0,0,0,1" />
+            <Border
+                Grid.Row="3"
+                Margin="2,0,2,0"
+                Background="Transparent"
+                BorderBrush="{DynamicResource DefaultBorderBrush}"
+                BorderThickness="0,0,0,1" />
+            <hc:PropertyGrid
+                Grid.Row="2"
+                Column="One"
+                SelectedObject="{Binding ImageProcessSetting}" />
+            <StackPanel
+                Grid.Row="4"
+                HorizontalAlignment="Left"
+                Orientation="Horizontal">
+                <Button
+                    Margin="0,10,10,10"
+                    Command="{Binding UploadFilesCommand}"
+                    Content="Upload files"
+                    Style="{StaticResource commonButton}" />
+                <Button
+                    Margin="0,10,10,10"
+                    Command="{Binding StartAutoLabelCommand}"
+                    Content="Start auto label"
+                    Style="{StaticResource commonButton}" />
+            </StackPanel>
+            <StackPanel
+                Grid.Row="0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <cc:ChoosePath Path="{Binding Config.ModelPath, Mode=TwoWay}" />
+                <ComboBox ItemsSource="{Binding Config.ModelType, Converter={StaticResource EnumToCollectionConverter}}" />
+                <StackPanel Margin="10,10,0,0" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextTitleBrush}">
+                        Gpu id:
+                    </TextBlock>
+                    <hc:NumericUpDown HorizontalAlignment="Left" Value="{Binding Config.GpuId}" />
+                    <Button
+                        Margin="10"
+                        HorizontalAlignment="Left"
+                        Command="{Binding InitModelCommand}"
+                        Content="Init model"
+                        Style="{StaticResource commonButton}" />
+                </StackPanel>
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,10,0"
+                        VerticalAlignment="Center"
+                        Foreground="{DynamicResource TextTitleBrush}">
+                        Use cuda:
+                    </TextBlock>
+                    <ToggleButton
+                        HorizontalAlignment="Left"
+                        hc:VisualElement.HighlightBrush="{DynamicResource ButtonBrush}"
+                        IsChecked="{Binding Config.UseCuda}"
+                        Style="{StaticResource ToggleButtonSwitch}" />
+                </StackPanel>
+
+            </StackPanel>
+        </Grid>
+        <Border
+            Grid.Column="1"
+            Margin="2,0,2,0"
+            Background="Transparent"
+            BorderBrush="{DynamicResource DefaultBorderBrush}"
+            BorderThickness="0,0,1,0" />
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="3*" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="7*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Rectangle
+                    Grid.Row="0"
+                    Width="300"
+                    Margin="2"
+                    HorizontalAlignment="Left">
+                    <Rectangle.Fill>
+                        <ImageBrush ImageSource="{Binding CurrentAutoLabel, Converter={StaticResource ImageCVToSourceConverter}}" />
+                    </Rectangle.Fill>
+                </Rectangle>
+                <StackPanel Grid.Column="1">
+                    <TextBlock>
+                        <Run>File name:</Run>
+                        <Run Text="{Binding CurrentAutoLabel.FileName}" />
+                    </TextBlock>
+                </StackPanel>
+            </Grid>
+
+            <Border
+                Grid.Column="1"
+                Background="Transparent"
+                BorderBrush="{DynamicResource DefaultBorderBrush}"
+                BorderThickness="0,0,0,1" />
+            <hc:Pagination
+                Grid.Row="2"
+                Margin="0,10,0,10"
+                MaxPageCount="{Binding MaxPage}"
+                PageIndex="{Binding PageIndex, Mode=TwoWay}">
+                <hc:Interaction.Triggers>
+                    <hc:EventTrigger EventName="PageUpdated">
+                        <hc:EventToCommand Command="{Binding PageUpdatedCommand}" PassEventArgsToCommand="True" />
+                    </hc:EventTrigger>
+                </hc:Interaction.Triggers>
+            </hc:Pagination>
+            <ListBox
+                Grid.Row="3"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                ItemsSource="{Binding AutoLabels}"
+                ScrollViewer.IsDeferredScrollingEnabled="True"
+                SelectedValue="{Binding CurrentAutoLabel}"
+                VirtualizingStackPanel.IsVirtualizing="True"
+                VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Rectangle Width="200" Height="200">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="{Binding Image, Converter={StaticResource ImageCVToSourceConverter}, ConverterParameter={Binding Results}}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
+    </Grid>
+</UserControl>

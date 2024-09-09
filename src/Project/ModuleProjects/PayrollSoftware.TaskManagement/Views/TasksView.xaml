@@ -32,19 +32,14 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel
+            <Button
                 Grid.Row="0"
-                Margin="5"
-                Orientation="Horizontal">
-                <Button
-                    Margin="2"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    hc:IconElement.Geometry="{StaticResource AddGeometry}"
-                    hc:IconElement.Width="20"
-                    Content="Create new"
-                    Style="{StaticResource ButtonDashedInfo}" />
-            </StackPanel>
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                hc:IconElement.Geometry="{StaticResource AddGeometry}"
+                hc:IconElement.Width="20"
+                Content="Create new"
+                Style="{StaticResource commonButton}" />
             <Grid Grid.Row="1" Margin="5,30,5,5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />

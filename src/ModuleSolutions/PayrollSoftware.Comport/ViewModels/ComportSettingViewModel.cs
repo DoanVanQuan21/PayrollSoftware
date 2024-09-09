@@ -24,7 +24,7 @@ namespace PayrollSoftware.Comport.ViewModels
         private string response;
         private TextSession textSession;
 
-        public ComportSettingViewModel()
+        public ComportSettingViewModel():base()
         {
             _comportManager = Ioc.Resolve<IComportManager>();
             InitBaudrates();
@@ -47,7 +47,7 @@ namespace PayrollSoftware.Comport.ViewModels
 
         public ObservableCollection<int> ByteNumbers { get; set; }
         public ByteSession ByteSession { get; set; }
-        public ObservableCollection<KeyValue> CommandValues { get; set; }
+        public ObservableCollection<KeyValue<string,string>> CommandValues { get; set; }
         public ObservableCollection<ComportDevice>? ComportDevices => _comportManager.Devices;
         public ICommand ConnectComportDeviceCommand { get; set; }
         public ComportDevice CurrentDevice { get => currentDevice; set => SetProperty(ref currentDevice, value); }

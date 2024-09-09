@@ -5,13 +5,16 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	  <ApplicationIcon>app_icon_dark.ico</ApplicationIcon>
+	  <ApplicationIcon>app_icon.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="app_icon_dark.ico" />
-    <None Remove="app_icon_light.ico" />
+    <None Remove="app_icon.ico" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_1.png" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_2.png" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_3.png" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_4.png" />
     <None Remove="Assets\Resources\Images\Medicare\Group 231-1.png" />
     <None Remove="Assets\Resources\Images\Medicare\Group 231-2.png" />
     <None Remove="Assets\Resources\Images\Medicare\Group 231-3.png" />
@@ -53,10 +56,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="app_icon_dark.ico">
+    <Resource Include="app_icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="app_icon_light.ico">
+    <Resource Include="Assets\Resources\Images\logos\app_icon_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Resources\Images\Medicare\Group 231-1.png">

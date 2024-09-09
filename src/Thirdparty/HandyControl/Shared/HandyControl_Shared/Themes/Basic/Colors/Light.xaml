@@ -9,10 +9,20 @@
 
 
     <!--  Custom color  -->
+    <Color x:Key="SidebarColor">#7163ba</Color>
+    <Color x:Key="TextTitleColor">#594e7f</Color>
+    <Color x:Key="TextButtonColor">#776abd</Color>
+    <Color x:Key="CommonTextColor">#797295</Color>
+    <Color x:Key="DefaultRegionColor">#ffffff</Color>
+    <Color x:Key="ButtonColor">#fbdfe8</Color>
+    <Color x:Key="BaseBorderColor">#EBEDF3</Color>
+    <Color x:Key="BaseBackgroundColor">#CFD5E5</Color>
+    <Color x:Key="MouseOverBackgroundButtonColor">#5a5080</Color>
+
     <Color x:Key="DefaultTextColor">#FFFFFF</Color>
 
     <Color x:Key="DefaultIconColor">#09BBA3</Color>
-    <Color x:Key="DefaultBorderColor">#FEFD6E</Color>
+    <Color x:Key="DefaultBorderColor">#8276c0</Color>
     <Color x:Key="RowMouseOverRegionColor">#192A7DAF</Color>
     <Color x:Key="RowMouseOverBorderColor">#2FB1FF</Color>
     <Color x:Key="RowSelectedBorderColor">#44B8FF</Color>
@@ -22,7 +32,42 @@
     <Color x:Key="DotGreenColor">#60c08c</Color>
     <Color x:Key="DotPurpleColor">#8e84e1</Color>
     <Color x:Key="CustomRegionColor">#3c715e</Color>
-
+    <SolidColorBrush
+        x:Key="CommonTextBrush"
+        o:Freeze="true"
+        Color="{StaticResource CommonTextColor}" />
+    <SolidColorBrush
+        x:Key="BaseBorderBrush"
+        o:Freeze="true"
+        Color="{StaticResource BaseBorderColor}" />
+    <SolidColorBrush
+        x:Key="MouseOverBackgroundButtonBrush"
+        o:Freeze="true"
+        Color="{StaticResource MouseOverBackgroundButtonColor}" />
+    <SolidColorBrush
+        x:Key="BaseBackgroundBrush"
+        o:Freeze="true"
+        Color="{StaticResource BaseBackgroundColor}" />
+    <SolidColorBrush
+        x:Key="SidebarBrush"
+        o:Freeze="true"
+        Color="{StaticResource SidebarColor}" />
+    <SolidColorBrush
+        x:Key="TextTitleBrush"
+        o:Freeze="true"
+        Color="{StaticResource TextTitleColor}" />
+    <SolidColorBrush
+        x:Key="TextButtonBrush"
+        o:Freeze="true"
+        Color="{StaticResource TextButtonColor}" />
+    <SolidColorBrush
+        x:Key="DefaultRegionBrush"
+        o:Freeze="true"
+        Color="{StaticResource DefaultRegionColor}" />
+    <SolidColorBrush
+        x:Key="ButtonBrush"
+        o:Freeze="true"
+        Color="{StaticResource ButtonColor}" />
     <SolidColorBrush
         x:Key="CustomRegionBrush"
         o:Freeze="true"

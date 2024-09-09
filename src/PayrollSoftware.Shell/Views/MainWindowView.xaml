@@ -12,25 +12,18 @@
                                      IsDesignTimeCreatable=False}"
     AllowsTransparency="True"
     Background="Transparent"
-    Closed="Window_Closed"
     ResizeMode="NoResize"
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
     <Border
         Padding="20"
-        Background="#CFD5E5"
-        BorderBrush="#EBEDF3"
+        Background="{DynamicResource BaseBackgroundBrush}"
+        BorderBrush="{DynamicResource BaseBorderBrush}"
         BorderThickness="2"
         CornerRadius="40"
         MouseDown="Border_MouseDown">
-        <Border CornerRadius="40">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Offset="0" Color="#fefefe" />
-                    <GradientStop Offset="1" Color="#ededef" />
-                </LinearGradientBrush>
-            </Border.Background>
+        <Border Background="{DynamicResource DefaultRegionBrush}" CornerRadius="40">
             <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Border>
     </Border>

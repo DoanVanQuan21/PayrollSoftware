@@ -1,142 +1,193 @@
 ﻿using Emgu.CV;
 using Emgu.CV.CvEnum;
-using Emgu.CV.Dnn;
 using Emgu.CV.Structure;
 using Emgu.CV.Util;
+using PayrollSoftware.Core.Constants;
+using PayrollSoftware.Core.Settings.Videos;
 using PayrollSoftware.Video.Contracts;
+using PayrollSoftware.Video.Helpers;
 using PayrollSoftware.Video.Models;
+using System.Diagnostics;
 using System.Drawing;
-using System.IO;
+using YoloDotNet;
+using YoloDotNet.Enums;
+
+using Drawing = System.Drawing;
 
 namespace PayrollSoftware.Video.Services
 {
     internal class ImageProcess : IImageProcess
     {
-        private const string YOLO_CONFIG = @"D:\Quan\yolo\yolov3.cfg";
-        private const string YOLO_WRIGHT = @"D:\Quan\yolo\yolov3.weights";
-        private const string YOLO_NAMES = @"D:\Quan\yolo\coco.names";
-        private Net yoloNet;
-        private List<string> classLabels = new();
+        #region Fields
+
+        private Yolo _yolo;
+
+        #endregion Fields
+
+        #region Constructors
 
         public ImageProcess()
         {
-            LoadYoloModel().GetAwaiter();
-            LoadYoloNames().GetAwaiter();
         }
 
-        private Task LoadYoloModel()
+        #endregion Constructors
+
+        #region InitModel
+
+        public Task InitModel(YoloInfo config)
         {
             return Task.Factory.StartNew(() =>
             {
-                yoloNet = DnnInvoke.ReadNetFromDarknet(YOLO_CONFIG, YOLO_WRIGHT);
-                yoloNet.SetPreferableBackend(Emgu.CV.Dnn.Backend.OpenCV);
-                yoloNet.SetPreferableTarget(Target.Cpu);
+                if (string.IsNullOrEmpty(config.ModelPath)) return;
+                DisposeModel();
+                CreateModel(config.ModelPath, config.ModelType, config.UseCuda);
             });
         }
-        private Task<VectorOfMat> GetOutput(ImageCV image)
+
+        #endregion InitModel
+
+        #region ProcessImage
+
+        public async Task ProcessImage(ImageCV img, YoloInfo config, ImageProcessSetting imageProcessSetting)
         {
-            return Task.Factory.StartNew(() =>
+            if (_yolo == null)
             {
-                var inputBlob = DnnInvoke.BlobFromImage(image, 1 / 255.0, new Size(416, 416), new MCvScalar(0, 0, 0), true, false);
-                yoloNet?.SetInput(inputBlob);
-                VectorOfMat output = new VectorOfMat();
-                yoloNet?.Forward(output, yoloNet?.UnconnectedOutLayersNames);
-                inputBlob.Dispose();
-                return output;
-            });
+                return;
+            }
+            switch (config.ModelType)
+            {
+                case ModelType.Classification:
+                    await Classification(img, imageProcessSetting);
+                    break;
+
+                case ModelType.ObjectDetection:
+                    await ObjectDetection(img, imageProcessSetting);
+                    break;
+
+                case ModelType.ObbDetection:
+                    await ObbDetection(img, imageProcessSetting);
+                    break;
+
+                case ModelType.Segmentation:
+                    await Segmentation(img, imageProcessSetting);
+                    break;
+
+                case ModelType.PoseEstimation:
+                    await PoseEstimation(img, imageProcessSetting);
+                    break;
+
+                default:
+                    break;
+            }
         }
-        private Task<(List<Rectangle>, List<float>, List<int>)> ProcessOuput(ImageCV image, VectorOfMat output)
+
+        #endregion ProcessImage
+
+        #region Yolos
+
+        private async Task Classification(ImageCV img, ImageProcessSetting imageProcessSetting)
         {
-            return Task.Factory.StartNew(() =>
+        }
+
+        private async Task ObbDetection(ImageCV img, ImageProcessSetting imageProcessSetting)
+        {
+            var skimage = Helpers.ImageConverter.ConvertImageCVToSKImage(img);
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            var results = _yolo.RunObbDetection(skimage, confidence: imageProcessSetting.Confidence, iou: imageProcessSetting.Iou);
+            int count = 1;
+            foreach (var result in results)
             {
-                // Xử lý kết quả đầu ra
-                var confidenceThreshold = 0.5f; // Ngưỡng độ tin cậy
-                var nmsThreshold = 0.4f; // Ngưỡng NMS (Non-Maxima Suppression)
-                List<Rectangle> boxes = new();
-                List<float> confidences = new();
-                List<int> classIds = new();
-                for (int i = 0; i < output.Size; i++)
+                var detectionResult = await ImageHelper.DrawImage(img, result, count);
+                if (detectionResult == null)
                 {
-                    var level = output[i];
-                    var data = (float[,])level.GetData();
-
-                    for (int j = 0; j < data.GetLength(0); j += 85) // YOLO đầu ra 85 giá trị cho mỗi phát hiện
-                    {
-                        var row = Enumerable.Range(0, data.GetLength(1)).Select(x => data[j, x]).ToArray();
-                        var rowScore = row.Skip(5).ToList();
-                        var classID = rowScore.IndexOf(rowScore.Max());
-                        var actualConfidence = rowScore[classID];
-                        if (actualConfidence >= confidenceThreshold)
-                        {
-                            var centerX = (int)(row[0] * image.Width);
-                            var centerY = (int)(row[1] * image.Height);
-                            var boxWidth = (int)(row[2] * image.Width);
-                            var boxHeight = (int)(row[3] * image.Height);
-                            var x = centerX - boxWidth / 2;
-                            var y = centerY - boxHeight / 2;
-                            boxes.Add(new Rectangle(x, y, boxWidth, boxHeight));
-                            classIds.Add(classID);
-                            confidences.Add(actualConfidence);
-                        }
-                    }
-                    level.Dispose();
+                    continue;
                 }
-                return (boxes, confidences, classIds);
-            });
+                count++;
+            }
+            skimage.Dispose();
+            Console.WriteLine($"Time: {stopWatch.ElapsedMilliseconds}");
+            stopWatch.Stop();
         }
-        public Task DectectObject(ImageCV image)
+
+        private async Task ObjectDetection(ImageCV img, ImageProcessSetting imageProcessSetting)
         {
-            return Task.Factory.StartNew(async () =>
+            var skimage = Helpers.ImageConverter.ConvertImageCVToSKImage(img);
+            var results = await _yolo.RunObjectDetectionAsync(skimage, confidence: imageProcessSetting.Confidence, iou: imageProcessSetting.Iou);
+            int count = 1;
+            var labels = new List<string>();
+            foreach (var result in results)
             {
-                var output = await GetOutput(image);
-                var confidenceThreshold = 0.5f; // Ngưỡng độ tin cậy
-                var nmsThreshold = 0.4f; // Ngưỡng NMS (Non-Maxima Suppression)
-                var (boxes, confidences, classIds) = await ProcessOuput(image, output);
-                // Áp dụng Non-Maxima Suppression để lọc các bounding box không cần thiết
-                var bestIndexs = DnnInvoke.NMSBoxes(boxes.ToArray(), confidences.ToArray(), confidenceThreshold, nmsThreshold);
-
-                // Vẽ bounding box lên ảnh gốc
-                foreach (int idx in bestIndexs)
+                var detectionResult = await ImageHelper.DrawImage(img, result, count);
+                if (detectionResult == null)
                 {
-                    if (idx >= classIds.Count)
-                    {
-                        continue;
-                    }
-                    var box = boxes[idx];
-                    var id = classIds[idx];
-                    if (id >= classLabels.Count)
-                    {
-                        continue;
-                    }
-                    string label = classLabels[classIds[idx]];
-                    // Lọc các đối tượng màu xanh
-                    CvInvoke.Rectangle(image, box, new MCvScalar(0, 255, 0), 2); // Vẽ với màu xanh lá cây và độ dày 2
-                    CvInvoke.PutText(image, label, new Point(box.X, box.Y - 10), FontFace.HersheySimplex, 0.5, new MCvScalar(0, 255, 0), 1);
+                    continue;
                 }
-                output.Dispose();
-                boxes.Clear();
-                confidences.Clear();
-                classIds.Clear();
-                classIds = null;
-                confidences = null;
-                boxes = null;
-            });
+                labels.Add($"{result.Label.Name} {Math.Round(result.Confidence)}%");
+                count++;
+            }
+            var isNG = labels.Any(x => x.Contains("NG"));
+            skimage.Dispose();
+
+            if (isNG)
+            {
+                await ImageHelper.DrawTextOnImage(img, ResultType.NG, labels.Where(x => x.ToLower().Contains("ng")).ToList());
+                return;
+            }
+            await ImageHelper.DrawTextOnImage(img, ResultType.OK, labels);
         }
 
-        private Task LoadYoloNames()
+        private async Task PoseEstimation(ImageCV img, ImageProcessSetting imageProcessSetting)
         {
-            return Task.Factory.StartNew(() =>
+        }
+
+        private async Task Segmentation(ImageCV img, ImageProcessSetting imageProcessSetting)
+        {
+            var skimage = Helpers.ImageConverter.ConvertImageCVToSKImage(img);
+            var stopWatch = new Stopwatch();
+            stopWatch.Start();
+            var results = _yolo.RunSegmentation(skimage, confidence: imageProcessSetting.Confidence, iou: imageProcessSetting.Iou);
+            int count = 1;
+            foreach (var result in results)
             {
-                var names = File.ReadAllLines(YOLO_NAMES);
-                if (names == null || names?.Length <= 0)
+                var pixels = result.SegmentedPixels.Where(p => p.Confidence >= imageProcessSetting.Confidence);
+                ImageHelper.ApplyPixelMask(img, pixels.ToList(), new Bgr(Drawing.Color.Red), 0.5);
+                var detectionResult = await ImageHelper.DrawImage(img, result, count);
+                if (detectionResult == null)
                 {
-                    return;
+                    continue;
                 }
-                classLabels.AddRange(names);
+                count++;
+            }
+            skimage.Dispose();
+            Console.WriteLine($"Time: {stopWatch.ElapsedMilliseconds}");
+            stopWatch.Stop();
+        }
+
+        #endregion Yolos
+
+        #region EmguCv
+
+        public Task GetContours(ImageCV img, double threshold = 0.7)
+        {
+            return Task.Run(() =>
+            {
+                Image<Gray, byte> gray = img.Convert<Gray, byte>().SmoothGaussian(5);
+
+                CvInvoke.Threshold(gray, img, 210, 255, ThresholdType.BinaryInv);
             });
         }
 
-        public Task ColorDetector(ImageCV img)
+        private float Distance(PointF p1, PointF p2)
+        {
+            return (float)Math.Sqrt(Math.Pow(p2.X - p1.X, 2) + Math.Pow(p2.Y - p1.Y, 2));
+        }
+
+        #endregion EmguCv
+
+        #region Other
+
+        private Task ColorDetector(ImageCV img)
         {
             return Task.Factory.StartNew(() =>
             {
@@ -146,11 +197,8 @@ namespace PayrollSoftware.Video.Services
                 Hsv higher = new(89, 255, 255);
                 var mask = hsvImage.InRange(lower, higher);
                 using var contours = new VectorOfVectorOfPoint();
-                CvInvoke.GaussianBlur(mask, mask, new Size(9, 9), 2);
-                CvInvoke.MorphologyEx(mask, mask, MorphOp.Close, new Mat(), new Point(-1, -1), 2, BorderType.Default, new MCvScalar());
-
-                // Adaptive Thresholding để làm sắc nét đối tượng
-                //CvInvoke.AdaptiveThreshold(mask, mask, 255, AdaptiveThresholdType.MeanC, ThresholdType.Binary, 11, 2);
+                CvInvoke.GaussianBlur(mask, mask, new Drawing.Size(9, 9), 2);
+                CvInvoke.MorphologyEx(mask, mask, MorphOp.Close, new Mat(), new Drawing.Point(-1, -1), 2, BorderType.Default, new MCvScalar());
 
                 using Mat hierarchy = new Mat();
                 CvInvoke.FindContours(mask, contours, hierarchy, RetrType.External, ChainApproxMethod.ChainApproxSimple);
@@ -167,6 +215,31 @@ namespace PayrollSoftware.Video.Services
             });
         }
 
+        private void CreateModel(string modelPath, ModelType modeType, bool isCuda = false, int gpuID = 0)
+        {
+            try
+            {
+                _yolo = new Yolo(new YoloDotNet.Models.YoloOptions()
+                {
+                    OnnxModel = modelPath,
+                    ModelType = modeType,
+                    Cuda = isCuda,
+                    GpuId = gpuID,
+                    PrimeGpu = true,
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private void DisposeModel()
+        {
+            _yolo?.Dispose();
+            _yolo = null;
+        }
+
         private Task<ImageCV> RemoveReflection(ImageCV image)
         {
             return Task.Factory.StartNew(() =>
@@ -180,14 +253,14 @@ namespace PayrollSoftware.Video.Services
 
                 CvInvoke.CvtColor(image, hsvImage, ColorConversion.Bgr2Hsv);
                 var hsvChannels = hsvImage.Split();
-                CvInvoke.CLAHE(hsvChannels[2], 2, new Size(8, 8), clahe);
+                CvInvoke.CLAHE(hsvChannels[2], 2, new Drawing.Size(8, 8), clahe);
 
                 CvInvoke.Merge(new VectorOfMat(hsvChannels[0], hsvChannels[1], clahe), hsvImage);
 
                 CvInvoke.CvtColor(hsvImage, hsvImage, ColorConversion.Hsv2Bgr);
 
                 CvInvoke.CvtColor(hsvImage, gray, ColorConversion.Bgr2Gray);
-                CvInvoke.GaussianBlur(gray, blurred, new Size(3, 3), 0);
+                CvInvoke.GaussianBlur(gray, blurred, new Drawing.Size(3, 3), 0);
                 CvInvoke.Threshold(blurred, thresh, 225, 255, ThresholdType.Binary);
 
                 CvInvoke.Inpaint(image, thresh, dst_TELEA, 3, InpaintType.Telea);
@@ -198,11 +271,7 @@ namespace PayrollSoftware.Video.Services
                 return dst_TELEA;
             });
         }
-    }
 
-    internal class Detection
-    {
-        public string Label { get; set; }
-        public Rectangle Box { get; set; }
+        #endregion Other
     }
 }

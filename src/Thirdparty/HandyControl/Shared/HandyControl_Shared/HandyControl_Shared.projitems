@@ -9,6 +9,8 @@
     <Import_RootNamespace>HandyControl</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MaxValueAttribute.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Attributes\MinValueAttribute.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Collections\ManualObservableCollection`1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Attach\BackgroundSwitchElement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Controls\Attach\BorderElement.cs" />

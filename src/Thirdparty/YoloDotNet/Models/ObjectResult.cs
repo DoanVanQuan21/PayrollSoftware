@@ -30,12 +30,12 @@
         /// <summary>
         /// Segmented pixels coordinates (x,y) and pixel confidence value
         /// </summary>
-        public Pixel[] SegmentedPixels { get; set; } = [];
+        public Pixel[] SegmentedPixels { get; set; } = Array.Empty<Pixel>();
 
         /// <summary>
         /// Confidence value, X and Y coordinates for Pose Estimation key points
         /// </summary>
-        public KeyPoint[] KeyPoints { get; set; } = [];
+        public KeyPoint[] KeyPoints { get; set; } = Array.Empty<KeyPoint>();
 
         /// <summary>
         /// Orientation angle of the bounding box for OBB detections.

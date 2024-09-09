@@ -3,13 +3,16 @@
     public partial class VideoHandler : IDisposable
     {
         public event EventHandler FramesExtractedEvent = delegate { };
+
         public event EventHandler VideoCompleteEvent = delegate { };
+
         public event EventHandler ProgressEvent = delegate { };
+
         public event EventHandler StatusChangeEvent = delegate { };
 
         private readonly ProcessHandler _handler;
         private readonly Dictionary<VideoAction, Action> _pipeline;
-        private List<string> _output = [];
+        private List<string> _output = new();
 
         public VideoSettings _videoSettings;
         private readonly bool _useCuda;
@@ -212,7 +215,7 @@
                 : "";
 
             string cv = _useCuda ? "hevc_nvenc -tune:v hq" : "libx265";
-            
+
             Execute($@" -framerate {FormatedFps} -i ""{outputImage}"" {audio} -c:v {cv} -preset slow -pix_fmt p010le -vf setsar=1:1 -rc:v:0 vbr_hq -cq:v {_videoSettings.Quality} -tag:v hvc1 {MetaData()} -id3v2_version 3 ""{outputFile}""");
         }
 
@@ -248,8 +251,7 @@
         /// Regex for matching current frame in progress from ffmpeg stream output
         /// </summary>
         /// <returns></returns>
-        [GeneratedRegex(@"(?<=frame=\s*)\d+")]
-        private static partial Regex FrameNumberRegex();
+        private static Regex FrameNumberRegex() => new("@\"(?<=frame=\\s*)\\d+\"");
 
         public void Dispose()
         {

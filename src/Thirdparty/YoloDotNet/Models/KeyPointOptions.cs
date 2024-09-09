@@ -20,7 +20,7 @@
         /// <summary>
         /// User-defined mapping to determine how to connect keypoints and specify associated colors.
         /// </summary>
-        public KeyPointMarker[] PoseMarkers { get; init; } = [];
+        public KeyPointMarker[] PoseMarkers { get; init; } = Array.Empty<KeyPointMarker>();
     }
 
     /// <summary>
@@ -36,7 +36,8 @@
         /// <summary>
         /// Defines connections between keypoints.
         /// </summary>
-        public KeyPointConnection[] Connections { get; init; } = [];
+        public KeyPointConnection[] Connections { get; init; } = Array.Empty<KeyPointConnection>();
+
     }
 
     /// <summary>

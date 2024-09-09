@@ -1,14 +1,13 @@
-﻿using PayrollSoftware.Core.Constants;
-using PayrollSoftware.Core.Context;
+﻿using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.WpfPrism;
+using PayrollSoftware.PCan.Contracts;
+using PayrollSoftware.PCan.Services;
+using PayrollSoftware.PCan.ViewModels;
+using PayrollSoftware.PCan.Views;
 using PayrollSoftware.UI.Geometry;
 using Prism.Ioc;
-using PayrollSoftware.PCan.Contracts;
-using PayrollSoftware.PCan.ViewModels;
-using PayrollSoftware.PCan.Services;
-using PayrollSoftware.PCan.Views;
 
 namespace PayrollSoftware.PCan
 {
@@ -18,7 +17,9 @@ namespace PayrollSoftware.PCan
         {
         }
 
-        public override string ModuleName => DllName.PCANModule;
+        public override string DllName => Core.Constants.DllName.PCANModule;
+
+        public override string ModuleName => "PCan";
 
         public override void Dispose()
         {

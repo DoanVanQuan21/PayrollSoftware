@@ -37,14 +37,15 @@ namespace PayrollSoftware.Core.Mvvms
         public ICommand CancelCommand { get; set; }
         public ICommand DeleteCommand { get; set; }
         public ICommand EditCommand { get; set; }
-        public ICommand LoadedCommand { get; set; }
-        public ICommand UnLoadedCommand { get; set; }
+
         public bool IsLogin
         { get => isLogin; set { SetProperty(ref isLogin, value); } }
 
         public ICommand? KeyUpCommand { get; set; }
+        public ICommand LoadedCommand { get; set; }
         public ICommand? LoginCommand { get; set; }
         public abstract string Title { get; }
+        public ICommand UnLoadedCommand { get; set; }
         protected IDialogService DialogService { get; private set; }
 
         public virtual bool CanCloseDialog()
@@ -88,18 +89,20 @@ namespace PayrollSoftware.Core.Mvvms
             AppRegion.RegionPage = null;
         }
 
+        protected virtual void OnLoaded()
+        {
+        }
+
         protected virtual void RegisterCommand()
         {
             LoadedCommand = new DelegateCommand(OnLoaded);
             UnLoadedCommand = new DelegateCommand(UnLoaded);
         }
 
-        protected virtual void UnLoaded()
+        protected void ShowProgressBar()
         {
-        }
-
-        protected virtual void OnLoaded()
-        {
+            var progressBar = new Dialogs.ProgressBar();
+            ShowDialog(progressBar);
         }
 
         protected virtual void RegisterEvent()
@@ -118,6 +121,10 @@ namespace PayrollSoftware.Core.Mvvms
         protected virtual void ShowDialog(UserControl control)
         {
             _dialog.Show(control);
+        }
+
+        protected virtual void UnLoaded()
+        {
         }
 
         private void OnLogginSuccess(bool isLoginSucess)

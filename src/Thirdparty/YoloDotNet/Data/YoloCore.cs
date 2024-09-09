@@ -7,26 +7,113 @@
     /// <param name="useCuda">Indicates whether to use CUDA for GPU acceleration.</param>
     /// <param name="allocateGpuMemory">Indicates whether to allocate GPU memory.</param>
     /// <param name="gpuId">The GPU device ID to use when CUDA is enabled.</param>
-    public class YoloCore(string onnxModel, bool useCuda, bool allocateGpuMemory, int gpuId) : IDisposable
+    public class YoloCore : IDisposable
     {
-        public event EventHandler VideoStatusEvent = delegate { };
-        public event EventHandler VideoProgressEvent = delegate { };
-        public event EventHandler VideoCompleteEvent = delegate { };
-
-        private bool _isDisposed;
-
-        private InferenceSession _session = default!;
-        private RunOptions _runOptions = default!;
-        private OrtIoBinding _ortIoBinding = default!;
-        private int _tensorBufferSize;
         public ArrayPool<float> customSizeFloatPool = default!;
         public ArrayPool<ObjectResult> customSizeObjectResultPool = default!;
-
+        public ParallelOptions parallelOptions = default!;
         private readonly object _progressLock = new();
         private SKImageInfo _imageInfo;
+        private bool _isDisposed;
+        private OrtIoBinding _ortIoBinding = default!;
+        private RunOptions _runOptions = default!;
+        private InferenceSession _session = default!;
+        private int _tensorBufferSize;
+        private bool allocateGpuMemory;
+        private int gpuId;
+        private string onnxModel;
+        private bool useCuda;
 
-        public ParallelOptions parallelOptions = default!;
+        public YoloCore(string onnxModel, bool useCuda, bool allocateGpuMemory, int gpuId)
+        {
+            this.onnxModel = onnxModel;
+            this.useCuda = useCuda;
+            this.allocateGpuMemory = allocateGpuMemory;
+            this.gpuId = gpuId;
+        }
+
+        public event EventHandler VideoCompleteEvent = delegate { };
+
+        public event EventHandler VideoProgressEvent = delegate { };
+
+        public event EventHandler VideoStatusEvent = delegate { };
+
         public OnnxModel OnnxModel { get; private set; } = default!;
+
+        /// <summary>
+        /// Calculate rectangle area
+        /// </summary>
+        /// <param name="rect"></param>
+        public static float CalculateArea(SKRectI rect) => rect.Width * rect.Height;
+
+        /// <summary>
+        /// Calculate IoU (Intersection Over Union) bounding box overlap.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="b"></param>
+        public static float CalculateIoU(SKRectI a, SKRectI b)
+        {
+            var intersectionArea = CalculateArea(SKRectI.Intersect(a, b));
+
+            return intersectionArea == 0
+                ? 0
+                : intersectionArea / (CalculateArea(a) + CalculateArea(b) - intersectionArea);
+        }
+
+        /// <summary>
+        /// Calculate pixel by byte to confidence
+        /// </summary>
+        public static float CalculatePixelConfidence(byte value) => 1 - value / 255F;
+
+        /// <summary>
+        /// Calculate pixel luminance
+        /// </summary>
+        public static byte CalculatePixelLuminance(float value) => (byte)(255 - value * 255);
+
+        /// <summary>
+        /// Calculate radian to degree
+        /// </summary>
+        /// <param name="value"></param>
+        public static float CalculateRadianToDegree(float value) => value * (180 / (float)Math.PI);
+
+        /// <summary>
+        /// Squash value to a number between 0 and 1
+        /// </summary>
+        public static float Sigmoid(float value) => 1 / (1 + MathF.Exp(-value));
+
+        /// <summary>
+        /// Calculates the padding and scaling factor needed to adjust the bounding box
+        /// so that the detected object can be resized to match the original image size.
+        /// </summary>
+        /// <param name="image">The image for which the bounding box needs to be adjusted.</param>
+        /// <param name="model">The ONNX model containing the input dimensions.</param>
+        public (int, int, float) CalculateGain(SKImage image)
+        {
+            var model = OnnxModel;
+
+            var (w, h) = (image.Width, image.Height);
+
+            var gain = Math.Max((float)w / model.Input.Width, (float)h / model.Input.Height);
+            var ratio = Math.Min(model.Input.Width / (float)image.Width, model.Input.Height / (float)image.Height);
+            var (xPad, yPad) = ((int)(model.Input.Width - w * ratio) / 2, (int)(model.Input.Height - h * ratio) / 2);
+
+            return (xPad, yPad, gain);
+        }
+
+        /// <summary>
+        /// Releases resources and suppresses the finalizer for the current object.
+        /// </summary>
+        public void Dispose()
+        {
+            if (_isDisposed) return;
+
+            _session?.Dispose();
+            _ortIoBinding?.Dispose();
+            _runOptions?.Dispose();
+
+            _isDisposed = true;
+            GC.SuppressFinalize(this);
+        }
 
         /// <summary>
         /// Initializes the YOLO model with the specified model type.
@@ -56,6 +143,29 @@
 
             if (useCuda && allocateGpuMemory)
                 _session.AllocateGpuMemory(_ortIoBinding, _runOptions, customSizeFloatPool, _imageInfo);
+        }
+
+        /// <summary>
+        /// Removes overlapping bounding boxes in a list of object detection results.
+        /// </summary>
+        /// <param name="predictions">The list of object detection results to process.</param>
+        /// <param name="iouThreshold">Higher Iou-threshold result in fewer detections by excluding overlapping boxes.</param>
+        /// <returns>A filtered list with non-overlapping bounding boxes based on confidence scores.</returns>
+        public ObjectResult[] RemoveOverlappingBoxes(ObjectResult[] predictions, double iouThreshold)
+        {
+            Array.Sort(predictions, (a, b) => b.Confidence.CompareTo(a.Confidence));
+            var result = new HashSet<ObjectResult>();
+
+            var predictionSpan = predictions.AsSpan();
+            for (int i = 0; i < predictionSpan.Length; i++)
+            {
+                var item = predictionSpan[i];
+
+                if (result.Any(x => CalculateIoU(item.BoundingBox, x.BoundingBox) > iouThreshold) is false)
+                    result.Add(item);
+            }
+
+            return result.ToArray();
         }
 
         /// <summary>
@@ -130,43 +240,12 @@
         }
 
         /// <summary>
-        /// Runs batch inference on the extracted video frames.
+        /// Verify that loaded model is of the expected type
         /// </summary>
-        private Dictionary<int, List<T>> RunBatchInferenceOnVideoFrames<T>(
-            VideoHandler.VideoHandler _videoHandler,
-            double confidence, double iouThreshold,
-            Func<SKImage, double, double, List<T>> func) where T : class, new()
+        public void VerifyExpectedModelType(ModelType expectedModelType)
         {
-            var frames = _videoHandler.GetExtractedFrames();
-            int progressCounter = 0;
-            int totalFrames = frames.Length;
-            var batch = new List<T>[totalFrames];
-
-            var shouldDrawLabelsOnKeptFrames = _videoHandler._videoSettings.DrawLabels && _videoHandler._videoSettings.KeepFrames;
-            var shouldDrawLabelsOnVideoFrames = _videoHandler._videoSettings.DrawLabels && _videoHandler._videoSettings.GenerateVideo;
-
-            _ = Parallel.For(0, totalFrames, parallelOptions, i =>
-            {
-                var frame = frames[i];
-                using var img = SKImage.FromEncodedData(frame);
-
-
-                var results = func.Invoke(img, confidence, iouThreshold);
-                batch[i] = results;
-
-                if (shouldDrawLabelsOnKeptFrames || shouldDrawLabelsOnVideoFrames)
-                    DrawResultsOnVideoFrame(img, results, frame, _videoHandler._videoSettings);
-
-                Interlocked.Increment(ref progressCounter);
-                var progress = ((double)progressCounter / totalFrames) * 100;
-
-                lock (_progressLock)
-                {
-                    VideoProgressEvent?.Invoke((int)progress, null!);
-                }
-            });
-
-            return Enumerable.Range(0, batch.Length).ToDictionary(x => x, x => batch[x]);
+            if (expectedModelType.Equals(OnnxModel.ModelType) is false)
+                throw new Exception($"Loaded ONNX-model is of type {OnnxModel.ModelType} and can't be used for {expectedModelType}.");
         }
 
         /// <summary>
@@ -190,112 +269,42 @@
         }
 
         /// <summary>
-        /// Removes overlapping bounding boxes in a list of object detection results.
+        /// Runs batch inference on the extracted video frames.
         /// </summary>
-        /// <param name="predictions">The list of object detection results to process.</param>
-        /// <param name="iouThreshold">Higher Iou-threshold result in fewer detections by excluding overlapping boxes.</param>
-        /// <returns>A filtered list with non-overlapping bounding boxes based on confidence scores.</returns>
-        public ObjectResult[] RemoveOverlappingBoxes(ObjectResult[] predictions, double iouThreshold)
+        private Dictionary<int, List<T>> RunBatchInferenceOnVideoFrames<T>(
+            VideoHandler.VideoHandler _videoHandler,
+            double confidence, double iouThreshold,
+            Func<SKImage, double, double, List<T>> func) where T : class, new()
         {
-            Array.Sort(predictions, (a, b) => b.Confidence.CompareTo(a.Confidence));
-            var result = new HashSet<ObjectResult>();
+            var frames = _videoHandler.GetExtractedFrames();
+            int progressCounter = 0;
+            int totalFrames = frames.Length;
+            var batch = new List<T>[totalFrames];
 
-            var predictionSpan = predictions.AsSpan();
-            var totalPredictions = predictionSpan.Length;
+            var shouldDrawLabelsOnKeptFrames = _videoHandler._videoSettings.DrawLabels && _videoHandler._videoSettings.KeepFrames;
+            var shouldDrawLabelsOnVideoFrames = _videoHandler._videoSettings.DrawLabels && _videoHandler._videoSettings.GenerateVideo;
 
-            for (int i = 0; i < totalPredictions; i++)
+            _ = Parallel.For(0, totalFrames, parallelOptions, i =>
             {
-                var item = predictionSpan[i];
+                var frame = frames[i];
+                using var img = SKImage.FromEncodedData(frame);
 
-                if (result.Any(x => CalculateIoU(item.BoundingBox, x.BoundingBox) > iouThreshold) is false)
-                    result.Add(item);
-            }
+                var results = func.Invoke(img, confidence, iouThreshold);
+                batch[i] = results;
 
-            return [.. result];
-        }
+                if (shouldDrawLabelsOnKeptFrames || shouldDrawLabelsOnVideoFrames)
+                    DrawResultsOnVideoFrame(img, results, frame, _videoHandler._videoSettings);
 
-        /// <summary>
-        /// Squash value to a number between 0 and 1
-        /// </summary>
-        public static float Sigmoid(float value) => 1 / (1 + MathF.Exp(-value));
+                Interlocked.Increment(ref progressCounter);
+                var progress = ((double)progressCounter / totalFrames) * 100;
 
-        /// <summary>
-        /// Calculate pixel luminance
-        /// </summary>
-        public static byte CalculatePixelLuminance(float value) => (byte)(255 - value * 255);
+                lock (_progressLock)
+                {
+                    VideoProgressEvent?.Invoke((int)progress, null!);
+                }
+            });
 
-        /// <summary>
-        /// Calculate pixel by byte to confidence
-        /// </summary>
-        public static float CalculatePixelConfidence(byte value) => 1 - value / 255F;
-
-        /// <summary>
-        /// Calculate radian to degree
-        /// </summary>
-        /// <param name="value"></param>
-        public static float CalculateRadianToDegree(float value) => value * (180 / (float)Math.PI);
-
-        /// <summary>
-        /// Calculate rectangle area
-        /// </summary>
-        /// <param name="rect"></param>
-        public static float CalculateArea(SKRectI rect) => rect.Width * rect.Height;
-
-        /// <summary>
-        /// Calculate IoU (Intersection Over Union) bounding box overlap.
-        /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
-        public static float CalculateIoU(SKRectI a, SKRectI b)
-        {
-            var intersectionArea = CalculateArea(SKRectI.Intersect(a, b));
-
-            return intersectionArea == 0
-                ? 0
-                : intersectionArea / (CalculateArea(a) + CalculateArea(b) - intersectionArea);
-        }
-
-        /// <summary>
-        /// Calculates the padding and scaling factor needed to adjust the bounding box
-        /// so that the detected object can be resized to match the original image size.
-        /// </summary>
-        /// <param name="image">The image for which the bounding box needs to be adjusted.</param>
-        /// <param name="model">The ONNX model containing the input dimensions.</param>
-        public (int, int, float) CalculateGain(SKImage image)
-        {
-            var model = OnnxModel;
-
-            var (w, h) = (image.Width, image.Height);
-
-            var gain = Math.Max((float)w / model.Input.Width, (float)h / model.Input.Height);
-            var ratio = Math.Min(model.Input.Width / (float)image.Width, model.Input.Height / (float)image.Height);
-            var (xPad, yPad) = ((int)(model.Input.Width - w * ratio) / 2, (int)(model.Input.Height - h * ratio) / 2);
-
-            return (xPad, yPad, gain);
-        }
-
-        /// <summary>
-        /// Verify that loaded model is of the expected type
-        /// </summary>
-        public void VerifyExpectedModelType(ModelType expectedModelType)
-        {
-            if (expectedModelType.Equals(OnnxModel.ModelType) is false)
-                throw new Exception($"Loaded ONNX-model is of type {OnnxModel.ModelType} and can't be used for {expectedModelType}.");
-        }
-
-        /// <summary>
-        /// Releases resources and suppresses the finalizer for the current object.
-        /// </summary>
-        public void Dispose()
-        {
-            if (_isDisposed) return;
-
-            _session?.Dispose();
-            _ortIoBinding?.Dispose();
-            _runOptions?.Dispose();
-
-            _isDisposed = true;
-            GC.SuppressFinalize(this);
+            return Enumerable.Range(0, batch.Length).ToDictionary(x => x, x => batch[x]);
         }
     }
 }

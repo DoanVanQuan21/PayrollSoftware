@@ -12,16 +12,20 @@ namespace PayrollSoftware.Core.WpfPrism
         protected readonly IEventAggregator _eventAggregator;
         protected readonly IAppManager _settingManager;
         protected List<Action> DisposeActions = new();
+        private readonly ICustomModuleManager _customModuleManager;
 
         public BasePrismModule()
         {
+            _customModuleManager = Ioc.Resolve<ICustomModuleManager>();
             _eventAggregator = Ioc.Resolve<IEventAggregator>();
             _settingManager = Ioc.Resolve<IAppManager>();
-            _eventAggregator.GetEvent<ExitApplicationEvent>().Subscribe(OnExit);
+            _customModuleManager.CustomModules.Add(this);
         }
 
-        public abstract string ModuleName { get; }
+        public abstract string DllName { get; }
         public BootSetting? BootSetting { get; }
+
+        public abstract string ModuleName { get; }
 
         public abstract void Dispose();
 
@@ -33,10 +37,5 @@ namespace PayrollSoftware.Core.WpfPrism
 
         public abstract void RegisterTypes(IContainerRegistry containerRegistry);
 
-        private void OnExit()
-        {
-            Dispose();
-            _eventAggregator.GetEvent<ExitApplicationEvent>().Unsubscribe(OnExit);
-        }
     }
 }

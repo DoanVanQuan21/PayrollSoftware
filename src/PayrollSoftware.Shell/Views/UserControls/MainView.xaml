@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:PayrollSoftware.Shell.Views.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:vm="clr-namespace:PayrollSoftware.Shell.ViewModels"
     d:DataContext="{d:DesignInstance vm:MainWindowViewModel,
@@ -17,60 +18,116 @@
             VerticalAlignment="Stretch">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="130" />
+                    <ColumnDefinition Width="110" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Border
                     Margin="20"
-                    Background="#7163ba"
+                    Background="{DynamicResource SidebarBrush}"
                     CornerRadius="30">
-                    <ListBox
-                        Name="LsMenu"
-                        Grid.Row="1"
-                        HorizontalContentAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        ItemsSource="{Binding MenuSettings}">
-                        <ListBox.ItemContainerStyle>
-                            <Style BasedOn="{StaticResource ListBoxItemBaseStyle}" TargetType="{x:Type ListBoxItem}">
-                                <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="Padding" Value="10" />
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="BorderThickness" Value="0" />
-                                        <Setter Property="BorderBrush" Value="Transparent" />
-                                        <Setter Property="Background" Value="Transparent" />
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="BorderThickness" Value="0" />
-                                        <Setter Property="BorderBrush" Value="Transparent" />
-                                        <Setter Property="Background" Value="Transparent" />
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </ListBox.ItemContainerStyle>
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <Button
-                                    Command="{Binding ElementName=LsMenu, Path=DataContext.SelectedMenuCommand}"
-                                    CommandParameter="{Binding}"
-                                    Style="{StaticResource menuButton}"
-                                    ToolTip="{Binding Label}">
-                                    <Path
-                                        Width="22"
-                                        Height="22"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Data="{Binding Geometry}"
-                                        Fill="White"
-                                        Stretch="Uniform" />
-                                </Button>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Separator
+                            Grid.Row="1"
+                            Height="2"
+                            Margin="20,0,20,0"
+                            VerticalAlignment="Bottom"
+                            Background="{DynamicResource DefaultBorderBrush}" />
+                        <Rectangle
+                            Grid.Row="0"
+                            Width="30"
+                            Height="30"
+                            Margin="0,20,0,20">
+                            <Rectangle.Fill>
+                                <ImageBrush ImageSource="../../Assets/Resources/Images/logos/app_icon_1.png" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <Separator
+                            Grid.Row="3"
+                            Height="2"
+                            Margin="20,0,20,0"
+                            VerticalAlignment="Bottom"
+                            Background="{DynamicResource DefaultBorderBrush}" />
+                        <Button
+                            Grid.Row="4"
+                            Margin="0,20,0,20"
+                            Command="{Binding ShutDownCommand}"
+                            Style="{StaticResource menuButton}"
+                            ToolTip="Close app">
+                            <Path
+                                Width="22"
+                                Height="22"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Data="{StaticResource ArrowExitGeometry}"
+                                Fill="{DynamicResource DefaultTextBrush}"
+                                Stretch="Uniform" />
+                        </Button>
+                        <ListBox
+                            Name="LsMenu"
+                            Grid.Row="2"
+                            HorizontalContentAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            ItemsSource="{Binding MenuSettings}">
+                            <ListBox.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource ListBoxItemBaseStyle}" TargetType="{x:Type ListBoxItem}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="True">
+                                            <Setter Property="BorderThickness" Value="0" />
+                                            <Setter Property="BorderBrush" Value="Transparent" />
+                                            <Setter Property="Background" Value="Transparent" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Button
+                                        Command="{Binding ElementName=LsMenu, Path=DataContext.SelectedMenuCommand}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource menuButton}"
+                                        ToolTip="{Binding Label}">
+                                        <Path
+                                            Width="22"
+                                            Height="22"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            Data="{Binding Geometry}"
+                                            Fill="{DynamicResource DefaultTextBrush}"
+                                            Stretch="Uniform" />
+                                    </Button>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
                 </Border>
-                <Grid Grid.Column="1" Margin="0,20,20,20">
-                    <ContentControl Content="{Binding CurrentTab.View}" />
+                <Grid Grid.Column="1" Margin="0,20,10,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <local:TitleMenu Grid.Row="0" Margin="0,0,0,10" />
+                    <Border
+                        Grid.Row="1"
+                        Margin="0,0,10,10"
+                        Background="Transparent"
+                        BorderBrush="{DynamicResource DefaultBorderBrush}"
+                        BorderThickness="0,0,0,1" />
+                    <ContentControl Grid.Row="2" Content="{Binding CurrentTab.View}" />
                 </Grid>
             </Grid>
         </hc:TransitioningContentControl>

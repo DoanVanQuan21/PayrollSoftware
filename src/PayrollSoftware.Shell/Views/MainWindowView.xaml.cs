@@ -19,13 +19,6 @@ namespace PayrollSoftware.Shell.Views
             InitializeComponent();
             DataContext = Ioc.Resolve<MainWindowViewModel>();
         }
-
-        private void Window_Closed(object sender, EventArgs e)
-        {
-            Ioc.Resolve<IEventAggregator>().GetEvent<ExitApplicationEvent>().Publish();
-            Application.Current.Shutdown();
-        }
-
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)

@@ -1,7 +1,6 @@
 ﻿using PayrollSoftware.Auth.Contracts;
 using PayrollSoftware.Auth.Services;
 using PayrollSoftware.Auth.ViewModels;
-using PayrollSoftware.Core.Constants;
 using PayrollSoftware.Core.WpfPrism;
 using Prism.Ioc;
 
@@ -9,7 +8,9 @@ namespace PayrollSoftware.Auth
 {
     public class AuthModule : BasePrismModule
     {
-        public override string ModuleName => DllName.AuthModule;
+        public override string DllName => Core.Constants.DllName.AuthModule;
+
+        public override string ModuleName => "Auth";
 
         public AuthModule() : base()
         {
@@ -28,7 +29,6 @@ namespace PayrollSoftware.Auth
         {
             containerRegistry.RegisterSingleton<ILoginService, LoginService>();
             containerRegistry.RegisterSingleton<LoginMedicineViewModel>();
-
         }
 
         public override void Init()

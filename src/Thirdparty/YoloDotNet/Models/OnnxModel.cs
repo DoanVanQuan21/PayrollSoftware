@@ -42,7 +42,7 @@
         /// <summary>
         /// ONNX custom metadata 
         /// </summary>
-        public Dictionary<string, string> CustomMetaData { get; set; } = [];
+        public Dictionary<string, string> CustomMetaData { get; set; } = new();
     }
 
     /// <summary>

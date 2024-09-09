@@ -1,7 +1,6 @@
-﻿using PayrollSoftware.Comport.Views;
-using PayrollSoftware.Comport.Contracts;
+﻿using PayrollSoftware.Comport.Contracts;
 using PayrollSoftware.Comport.Services;
-using PayrollSoftware.Core.Constants;
+using PayrollSoftware.Comport.Views;
 using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Contracts;
 using PayrollSoftware.Core.Models;
@@ -16,7 +15,9 @@ namespace PayrollSoftware.Comport
     public class ComportModule : BasePrismModule
     {
         private IDeviceService deviceService;
-        public override string ModuleName => DllName.ComportModule;
+        public override string DllName => Core.Constants.DllName.ComportModule;
+
+        public override string ModuleName => "Comport";
 
         public override void Dispose()
         {

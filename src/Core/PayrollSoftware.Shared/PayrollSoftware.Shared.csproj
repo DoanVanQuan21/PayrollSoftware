@@ -88,13 +88,6 @@
     <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
     <PackageReference Include="System.Management" Version="8.0.0" />
   </ItemGroup>
-
-
-
-  <ItemGroup>
-    <ProjectReference Include="..\PayrollSoftware.Core\PayrollSoftware.Core.csproj" />
-    <ProjectReference Include="..\PayrollSoftware.UI\PayrollSoftware.UI.csproj" />
-  </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Resources\Images\Icons\maximize_icon_yell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
-    <Title>YoloDotNet - C# .NET 8.0 implementation of YOLOv8 &amp; YOLOv10</Title>
+    <Title>YoloDotNet - C# .NET 6.0 implementation of YOLOv8 &amp; YOLOv10</Title>
     <PackageProjectUrl>https://github.com/NickSwardh/YoloDotNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/NickSwardh/YoloDotNet</RepositoryUrl>
     <PackageTags>yolo;yolov8;yolov10;ONNX;ML;CUDA;GPU;classification;object;detection;segmentation;pose;estimation;oriented;image;vision;video;media;convert;encode;imagesharp;sixlabors;ffmpeg;process;core;ai</PackageTags>

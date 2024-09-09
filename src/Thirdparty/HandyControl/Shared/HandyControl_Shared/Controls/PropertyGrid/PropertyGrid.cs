@@ -116,6 +116,8 @@ public class PropertyGrid : Control
     protected virtual PropertyItem CreatePropertyItem(PropertyDescriptor propertyDescriptor) => new()
     {
         Category = PropertyResolver.ResolveCategory(propertyDescriptor),
+        MaxValue = PropertyResolver.ResolveMaxValue(propertyDescriptor),
+        MinValue = PropertyResolver.ResolveMinValue(propertyDescriptor),
         DisplayName = PropertyResolver.ResolveDisplayName(propertyDescriptor),
         Description = PropertyResolver.ResolveDescription(propertyDescriptor),
         IsReadOnly = PropertyResolver.ResolveIsReadOnly(propertyDescriptor),

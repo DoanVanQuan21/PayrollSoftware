@@ -6,19 +6,19 @@ using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.Services;
 using PayrollSoftware.Devices.Services;
 using PayrollSoftware.Devices.Services.Constracts;
+using PayrollSoftware.EntityFramework.Context;
+using PayrollSoftware.EntityFramework.Contracts;
+using PayrollSoftware.Shell.Services;
+using PayrollSoftware.Shell.ViewModels;
 using PayrollSoftware.Shell.Views;
 using PayrollSoftware.Shell.Views.UserControls;
 using PayrollSoftware.UI.Contracts;
 using PayrollSoftware.UI.Services;
-using PayrollSoftware.Shell.Services;
-using PayrollSoftware.Shell.ViewModels;
 using Prism.DryIoc;
 using Prism.Events;
 using Prism.Ioc;
 using System.Diagnostics;
 using System.Windows;
-using PayrollSoftware.EntityFramework.Contracts;
-using PayrollSoftware.EntityFramework.Context;
 
 namespace PayrollSoftware.Shell
 {
@@ -70,6 +70,7 @@ namespace PayrollSoftware.Shell
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IStartUp, StartUp>();
+            containerRegistry.RegisterSingleton<ICustomModuleManager, CustomModuleManager>();
             containerRegistry.RegisterSingleton<IAppManager, AppManager>();
             containerRegistry.RegisterSingleton<IThemeService, ThemeService>();
             containerRegistry.RegisterSingleton<ICustomDialog, CustomDialog>();

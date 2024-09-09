@@ -28,12 +28,28 @@
             Margin="5"
             Orientation="Horizontal">
             <Button
+                x:Name="AddButton"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Top"
-                hc:IconElement.Geometry="{StaticResource UsbAddGeometry}"
-                hc:IconElement.Width="20"
                 Command="{Binding AddDeviceCommand}"
-                Style="{StaticResource ButtonDashedInfo}" />
+                Style="{StaticResource commonButton}">
+                <Path
+                    Width="20"
+                    Height="20"
+                    Data="{StaticResource UsbAddGeometry}">
+                    <Path.Style>
+                        <Style TargetType="Path">
+                            <Setter Property="Fill" Value="#776abd" />
+                            <Setter Property="Stretch" Value="Uniform" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=AddButton, Path=IsMouseOver}" Value="True">
+                                    <Setter Property="Fill" Value="#ffffff" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Path.Style>
+                </Path>
+            </Button>
         </StackPanel>
         <Border
             Grid.Row="0"
@@ -91,14 +107,30 @@
                                     Orientation="Horizontal">
 
                                     <Button
+                                        x:Name="DeleteButton"
                                         Margin="10"
                                         HorizontalAlignment="Left"
                                         VerticalAlignment="Center"
-                                        hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
-                                        hc:IconElement.Width="20"
                                         Command="{Binding ElementName=ListDevice, Path=DataContext.DeleteDeviceCommand}"
                                         CommandParameter="{Binding}"
-                                        Style="{StaticResource ButtonDashedDanger}" />
+                                        Style="{StaticResource commonButton}">
+                                        <Path
+                                            Width="20"
+                                            Height="20"
+                                            Data="{StaticResource DeleteGeometry}">
+                                            <Path.Style>
+                                                <Style TargetType="Path">
+                                                    <Setter Property="Fill" Value="#776abd" />
+                                                    <Setter Property="Stretch" Value="Uniform" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ElementName=DeleteButton, Path=IsMouseOver}" Value="True">
+                                                            <Setter Property="Fill" Value="#ffffff" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Path.Style>
+                                        </Path>
+                                    </Button>
                                 </WrapPanel>
                             </Grid>
                         </Border>
@@ -145,38 +177,112 @@
                 Grid.ColumnSpan="2"
                 Orientation="Horizontal">
                 <Button
+                    x:Name="ConnectButton"
                     Margin="10"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     hc:IconElement.Width="20"
                     Command="{Binding ConnectComportDeviceCommand}">
                     <Button.Style>
-                        <Style BasedOn="{StaticResource ButtonDashedInfo}" TargetType="Button">
+                        <Style BasedOn="{StaticResource commonButton}" TargetType="Button">
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding ElementName=Container, Path=DataContext.CurrentDevice.IsConnected, Mode=TwoWay}" Value="True">
-                                    <Setter Property="hc:IconElement.Geometry" Value="{StaticResource DisconnectGeometry}" />
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Path
+                                                Width="20"
+                                                Height="20"
+                                                Data="{StaticResource DisconnectGeometry}">
+                                                <Path.Style>
+                                                    <Style TargetType="Path">
+                                                        <Setter Property="Fill" Value="#776abd" />
+                                                        <Setter Property="Stretch" Value="Uniform" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=ConnectButton, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Fill" Value="#ffffff" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Setter.Value>
+                                    </Setter>
                                     <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
                                     <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ElementName=Container, Path=DataContext.CurrentDevice.IsConnected, Mode=TwoWay}" Value="False">
-                                    <Setter Property="hc:IconElement.Geometry" Value="{StaticResource ConnectGeometry}" />
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Path
+                                                Width="20"
+                                                Height="20"
+                                                Data="{StaticResource ConnectGeometry}">
+                                                <Path.Style>
+                                                    <Style TargetType="Path">
+                                                        <Setter Property="Fill" Value="#776abd" />
+                                                        <Setter Property="Stretch" Value="Uniform" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=ConnectButton, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Fill" Value="#ffffff" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Setter.Value>
+                                    </Setter>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding ElementName=Container, Path=DataContext.CurrentDevice, Mode=TwoWay}" Value="null">
-                                    <Setter Property="hc:IconElement.Geometry" Value="{StaticResource ConnectGeometry}" />
+                                    <Setter Property="Content">
+                                        <Setter.Value>
+                                            <Path
+                                                Width="20"
+                                                Height="20"
+                                                Data="{StaticResource ConnectGeometry}">
+                                                <Path.Style>
+                                                    <Style TargetType="Path">
+                                                        <Setter Property="Fill" Value="#776abd" />
+                                                        <Setter Property="Stretch" Value="Uniform" />
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding ElementName=ConnectButton, Path=IsMouseOver}" Value="True">
+                                                                <Setter Property="Fill" Value="#ffffff" />
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Path.Style>
+                                            </Path>
+                                        </Setter.Value>
+                                    </Setter>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
                 <Button
+                    x:Name="SendButton"
                     Margin="10"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    hc:IconElement.Geometry="{StaticResource SendGeometry}"
-                    hc:IconElement.Width="20"
                     Command="{Binding SendCommand}"
                     IsEnabled="{Binding CurrentDevice.IsConnected}"
-                    Style="{StaticResource ButtonDashedInfo}" />
+                    Style="{StaticResource commonButton}">
+                    <Path
+                        Width="20"
+                        Height="20"
+                        Data="{StaticResource SendGeometry}">
+                        <Path.Style>
+                            <Style TargetType="Path">
+                                <Setter Property="Fill" Value="#776abd" />
+                                <Setter Property="Stretch" Value="Uniform" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding ElementName=SendButton, Path=IsMouseOver}" Value="True">
+                                        <Setter Property="Fill" Value="#ffffff" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Path.Style>
+                    </Path>
+                </Button>
             </StackPanel>
             <GroupBox
                 Grid.Row="2"

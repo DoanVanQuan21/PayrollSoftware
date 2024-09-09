@@ -1,14 +1,15 @@
-﻿using PayrollSoftware.Core.Constants;
-using PayrollSoftware.Core.WpfPrism;
+﻿using PayrollSoftware.Core.WpfPrism;
+using PayrollSoftware.Database.ViewModels;
 using PayrollSoftware.Database.Views;
 using Prism.Ioc;
-using PayrollSoftware.Database.ViewModels;
 
 namespace PayrollSoftware.Database
 {
     public class DatabaseModule : BasePrismModule
     {
-        public override string ModuleName => DllName.DatabaseModule;
+        public override string DllName => Core.Constants.DllName.DatabaseModule;
+
+        public override string ModuleName => "Database";
 
         public override void Dispose()
         {

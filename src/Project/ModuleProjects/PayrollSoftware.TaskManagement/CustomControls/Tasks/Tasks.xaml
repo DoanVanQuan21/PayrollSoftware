@@ -24,7 +24,7 @@
                             Margin="0,-30,0,0"
                             VerticalAlignment="Top"
                             Panel.ZIndex="1"
-                            Background="#7163BA"
+                            Background="{DynamicResource SidebarBrush}"
                             CornerRadius="20">
                             <Border.Effect>
                                 <DropShadowEffect
@@ -32,7 +32,7 @@
                                     Direction="270"
                                     Opacity="0.3"
                                     ShadowDepth="3"
-                                    Color="#7163BA" />
+                                    Color="{DynamicResource SidebarColor}" />
                             </Border.Effect>
                             <Grid Margin="20,10" VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
@@ -56,7 +56,7 @@
                         <Border
                             x:Name="border"
                             Margin="-5"
-                            BorderBrush="#7163BA"
+                            BorderBrush="{DynamicResource DefaultBorderBrush}"
                             BorderThickness="1"
                             CornerRadius="20">
                             <Border.Style>
@@ -71,21 +71,36 @@
                             </Border.Style>
                         </Border>
                         <Border
-                            MinWidth="350"
                             Padding="10"
-                            Background="White"
+                            Background="Transparent"
                             CornerRadius="20">
                             <ListBox
+                                Margin="10"
                                 Background="Transparent"
                                 ItemsSource="{TemplateBinding ItemsSource}"
                                 SelectedValue="{TemplateBinding SelectedTask}"
                                 Style="{StaticResource lsStyle}">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem">
+                                        <Setter Property="Margin" Value="0,10,0,0" />
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="ListBoxItem">
+                                                    <Border
+                                                        Background="{DynamicResource DefaultTextBrush}"
+                                                        BorderBrush="{DynamicResource DefaultBorderBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="20">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid
-                                            Margin="10,0,0,0"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch">
+                                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="auto" />
                                                 <RowDefinition Height="*" />
@@ -93,7 +108,10 @@
                                                 <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
 
-                                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                            <StackPanel
+                                                Grid.Row="0"
+                                                HorizontalAlignment="Left"
+                                                Orientation="Horizontal">
                                                 <Border
                                                     Width="8"
                                                     Height="8"
@@ -106,7 +124,7 @@
                                                     Foreground="{DynamicResource PrimaryTextBrush}"
                                                     Text="{Binding TaskCode}" />
                                             </StackPanel>
-                                            <StackPanel Grid.Row="1">
+                                            <StackPanel Grid.Row="1" HorizontalAlignment="Left">
                                                 <TextBlock
                                                     Margin="0,2,0,2"
                                                     FontSize="16"
@@ -117,8 +135,9 @@
                                                     <TextBlock
                                                         Margin="0,2,2,2"
                                                         DockPanel.Dock="Left"
+                                                        Foreground="{DynamicResource PrimaryTextBrush}"
                                                         Text="Người nhận: " />
-                                                    <TextBlock DockPanel.Dock="Right">
+                                                    <TextBlock DockPanel.Dock="Right" Foreground="{DynamicResource PrimaryTextBrush}">
                                                         <Run Text="{Binding User.FirstName}" />
                                                         <Run Text="{Binding User.LastName}" />
                                                     </TextBlock>
@@ -127,15 +146,23 @@
                                                     <TextBlock
                                                         Margin="0,2,2,2"
                                                         DockPanel.Dock="Left"
+                                                        Foreground="{DynamicResource PrimaryTextBrush}"
                                                         Text="Email: " />
-                                                    <TextBlock DockPanel.Dock="Right" Text="{Binding User.Email}" />
+                                                    <TextBlock
+                                                        DockPanel.Dock="Right"
+                                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                                        Text="{Binding User.Email}" />
                                                 </DockPanel>
                                                 <DockPanel>
                                                     <TextBlock
                                                         Margin="0,2,2,2"
                                                         DockPanel.Dock="Left"
+                                                        Foreground="{DynamicResource PrimaryTextBrush}"
                                                         Text="Phone number: " />
-                                                    <TextBlock DockPanel.Dock="Right" Text="{Binding User.Phone}" />
+                                                    <TextBlock
+                                                        DockPanel.Dock="Right"
+                                                        Foreground="{DynamicResource PrimaryTextBrush}"
+                                                        Text="{Binding User.Phone}" />
                                                 </DockPanel>
                                             </StackPanel>
 
@@ -173,7 +200,6 @@
                                                     Text="{Binding CreatedDate, StringFormat='dd/MM/yyyy'}" />
                                             </DockPanel>
                                         </Grid>
-
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>

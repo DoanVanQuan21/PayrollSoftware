@@ -1,11 +1,14 @@
-﻿using PayrollSoftware.Video.Models;
+﻿using PayrollSoftware.Core.Settings.Videos;
+using PayrollSoftware.Video.Models;
 
 namespace PayrollSoftware.Video.Contracts
 {
     internal interface IImageProcess
     {
-        Task ColorDetector(ImageCV img);
+        Task GetContours(ImageCV img, double threshold = 0.7);
 
-        Task DectectObject(ImageCV image);
+        Task InitModel(YoloInfo config);
+
+        Task ProcessImage(ImageCV img, YoloInfo config, ImageProcessSetting imageProcessSetting);
     }
 }

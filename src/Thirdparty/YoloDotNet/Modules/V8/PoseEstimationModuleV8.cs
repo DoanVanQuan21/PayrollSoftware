@@ -68,7 +68,7 @@
                 box.KeyPoints = poseEstimations;
             }
 
-            return [.. boxes.Select(x => (PoseEstimation)x)];
+            return boxes.Select(x => (PoseEstimation)x).ToList();
         }
 
         private void SubscribeToVideoEvents()

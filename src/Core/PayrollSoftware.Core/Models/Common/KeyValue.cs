@@ -2,12 +2,12 @@
 
 namespace PayrollSoftware.Core.Models.Common
 {
-    public class KeyValue : BindableBase
+    public class KeyValue<TKEY,TVALUE> : BindableBase
     {
-        private string key;
-        private string _value;
+        private TKEY key;
+        private TVALUE _value;
 
-        public string Key { get => key; set => SetProperty(ref key, value); }
-        public string Value { get => _value; set => SetProperty(ref _value, value); }
+        public TKEY Key { get => key; set => SetProperty(ref key, value); }
+        public TVALUE Value { get => _value; set => SetProperty(ref _value, value); }
     }
 }

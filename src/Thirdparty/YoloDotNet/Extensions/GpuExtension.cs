@@ -62,7 +62,7 @@
             var tensorBufferSize = batchSize * channels * width * height;
             var tensorArrayBuffer = customSizeFloatPool.Rent(tensorBufferSize);
 
-            var normalizedTensorPixels = resizedImg.NormalizePixelsToTensor([batchSize, channels, width, height], tensorBufferSize, tensorArrayBuffer);
+            var normalizedTensorPixels = resizedImg.NormalizePixelsToTensor(new List<long>() { batchSize, channels, width, height}.ToArray(), tensorBufferSize, tensorArrayBuffer);
 
             var inputShape = new long[]
             {

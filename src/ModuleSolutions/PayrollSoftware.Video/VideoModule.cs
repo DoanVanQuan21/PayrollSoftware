@@ -1,16 +1,14 @@
-using PayrollSoftware.Core.Constants;
 using PayrollSoftware.Core.Context;
-using PayrollSoftware.Core.Contracts;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.Settings.Videos;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.UI.Geometry;
-using Prism.Ioc;
 using PayrollSoftware.Video.Contracts;
 using PayrollSoftware.Video.Managers;
 using PayrollSoftware.Video.Services;
 using PayrollSoftware.Video.Views;
+using Prism.Ioc;
 
 namespace PayrollSoftware.Video
 {
@@ -20,7 +18,9 @@ namespace PayrollSoftware.Video
         {
         }
 
-        public override string ModuleName => DllName.VideoModule;
+        public override string DllName => Core.Constants.DllName.VideoModule;
+
+        public override string ModuleName => "Camera";
 
         public override void Dispose()
         {
@@ -32,13 +32,13 @@ namespace PayrollSoftware.Video
 
         public override void Init()
         {
+            InitMenu();
             var enabledDevices = _settingManager?.BootSetting?.VideoSettings?.Where(item => item.IsEnabled).ToList();
             if (enabledDevices?.Any() == false)
             {
                 return;
             }
             InitDevices(enabledDevices);
-            InitMenu();
         }
 
         public override void OnInitialized(IContainerProvider containerProvider)
@@ -76,6 +76,12 @@ namespace PayrollSoftware.Video
                     ViewName = nameof(VideoPreviewImageView),
                     Label = "Video",
                     Geometry = GeometryString.VideoGeometry,
+                },new MenuSetting()
+                {
+                    Type = typeof(AutoLabelView),
+                    ViewName = nameof(AutoLabelView),
+                    Label = "Auto Label",
+                    Geometry = GeometryString.AutoLabelGeometry,
                 }
             };
             RootContext.MenuSettings.AddRange(menus);

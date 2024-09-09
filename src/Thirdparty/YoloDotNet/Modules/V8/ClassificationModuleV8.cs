@@ -46,7 +46,7 @@
                 };
             }
 
-            return [.. tmp.OrderByDescending(x => x.Confidence).Take(numberOfClasses)];
+            return tmp.OrderByDescending(x => x.Confidence).Take(numberOfClasses).ToList();
         }
 
         #endregion

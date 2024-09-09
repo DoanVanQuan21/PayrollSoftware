@@ -112,7 +112,7 @@
 
                 pixels.Clear();
                 GetPixelsFromCroppedMask(resizedBitmap, pixelThreshold, pixels, box);
-                box.SegmentedPixels = [.. pixels];
+                box.SegmentedPixels = pixels.ToArray();
             }
 
             // Clean up the mess
@@ -121,7 +121,7 @@
             ortValues[0].Dispose();
             ortValues[1].Dispose();
 
-            return [.. boundingBoxes.Select(x => (Segmentation)x)];
+            return boundingBoxes.Select(x => (Segmentation)x).ToList();
         }
 
         private static SKRectI ScaleBoundingBox(ObjectResult box, float scalingFactorW, float scalingFactorH)

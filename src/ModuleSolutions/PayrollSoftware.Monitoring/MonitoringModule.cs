@@ -1,21 +1,24 @@
-﻿using PayrollSoftware.Core.Constants;
-using PayrollSoftware.Core.Context;
+﻿using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.Mvvms;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.Devices.Services.Constracts;
-using PayrollSoftware.UI.Geometry;
-using Prism.Ioc;
 using PayrollSoftware.Monitoring.ViewModels;
 using PayrollSoftware.Monitoring.Views;
+using PayrollSoftware.UI.Geometry;
+using Prism.Ioc;
 
 namespace PayrollSoftware.Monitoring
 {
     public class MonitoringModule : BasePrismModule
     {
-        public override string ModuleName => DllName.MonitoringModule;
+        public override string DllName => Core.Constants.DllName.MonitoringModule;
+
+        public override string ModuleName => "Monitoring";
+
         private readonly IDeviceMonitoring _deviceManager;
         private readonly IDeviceMonitoring _deviceMonitoring;
+
         public MonitoringModule() : base()
         {
             _deviceManager = Ioc.Resolve<IDeviceMonitoring>();

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
+using HandyControl.Attributes;
 using HandyControl.Properties.Langs;
 
 namespace HandyControl.Controls;
@@ -29,7 +30,21 @@ public class PropertyResolver
         [typeof(VerticalAlignment)] = EditorTypeCode.VerticalAlignment,
         [typeof(ImageSource)] = EditorTypeCode.ImageSource
     };
+    public double ResolveMaxValue(PropertyDescriptor propertyDescriptor)
+    {
+        var maxValueAttribute = propertyDescriptor.Attributes.OfType<MaxValueAttribute>().FirstOrDefault();
+        return maxValueAttribute == null ?
+           1 :
+           maxValueAttribute.MaxValue;
+    }
 
+    public double ResolveMinValue(PropertyDescriptor propertyDescriptor)
+    {
+        var minValueAttribute = propertyDescriptor.Attributes.OfType<MinValueAttribute>().FirstOrDefault();
+        return minValueAttribute == null ?
+           0 :
+           minValueAttribute.MinValue;
+    }
     public string ResolveCategory(PropertyDescriptor propertyDescriptor)
     {
         var categoryAttribute = propertyDescriptor.Attributes.OfType<CategoryAttribute>().FirstOrDefault();

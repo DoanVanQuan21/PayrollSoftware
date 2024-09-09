@@ -164,7 +164,7 @@
             }
 
             // Due to how the ArrayPool works, tensorArrayBuffer can be larger than the actual tensor size; we need to cut it down to the correct size.
-            return new DenseTensor<float>(tensorArrayBuffer.AsMemory()[..tensorBufferSize], [batchSize, colorChannels, width, height]);
+            return new DenseTensor<float>(tensorArrayBuffer.AsMemory(0, tensorBufferSize), new[] { batchSize, colorChannels, width, height });
         }
 
         #region Helper methods

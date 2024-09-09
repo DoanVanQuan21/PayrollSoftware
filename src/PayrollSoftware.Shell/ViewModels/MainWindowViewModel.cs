@@ -15,23 +15,24 @@ namespace PayrollSoftware.Shell.ViewModels
 {
     internal class MainWindowViewModel : BaseRegionViewModel
     {
-        private const string APP_ICON_LIGHT = @"..\app_icon_light.ico";
         private const string APP_ICON_DARK = @"..\app_icon_dark.ico";
+        private const string APP_ICON_LIGHT = @"..\app_icon_light.ico";
         private readonly IAppManager _appManager;
+        private readonly ICustomModuleManager _customModuleManager;
+        private MenuSetting currentTab;
         private string iconWindow = @"..\app_icon.ico";
         private bool isOpenSidebar = false;
         private ObservableCollection<MenuSetting>? menuSettings;
-        private MenuSetting currentTab;
 
         public MainWindowViewModel() : base()
         {
             _appManager = Ioc.Resolve<IAppManager>();
+            _customModuleManager = Ioc.Resolve<ICustomModuleManager>();
             MenuSettings = new();
             InitMenu();
             SetMainView(new StartUpView());
         }
 
-        public ObservableCollection<MenuSetting> AppTabs => RootContext.AppTabs;
         public ICommand? ClosedTabCommand { get; set; }
         public MenuSetting CurrentTab { get => currentTab; set => SetProperty(ref currentTab, value); }
         public string IconWindow { get => iconWindow; set => SetProperty(ref iconWindow, value); }
@@ -41,11 +42,14 @@ namespace PayrollSoftware.Shell.ViewModels
         { get => menuSettings; set { SetProperty(ref menuSettings, value); } }
 
         public ICommand? SelectedMenuCommand { get; set; }
+        public ICommand? ShutDownCommand { get; set; }
         public override string Title => "Home";
+        public string? Fullname { get => BootSetting.CurrentUser?.FullName; }
 
         protected override void RegisterCommand()
         {
             SelectedMenuCommand = new DelegateCommand<MenuSetting>(OnSelectedMenu);
+            ShutDownCommand = new DelegateCommand(OnShutDown);
             ClosedTabCommand = new DelegateCommand<RoutedEventArgs>(OnClosedTab);
         }
 
@@ -54,6 +58,18 @@ namespace PayrollSoftware.Shell.ViewModels
             EventAggregator.GetEvent<LoginSuccessEvent>().Subscribe(OnLogginSuccess);
             EventAggregator.GetEvent<OpenSidebarEvent>().Subscribe(OnOpenSidebar);
             EventAggregator.GetEvent<ChangeThemeEvent>().Subscribe(OnChangeTheme);
+            EventAggregator.GetEvent<ExitApplicationEvent>().Subscribe(OnShutDown);
+        }
+
+        private async Task DisposeModules()
+        {
+            ShowProgressBar();
+            foreach (var module in _customModuleManager.CustomModules)
+            {
+                module.Dispose();
+                await Task.Delay(500);
+            }
+            CloseDialog();
         }
 
         private void InitMenu()
@@ -67,24 +83,9 @@ namespace PayrollSoftware.Shell.ViewModels
             MenuSettings.AddRange(menuSettings);
         }
 
-        private bool IsTabExist(MenuSetting menu)
-        {
-            var tab = RootContext.AppTabs.FirstOrDefault(t => t.Type == menu.Type);
-            if (tab == null)
-            {
-                return false;
-            }
-            return true;
-        }
-
         private void OnChangeTheme()
         {
-            if (_appManager.BootSetting.CurrentTheme == Theme.Light)
-            {
-                IconWindow = APP_ICON_DARK;
-                return;
-            }
-            IconWindow = APP_ICON_LIGHT;
+           
         }
 
         private async void OnClosedTab(RoutedEventArgs args)
@@ -106,8 +107,10 @@ namespace PayrollSoftware.Shell.ViewModels
             {
                 SetMainView(new MainView());
                 SetMainPage(new());
+                CloseDialog();
                 return;
             }
+            CloseDialog();
             await CustomNotification.Error("Login failed");
         }
 
@@ -123,19 +126,14 @@ namespace PayrollSoftware.Shell.ViewModels
 
         private async void OnSelectedMenu(MenuSetting setting)
         {
-            if (setting == null)
-            {
-                await CustomNotification.Warning("Chức năng này hiện tại chưa có!");
-                return;
-            }
-            var isExist = IsTabExist(setting);
-            if (isExist)
-            {
-                await CustomNotification.Info($"{setting.Label} đã có!.");
-                return;
-            }
-            RootContext.AppTabs.Add(setting);
             CurrentTab = setting;
+            AppRegion.Title = setting.Label;
+        }
+
+        private async void OnShutDown()
+        {
+            await DisposeModules();
+            Application.Current.Shutdown();
         }
     }
 }

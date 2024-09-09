@@ -1,13 +1,9 @@
 ﻿using Emgu.CV;
-using Emgu.CV.Structure;
 using PayrollSoftware.Core.Settings.Videos;
-using PayrollSoftware.Video.Services;
-using System.Diagnostics;
-using System.Drawing;
-using System.Windows;
-using PayrollSoftware.Video.Models;
 using PayrollSoftware.Video.Contracts;
 using PayrollSoftware.Video.Helpers;
+using PayrollSoftware.Video.Models;
+using System.Diagnostics;
 
 namespace PayrollSoftware.Video.Devices
 {
@@ -87,7 +83,6 @@ namespace PayrollSoftware.Video.Devices
         {
             try
             {
-                await _imageProcess.DectectObject(image);
                 await ImageRender.Render(image);
                 image.Dispose();
             }

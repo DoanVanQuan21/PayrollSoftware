@@ -91,6 +91,25 @@ public class PropertyItem : ListBoxItem
 
     public static readonly DependencyProperty EditorProperty = DependencyProperty.Register(
         nameof(Editor), typeof(PropertyEditorBase), typeof(PropertyItem), new PropertyMetadata(default(PropertyEditorBase)));
+    public double MaxValue
+    {
+        get { return (double)GetValue(MaxValueProperty); }
+        set { SetValue(MaxValueProperty, value); }
+    }
+
+    public static readonly DependencyProperty MaxValueProperty =
+        DependencyProperty.Register(nameof(MaxValue), typeof(double), typeof(PropertyItem), new PropertyMetadata(default(double)));
+
+
+
+    public double MinValue
+    {
+        get { return (double)GetValue(MinValueProperty); }
+        set { SetValue(MinValueProperty, value); }
+    }
+
+    public static readonly DependencyProperty MinValueProperty =
+        DependencyProperty.Register(nameof(MinValue), typeof(double), typeof(PropertyItem), new PropertyMetadata(default(double)));
 
     public PropertyEditorBase Editor
     {

@@ -20,6 +20,6 @@
         /// <summary>
         /// Keypoints with x, y coordinates and confidence score
         /// </summary>
-        public KeyPoint[] KeyPoints { get; set; } = [];
+        public KeyPoint[] KeyPoints { get; set; } = Array.Empty<KeyPoint>();
     }
 }

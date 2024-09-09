@@ -25,7 +25,7 @@
             var results = ObjectDetection(image, ort, confidence, iou)
                 .Select(x => (ObjectDetection)x);
 
-            return [.. results];
+            return results.ToList();
         }
 
         public Dictionary<int, List<ObjectDetection>> ProcessVideo(VideoOptions options, double confidence, double iou)
@@ -69,7 +69,7 @@
                     var xMin = (int)((x - w / 2 - xPad) * gain);
                     var yMin = (int)((y - h / 2 - yPad) * gain);
                     var xMax = (int)((x + w / 2 - xPad) * gain);
-                    var yMax = (int)((y + w / 2 - yPad) * gain);
+                    var yMax = (int)((y + h / 2 - yPad) * gain);
 
                     // Unscaled coordinates for resized input image
                     var sxMin = (int)(x - w / 2);

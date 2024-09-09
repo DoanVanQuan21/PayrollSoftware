@@ -67,7 +67,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.SettingAcco
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.ProjectManagement", "Project\ModuleProjects\PayrollSoftware.ProjectManagement\PayrollSoftware.ProjectManagement.csproj", "{E13A969C-ECE9-4C46-9CDF-DAA26A380E69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PayrollSoftware.TaskManagement", "Project\ModuleProjects\PayrollSoftware.TaskManagement\PayrollSoftware.TaskManagement.csproj", "{E557C40B-0E51-4FA3-A58A-F550CD4AC3E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PayrollSoftware.TaskManagement", "Project\ModuleProjects\PayrollSoftware.TaskManagement\PayrollSoftware.TaskManagement.csproj", "{E557C40B-0E51-4FA3-A58A-F550CD4AC3E7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YoloDotNet", "Thirdparty\YoloDotNet\YoloDotNet.csproj", "{7F54883A-F35E-4FD3-896E-9857CCCA2496}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -307,6 +309,18 @@ Global
 		{E557C40B-0E51-4FA3-A58A-F550CD4AC3E7}.Release|x64.Build.0 = Release|Any CPU
 		{E557C40B-0E51-4FA3-A58A-F550CD4AC3E7}.Release|x86.ActiveCfg = Release|Any CPU
 		{E557C40B-0E51-4FA3-A58A-F550CD4AC3E7}.Release|x86.Build.0 = Release|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Debug|x64.Build.0 = Debug|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Debug|x86.Build.0 = Debug|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Release|x64.ActiveCfg = Release|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Release|x64.Build.0 = Release|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Release|x86.ActiveCfg = Release|Any CPU
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -339,6 +353,7 @@ Global
 		{F5185B96-C9CE-42F6-94DF-3315CF45B71C} = {9228C441-491B-4C91-83D0-D6EDBC04C314}
 		{E13A969C-ECE9-4C46-9CDF-DAA26A380E69} = {9228C441-491B-4C91-83D0-D6EDBC04C314}
 		{E557C40B-0E51-4FA3-A58A-F550CD4AC3E7} = {9228C441-491B-4C91-83D0-D6EDBC04C314}
+		{7F54883A-F35E-4FD3-896E-9857CCCA2496} = {6BAC630B-3661-4E6E-9780-EDC6A0F112FE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F11E5F25-32D1-42EB-8884-AE58138EDA2C}

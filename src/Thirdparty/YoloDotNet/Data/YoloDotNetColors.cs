@@ -14,7 +14,7 @@
         public static string[] Get()
         {
             return
-            [
+            new string[] {
                 "#91FF57", // Electric Lemon-Lime
                 "#FF6F00", // Manic Tangerine Tango
                 "#FF63A5", // Rambunctious Bubblegum Bliss
@@ -115,7 +115,7 @@
                 "#D0A500", // Sunflower Smiles Shenanigans
                 "#FF84E2", // Cupcake Confetti Capers
                 "#00FF72", // Eco-Friendly Envy Extravaganza Green
-            ];
+            };
         }
     }
 }

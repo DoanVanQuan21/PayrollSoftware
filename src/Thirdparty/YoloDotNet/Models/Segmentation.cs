@@ -20,6 +20,6 @@
         /// <summary>
         /// Segmentated pixels (x,y) with the pixel confidence value
         /// </summary>
-        public Pixel[] SegmentedPixels { get; set; } = [];
+        public Pixel[] SegmentedPixels { get; set; } = Array.Empty<Pixel>();
     }
 }

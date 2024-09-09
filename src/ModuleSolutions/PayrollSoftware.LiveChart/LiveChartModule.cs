@@ -1,5 +1,4 @@
-﻿using PayrollSoftware.Core.Constants;
-using PayrollSoftware.Core.Context;
+﻿using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Models;
 using PayrollSoftware.Core.WpfPrism;
 using PayrollSoftware.LiveChart.Views;
@@ -10,12 +9,14 @@ namespace PayrollSoftware.LiveChart
 {
     public class LiveChartModule : BasePrismModule
     {
-        public override string ModuleName => DllName.LiveChartModule;
+        public override string DllName => Core.Constants.DllName.LiveChartModule;
+
+        public override string ModuleName => "Chart";
 
         public LiveChartModule()
         {
-
         }
+
         public override void Dispose()
         {
         }

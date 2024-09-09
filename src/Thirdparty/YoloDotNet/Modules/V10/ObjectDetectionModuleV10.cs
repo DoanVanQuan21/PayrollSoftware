@@ -25,7 +25,7 @@
             var results = ObjectDetection(image, ort, confidence, iou)
                 .Select(x => (ObjectDetection)x);
 
-            return [.. results];
+            return results.ToList();
         }
 
         public Dictionary<int, List<ObjectDetection>> ProcessVideo(VideoOptions options, double confidence, double iou)
@@ -78,7 +78,7 @@
 
             var results = boxes.Where(x => x is not null);
 
-            return _yoloCore.RemoveOverlappingBoxes([.. results], overlapThreshold);
+            return _yoloCore.RemoveOverlappingBoxes(results.ToArray(), overlapThreshold);
         }
 
         private Task<ObjectResult[]> ObjectDetectionAsync(SKImage image, OrtValue ortTensor, double confidenceThreshold, double overlapThreshold)

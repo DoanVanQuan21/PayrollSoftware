@@ -1,5 +1,4 @@
-﻿using PayrollSoftware.Core.Constants;
-using PayrollSoftware.Core.Context;
+﻿using PayrollSoftware.Core.Context;
 using PayrollSoftware.Core.Contracts;
 using PayrollSoftware.Core.Events;
 using PayrollSoftware.Core.Models;
@@ -21,7 +20,9 @@ namespace PayrollSoftware.Payroll
 {
     public class PayrollModule : BasePrismModule
     {
-        public override string ModuleName => DllName.PayrollModule;
+        public override string DllName => Core.Constants.DllName.PayrollModule;
+
+        public override string ModuleName => "Main project";
 
         public PayrollModule()
         {
