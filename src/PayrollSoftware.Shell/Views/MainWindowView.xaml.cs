@@ -14,10 +14,12 @@ namespace PayrollSoftware.Shell.Views
     /// </summary>
     public partial class MainWindowView : Window
     {
+        private MainWindowViewModel viewModel;
         public MainWindowView()
         {
             InitializeComponent();
-            DataContext = Ioc.Resolve<MainWindowViewModel>();
+            viewModel = Ioc.Resolve<MainWindowViewModel>();
+            DataContext = viewModel;
         }
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -26,5 +28,7 @@ namespace PayrollSoftware.Shell.Views
                 this.DragMove();
             }
         }
+
+       
     }
 }

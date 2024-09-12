@@ -34,7 +34,7 @@ namespace PayrollSoftware.Auth.ViewModels
 
         private async void OnLogin()
         {
-            ShowProgressBar();
+            ShowLoadingDialog();
             if (User == null)
             {
                 EventAggregator.GetEvent<LoginSuccessEvent>().Publish(false);

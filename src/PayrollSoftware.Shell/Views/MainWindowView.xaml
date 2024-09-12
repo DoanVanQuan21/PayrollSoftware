@@ -23,7 +23,7 @@
         BorderThickness="2"
         CornerRadius="40"
         MouseDown="Border_MouseDown">
-        <Border Background="{DynamicResource DefaultRegionBrush}" CornerRadius="40">
+        <Border Background="{DynamicResource DefaultRegionBrush}" CornerRadius="30">
             <ContentControl Content="{Binding AppRegion.MainRegion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
         </Border>
     </Border>

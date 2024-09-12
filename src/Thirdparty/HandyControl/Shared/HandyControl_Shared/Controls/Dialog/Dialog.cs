@@ -67,7 +67,14 @@ public class Dialog : ContentControl
             }
         }
     }
-
+    protected override void OnMouseDown(MouseButtonEventArgs e)
+    {
+        base.OnMouseDown(e);
+        if(e.LeftButton == MouseButtonState.Pressed)
+        {
+            Close();
+        }
+    }
     public static void SetToken(DependencyObject element, string value)
         => element.SetValue(TokenProperty, value);
 

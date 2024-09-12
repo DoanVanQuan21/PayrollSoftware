@@ -108,6 +108,7 @@ namespace PayrollSoftware.Shell.ViewModels
                 SetMainView(new MainView());
                 SetMainPage(new());
                 CloseDialog();
+                await CustomNotification.Success("Đăng nhập thành công!.");
                 return;
             }
             CloseDialog();

@@ -104,7 +104,11 @@ namespace PayrollSoftware.Core.Mvvms
             var progressBar = new Dialogs.ProgressBar();
             ShowDialog(progressBar);
         }
-
+        protected void ShowLoadingDialog()
+        {
+            var loadingDialog = new Dialogs.LoadingDialog();
+            ShowDialog(loadingDialog);
+        }
         protected virtual void RegisterEvent()
         { }
 
