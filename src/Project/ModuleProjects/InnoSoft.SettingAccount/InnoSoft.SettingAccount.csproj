@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+    <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\InnoSoft.Core\InnoSoft.Core.csproj" />
+    <ProjectReference Include="..\..\..\Core\InnoSoft.UI\InnoSoft.UI.csproj" />
+    <ProjectReference Include="..\..\..\Services\InnoSoft.EntityFramework\InnoSoft.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\SettingAccountView.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+  </ItemGroup>
+
+</Project>

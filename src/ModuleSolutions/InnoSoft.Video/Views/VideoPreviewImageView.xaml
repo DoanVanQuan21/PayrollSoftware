@@ -1,0 +1,150 @@
+﻿<UserControl
+    x:Class="InnoSoft.Video.Views.VideoPreviewImageView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:hc="https://handyorg.github.io/handycontrol"
+    xmlns:local="clr-namespace:InnoSoft.Video.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="clr-namespace:InnoSoft.Video.ViewModels"
+    d:DataContext="{d:DesignInstance vm:VideoPreviewImageViewModel,
+                                     IsDesignTimeCreatable=False}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
+    <Grid Margin="5,0,5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="9*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <Border
+            Grid.Row="0"
+            Grid.Column="0"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="0,0,0,1" />
+        <Border
+            Grid.RowSpan="2"
+            Grid.Column="0"
+            BorderBrush="{DynamicResource BorderBrush}"
+            BorderThickness="0,0,1,0" />
+        <StackPanel
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="5"
+            Orientation="Horizontal">
+            <Button
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                hc:IconElement.Geometry="{StaticResource CameraAddGeometry}"
+                hc:IconElement.Width="20"
+                Command="{Binding AddDeviceCommand}"
+                Style="{StaticResource ButtonDashedInfo}" />
+        </StackPanel>
+
+        <ItemsControl
+            x:Name="ListDevice"
+            Grid.Row="1"
+            Grid.Column="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            BorderBrush="Transparent"
+            ItemsSource="{Binding Devices}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Expander
+                        Margin="0,10,5,10"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Header="{Binding DevName}">
+                        <Border
+                            Background="{DynamicResource RegionBrush}"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1,0,1,1"
+                            CornerRadius="0,0,4,4">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <ComboBox
+                                        hc:DropDownElement.ConsistentWidth="False"
+                                        hc:InfoElement.Title="Port"
+                                        DisplayMemberPath="Name"
+                                        ItemsSource="{Binding ElementName=ListDevice, Path=DataContext.CameraDevices}"
+                                        SelectedValue="{Binding Config.HardwareName, Mode=TwoWay}"
+                                        SelectedValuePath="Name" />
+                                </StackPanel>
+                                <WrapPanel
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal">
+                                    <Button
+                                        Margin="10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        hc:IconElement.Width="20"
+                                        Command="{Binding ElementName=ListDevice, Path=DataContext.StartCaptureCommand}"
+                                        CommandParameter="{Binding}">
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource ButtonDashedInfo}" TargetType="Button">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsConnected, Mode=TwoWay}" Value="True">
+                                                        <Setter Property="hc:IconElement.Geometry" Value="{StaticResource CameraOffGeometry}" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource DangerBrush}" />
+                                                        <Setter Property="BorderBrush" Value="{DynamicResource DangerBrush}" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding IsConnected, Mode=TwoWay}" Value="False">
+                                                        <Setter Property="hc:IconElement.Geometry" Value="{StaticResource CameraOnGeometry}" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button
+                                        Margin="10"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        hc:IconElement.Geometry="{StaticResource DeleteGeometry}"
+                                        hc:IconElement.Width="20"
+                                        Command="{Binding ElementName=ListDevice, Path=DataContext.DeleteDeviceCommand}"
+                                        CommandParameter="{Binding}"
+                                        Style="{StaticResource ButtonDashedDanger}" />
+                                </WrapPanel>
+                            </Grid>
+                        </Border>
+                    </Expander>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <ItemsControl
+            Grid.RowSpan="2"
+            Grid.Column="1"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Stretch"
+            BorderBrush="Transparent"
+            ItemsSource="{Binding Devices}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Viewbox Margin="10">
+                        <ContentControl Content="{Binding Image}" />
+                    </Viewbox>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+
+    </Grid>
+</UserControl>

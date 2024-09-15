@@ -1,0 +1,101 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	  <ApplicationIcon>app_icon.ico</ApplicationIcon>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="app_icon.ico" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_1.png" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_2.png" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_3.png" />
+    <None Remove="Assets\Resources\Images\logos\app_icon_4.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-1.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-2.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-3.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-4.png" />
+    <None Remove="Assets\Resources\Images\Medicare\Group 231-5.png" />
+    <None Remove="Assets\Resources\Images\Medicare\image.png" />
+    <None Remove="Assets\Resources\Images\Medicare\image_1.png" />
+    <None Remove="Assets\Resources\Images\thpt\image_1.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+    <PackageReference Include="Material.Icons.WPF" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+    <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="System.Management" Version="8.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+	  <ProjectReference Include="..\Core\InnoSoft.Core\InnoSoft.Core.csproj" />
+	  <ProjectReference Include="..\Core\InnoSoft.Shared\InnoSoft.Shared.csproj" />
+	  <ProjectReference Include="..\Core\InnoSoft.UI\InnoSoft.UI.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.Auth\InnoSoft.Auth.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.Comport\InnoSoft.Comport.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.Database\InnoSoft.Database.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.LiveChart\InnoSoft.LiveChart.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.Monitoring\InnoSoft.Monitoring.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.PCan\InnoSoft.PCan.csproj" />
+	  <ProjectReference Include="..\ModuleSolutions\InnoSoft.Video\InnoSoft.Video.csproj" />
+	  <ProjectReference Include="..\Project\InnoSoft.Payroll\InnoSoft.Payroll.csproj" />
+	  <ProjectReference Include="..\Project\ModuleProjects\InnoSoft.TaskManagement\InnoSoft.TaskManagement.csproj" />
+	  <ProjectReference Include="..\Services\InnoSoft.Devices\InnoSoft.Devices.csproj" />
+	  <ProjectReference Include="..\Services\InnoSoft.EntityFramework\InnoSoft.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="app_icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\logos\app_icon_4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-3.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-4.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\Group 231-5.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\Medicare\image_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Resources\Images\thpt\image_1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SchoolManager\Assets\Images\" />
+  </ItemGroup>
+
+</Project>

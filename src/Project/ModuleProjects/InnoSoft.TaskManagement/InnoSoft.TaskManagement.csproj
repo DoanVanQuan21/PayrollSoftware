@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Core\InnoSoft.Core\InnoSoft.Core.csproj" />
+    <ProjectReference Include="..\..\..\Core\InnoSoft.Shared\InnoSoft.Shared.csproj" />
+    <ProjectReference Include="..\..\..\Core\InnoSoft.UI\InnoSoft.UI.csproj" />
+    <ProjectReference Include="..\..\..\Services\InnoSoft.EntityFramework\InnoSoft.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\..\Thirdparty\HandyControl\Net_GE45\HandyControl_Net_GE45\HandyControl_Net_GE45.csproj" />
+  </ItemGroup>
+
+</Project>
